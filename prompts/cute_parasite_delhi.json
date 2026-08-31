@@ -1,0 +1,88 @@
+{
+  "description": "Cinematic anime trailer, MUSIC ONLY (no voice): a cute little parasite on a journey through Delhi, India. 60s trailer score (LTX t2v at 64x64, audio extracted, video throwaway) + 12 anime 9:16 clips (8s down to 5s, 84s of footage) cut to 60s -> final: trailer score at 100%, clip ambient audio ducked to 20%.",
+  "narrationScript": "(no narration — instrumental trailer score only)",
+  "narrationPrompt": "Epic cinematic anime trailer score, 60 seconds, NO voice, NO narration, NO speech, purely instrumental. A cute-but-epic adventure theme for a tiny little creature exploring a huge city: starts with a single playful plucked string and a soft curious motif over warm desert air, then builds with clapping tabla and dhol drums, bhangra-style percussion, bright sitar and flute melodies, a swelling orchestral string section, brass stabs, shimmering strings, and a big triumphant orchestral finale with full percussion. The mood is warm, funny, curious and heartwarming — like a beloved animated feature's main title theme. Clean professional trailer mix, rich low end, crisp highs, dramatic swells, no talking, no words, no vocals, no crowd chants.",
+  "narrationDuration": 60,
+  "narrationFps": 24,
+  "narrationSize": [64, 64],
+  "ratio": "9:16 (Portrait Widescreen)",
+  "megapixels": 0.5,
+  "keyframeWidth": 768,
+  "keyframeHeight": 1280,
+  "clipAudioVolume": 0.2,
+  "finalDuration": 60,
+  "sequence": [
+    {
+      "title": "a_his_arrival",
+      "duration": 8,
+      "image": "epic anime film still, 9:16 vertical, a tiny cute round parasite creature with big sparkling eyes, little stubby legs and a soft glowing teal body, riding a paper boat on a gully stream in old Delhi at dawn, rickshaws and cycle carts blurring past in the warm light, cinematic anime key visual, painterly, film grain",
+      "motion": "The paper boat bobs along the stream, the cute creature clings on and looks around in wonder, splashes ripple, morning light flares. Cinematic anime, 8 seconds, no cuts."
+    },
+    {
+      "title": "b_chandni_ghats",
+      "duration": 8,
+      "image": "epic anime film still, 9:16 vertical, the tiny cute parasite perched on a marigold garland at Chandni Ghat on the Yamuna river at blue hour, diyas floating on the water, the Qutub Minaret glowing in the distance, soft bocity lights, heartwarming anime key visual, film grain",
+      "motion": "Diya flames flicker and drift on the water, the creature's soft body glows gently, a bird swoops low, slow dreamy push-in. Cinematic anime, 8 seconds, no cuts."
+    },
+    {
+      "title": "c_paranthe_wala",
+      "duration": 8,
+      "image": "epic anime film still, 9:16 vertical, the cute tiny parasite hiding inside a steaming basket of fresh parathas at a busy Delhi street stall, flour dust floating in golden light, the paratha wala's hands working in the background, cozy warm anime food scene, film grain",
+      "motion": "Steam swirls up from the parathas, the creature peeks out with huge curious eyes, flour motes dance in the light, gentle handheld sway. Cozy anime, 8 seconds, no cuts."
+    },
+    {
+      "title": "d_old_delhi_run",
+      "duration": 8,
+      "image": "epic anime film still, 9:16 vertical, the tiny parasite riding on the fender of a moving rickshaw through narrow old Delhi lanes, walls streaking past in motion blur, pigeons scattering, warm afternoon light, dynamic anime action key visual, film grain",
+      "motion": "The rickshaw weaves through the lane, walls and shop signs whip past in motion blur, the creature holds on with a grin, dust kicks up behind the wheels. Anime action, 8 seconds, no cuts."
+    },
+    {
+      "title": "e_spa_cafe",
+      "duration": 8,
+      "image": "epic anime film still, 9:16 vertical, the cute parasite sitting on the rim of a glass of masala chai spilling over, a bustling Delhi tea stall, steam rising, people chatting in soft-focus background, golden cozy light, heartwarming anime key visual, film grain",
+      "motion": "Chai swirls and steam rises in curls, the creature sips with a tiny straw, steam and sparkles drift, soft warm push-in. Cozy anime, 8 seconds, no cuts."
+    },
+    {
+      "title": "f_jam",
+      "duration": 8,
+      "image": "epic anime film still, 9:16 vertical, the tiny parasite stranded on a zebra crossing in a massive Delhi traffic jam, honking cars and auto-rickshaws packed around, the creature waving its little arms, dramatic low angle, funny cinematic anime key visual, film grain",
+      "motion": "Traffic crawls and honks, exhaust haze drifts, the creature waves and hops from the crosswalk line to a passing scooter's mirror. Funny cinematic anime, 8 seconds, no cuts."
+    },
+    {
+      "title": "g_humour_courtyard",
+      "duration": 7,
+      "image": "epic anime film still, 9:16 vertical, the cute parasite hiding in a carved Mughal courtyard in Humayun's Garden, a peacock strutting past, marigold petals falling, dappled light through the arches, serene anime key visual, film grain",
+      "motion": "Marigold petals drift down, the peacock's feathers shimmer, the creature peeks from behind a carved pillar, slow serene pan. Serene anime, 7 seconds, no cuts."
+    },
+    {
+      "title": "h_rainy_monsoon",
+      "duration": 7,
+      "image": "epic anime film still, 9:16 vertical, the tiny parasite under a single marigold petal like an umbrella in sudden monsoon rain on a Delhi street, puddles sparkling, neon shop signs reflecting in the water, moody beautiful anime key visual, film grain",
+      "motion": "Rain hammers the street, puddles ripple and sparkle, the creature's petal umbrella tilts in the wind, neon reflections shimmer. Moody anime, 7 seconds, no cuts."
+    },
+    {
+      "title": "i_bazaar_nights",
+      "duration": 7,
+      "image": "epic anime film still, 9:16 vertical, the cute parasite perched on a string of fairy lights in a crowded Delhi bazaar at night, colorful stalls and hanging bulbs bokehing behind, festive warm glow, joyful anime key visual, film grain",
+      "motion": "Fairy lights twinkle and sway, the crowd stirs below, the creature swings gently on the wire, warm bokeh pulses. Festive anime, 7 seconds, no cuts."
+    },
+    {
+      "title": "j_djinn_gates",
+      "duration": 6,
+      "image": "epic anime film still, 9:16 vertical, the tiny parasite standing on the steps of the Jama Masjid at sunrise, the great dome and minarets glowing gold, pilgrims' silhouettes in the distance, majestic anime key visual, film grain",
+      "motion": "Morning light creeps across the dome, the creature's silhouette stands small and proud, slow majestic push-in. Majestic anime, 6 seconds, no cuts."
+    },
+    {
+      "title": "k_ridge_wind",
+      "duration": 6,
+      "image": "epic anime film still, 9:16 vertical, the cute parasite riding the wind on a delhi pigeon over the city rooftops at dusk, endless terracotta roofs and water tanks below, golden sky, breathtaking anime key visual, film grain",
+      "motion": "The pigeon glides and banks over the rooftops, the creature clings on, the city scrolls below, golden light flares. Breathtaking anime, 6 seconds, no cuts."
+    },
+    {
+      "title": "l_home",
+      "duration": 5,
+      "image": "epic anime film still, 9:16 vertical, the tiny parasite curled up asleep on a windowsill in a cozy Delhi apartment at night, a small diya glowing beside it, the city lights of Delhi sparkling far below, heartwarming anime finale key visual, film grain",
+      "motion": "The diya flame flickers softly, the creature's glow pulses with its breathing, city lights twinkle below, gentle slow push-in. Heartwarming anime finale, 5 seconds, no cuts."
+    }
+  ]
+}

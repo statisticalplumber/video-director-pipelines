@@ -1,0 +1,16 @@
+{
+  "description": "Single-pipeline test: Flux 2 t2i first frame -> LTX-2.5 i2v, one queue item, no image on disk.",
+  "runs": [
+    {
+      "name": "oil_painting_lighthouse",
+      "fluxPrompt": "A lone lighthouse keeper cottage on a windswept cliff above a stormy sea at dusk, thick impasto oil painting style, dramatic chiaroscuro, deep teal and amber palette, swirling clouds catching the last golden light, warm glowing window, cinematic composition, masterpiece",
+      "ltxPrompt": "Slow cinematic push-in toward the cottage as storm clouds churn above. Waves crash against the cliff, spray drifting through the air. The lighthouse beam sweeps slowly across the darkening sea. Rain begins to fall in soft streaks. Warm golden light from the cottage window flickers gently. Thick oil-paint texture throughout, painterly motion, dramatic chiaroscuro, cinematic, 5 seconds, one continuous slow push-in, no cuts.",
+      "duration": 5
+    },
+    {
+      "name": "ukiyoe_samurai",
+      "fluxPrompt": "Ukiyo-e woodblock print, a lone samurai with a straw hat walking a rain-slicked road beneath giant pine trees, a distant torii gate glowing red through the downpour, Hokusai inspired, bold ink outlines, flat mineral pigments, dramatic diagonal rain, museum quality",
+      "ltxPrompt": "Slow lateral camera drift following the samurai as he walks. Heavy rain streaks diagonally across the frame, water ripples spreading on the wet road. Pine branches sway and droplets fly off the needles. The red torii gate glows through the rain. Ink-line ukiyo-e texture, flat mineral pigment colors, painterly motion, 5 seconds, one continuous lateral drift, no cuts."
+    }
+  ]
+}

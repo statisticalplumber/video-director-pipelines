@@ -1,0 +1,35 @@
+{
+  "description": "THE RIVER'S DAWN — 4-scene x 3s wildlife documentary. Arc: establish -> introduce -> the hunt -> resolution. Same river, same mist, same teal/gold dawn palette.",
+  "style": "cinematic wildlife documentary photography, shot on 50mm lens, natural light, shallow depth of field, National Geographic style, photorealistic, subtle film grain, teal and gold dawn palette",
+  "duration": 3,
+  "scenes": [
+    {
+      "title": "first_light",
+      "beat": "establish the world",
+      "camera": "slow forward push-in through the mist",
+      "fluxPrompt": "Wide establishing shot of a misty river at dawn, low golden sunrise light cutting through the fog, silhouettes of reeds and willows along the banks, calm mirror-like water with soft ripples, a few dragonflies hovering, cinematic wildlife documentary photography, shot on 50mm lens, natural light, shallow depth of field, National Geographic style, photorealistic, subtle film grain, teal and gold dawn palette",
+      "ltxPrompt": "Slow forward push-in through the morning mist. Fog drifts gently across the water surface. Sunbeams strengthen gradually, gilding the ripples. Reeds sway in a soft breeze. Dragonflies drift lazily. Cinematic wildlife documentary, slow steady dolly-in, 3 seconds, no cuts."
+    },
+    {
+      "title": "the_watcher",
+      "beat": "introduce the protagonist",
+      "camera": "subtle push-in, stillness",
+      "fluxPrompt": "A grey heron standing perfectly still in shallow river water at dawn, long neck folded, mist drifting behind it, golden sunrise light on the water, reeds in soft bokeh, cinematic wildlife documentary photography, shot on 50mm lens, natural light, shallow depth of field, National Geographic style, photorealistic, subtle film grain, teal and gold dawn palette",
+      "ltxPrompt": "The heron stands motionless, utterly still, only its head tilting almost imperceptibly. Water ripples slowly around its legs. Mist drifts behind it. A fish flashes beneath the surface. Slow subtle push-in. Cinematic wildlife documentary, 3 seconds, no cuts."
+    },
+    {
+      "title": "the_strike",
+      "beat": "the hunt (climax)",
+      "camera": "locked, let the action play",
+      "fluxPrompt": "A grey heron mid-strike in shallow river water at dawn, neck fully extended, beak plunging into the water, a silver fish flashing in the splash, droplets frozen mid-air, mist and golden dawn light, cinematic wildlife documentary photography, shot on 50mm lens, natural light, shallow depth of field, National Geographic style, photorealistic, subtle film grain, teal and gold dawn palette",
+      "ltxPrompt": "The heron's neck whips forward in a lightning strike, beak plunging into the water. A silver fish flashes in the splash, droplets scatter and hang in the air. Ripples burst outward. Then the heron freezes, holding the catch. Cinematic wildlife documentary, 3 seconds, no cuts."
+    },
+    {
+      "title": "the_aftermath",
+      "beat": "resolution, mirrors the opening",
+      "camera": "slow pull-back to wide",
+      "fluxPrompt": "A grey heron standing in shallow river water at dawn holding a small fish in its beak, mist drifting, golden sunrise now brighter, calm water, reeds and willows in the background, cinematic wildlife documentary photography, shot on 50mm lens, natural light, shallow depth of field, National Geographic style, photorealistic, subtle film grain, teal and gold dawn palette",
+      "ltxPrompt": "The heron swallows the fish in one slow motion, then stands still and shakes its head once. Slow pull-back revealing the wide misty river and the rising sun. Mist drifts, water glints. Cinematic wildlife documentary, 3 seconds, no cuts."
+    }
+  ]
+}

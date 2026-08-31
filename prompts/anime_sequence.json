@@ -1,0 +1,28 @@
+{
+  "description": "Anime sequence: 1 reference key visual -> 4 keyframe story beats (same character) -> each keyframe drives a 3s LTX i2v clip -> stitched final.",
+  "character": "a 17-year-old anime girl with long silver-white hair with soft blue tips, large expressive teal eyes, wearing a white and navy sailor uniform with a red ribbon, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors",
+  "referencePrompt": "a 17-year-old anime girl with long silver-white hair with soft blue tips, large expressive teal eyes, wearing a white and navy sailor uniform with a red ribbon, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors, standing on a hilltop overlooking a coastal town at golden hour, wind in her hair, dramatic cumulus clouds, lens flare, 16:9 key visual composition",
+  "duration": 3,
+  "sequence": [
+    {
+      "title": "a_greeting",
+      "image": "a 17-year-old anime girl with long silver-white hair with soft blue tips, large expressive teal eyes, wearing a white and navy sailor uniform with a red ribbon, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors, at a sunny school gate with cherry blossom petals in the air, she smiles and waves, warm morning light, soft pastel colors",
+      "motion": "She smiles and waves gently, cherry blossom petals drift across the frame, her hair and uniform flutter in the breeze. Soft morning light. Anime style, 3 seconds, no cuts."
+    },
+    {
+      "title": "b_run",
+      "image": "a 17-year-old anime girl with long silver-white hair with soft blue tips, large expressive teal eyes, wearing a white and navy sailor uniform with a red ribbon, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors, running joyfully along a tree-lined school path, petals swirling around her, motion energy, golden afternoon light, dynamic low angle",
+      "motion": "She runs toward the camera, petals swirl around her, her hair and skirt flow with the motion, dappled light through the trees. Anime style, energetic, 3 seconds, no cuts."
+    },
+    {
+      "title": "c_rain",
+      "image": "a 17-year-old anime girl with long silver-white hair with soft blue tips, large expressive teal eyes, wearing a white and navy sailor uniform with a red ribbon, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors, under a transparent umbrella on a rainy street at dusk, neon signs reflecting in puddles, blue-teal moody palette, melancholic yet beautiful",
+      "motion": "Rain falls steadily, neon reflections shimmer in the puddles, she turns her face slightly upward, the umbrella sways gently. Moody anime atmosphere, 3 seconds, no cuts."
+    },
+    {
+      "title": "d_rooftop",
+      "image": "a 17-year-old anime girl with long silver-white hair with soft blue tips, large expressive teal eyes, wearing a white and navy sailor uniform with a red ribbon, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors, sitting on a school rooftop at dusk, legs dangling over the edge, looking out at a vast orange and purple sky, peaceful, cinematic wide composition",
+      "motion": "She sits peacefully on the rooftop, her hair sways in the evening wind, clouds drift slowly across the vast sunset sky, distant city lights begin to glow. Serene anime ending shot, 3 seconds, no cuts."
+    }
+  ]
+}

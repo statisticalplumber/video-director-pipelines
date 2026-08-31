@@ -1,0 +1,21 @@
+{
+  "description": "Wan test: same boy character, 2 beats x 3s = 6s, to compare Wan 2.1 i2v against the LTX run of boy_school_day.",
+  "character": "a 15-year-old anime boy with messy dark-brown hair and warm amber eyes, wearing a navy school blazer uniform with white shirt and red tie, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors",
+  "referencePrompt": "a 15-year-old anime boy with messy dark-brown hair and warm amber eyes, wearing a navy school blazer uniform with white shirt and red tie, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors, standing at a sunny school gate with cherry blossom petals drifting, he smiles confidently with his backpack on one shoulder, warm morning light, soft pastel colors, 16:9 key visual composition",
+  "duration": 3,
+  "width": 512,
+  "height": 512,
+  "steps": 8,
+  "sequence": [
+    {
+      "title": "a_morning_arrival",
+      "image": "a 15-year-old anime boy with messy dark-brown hair and warm amber eyes, wearing a navy school blazer uniform with white shirt and red tie, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors, standing at a sunny school gate with cherry blossom petals drifting, he smiles confidently with his backpack on one shoulder, warm golden morning light, soft pastel colors, square composition",
+      "motion": "Very subtle, calm movement: he stands at the school gate with a soft steady smile, only the cherry blossom petals drift and his hair sways gently in the breeze, his face stays relaxed and stable with minimal movement. Anime style, serene, 3 seconds, no cuts."
+    },
+    {
+      "title": "b_classroom",
+      "image": "a 15-year-old anime boy with messy dark-brown hair and warm amber eyes, wearing a navy school blazer uniform with white shirt and red tie, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors, sitting at a wooden school desk in a sunlit classroom, raising his hand with a confident smile, notebook and pencil on the desk, sunlight streaming through the window, soft classroom bokeh, square composition",
+      "motion": "He raises his hand and smiles, sunlight shifts across the desk, dust motes float in the window light, his hair sways slightly. Cozy anime classroom scene, 3 seconds, no cuts."
+    }
+  ]
+}

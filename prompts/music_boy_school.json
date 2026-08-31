@@ -1,0 +1,11 @@
+{
+  "description": "Music-only generation via the movie pipeline's audio workflow (LTX t2v at 64x64, video throwaway, audio extracted): 9s cheerful anime school-day theme to lay onto boy_school_day final.",
+  "musicPrompt": "Cheerful upbeat anime school-life theme, 9 seconds, purely instrumental, NO voice, NO vocals, NO words: bright plucked guitar and ukulele arpeggios, light clapping percussion, warm marimba melody, soft strings, a small joyful motif that feels like a sunny morning walk to school, clean bright mix, crisp and warm, no talking.",
+  "duration": 9,
+  "fps": 24,
+  "size": [64, 64],
+  "video": "outputs/boy_school_day/boy_school_day_final.mp4",
+  "videoVolume": 0.25,
+  "musicVolume": 1.0,
+  "out": "outputs/boy_school_day/boy_school_day_final_with_music.mp4"
+}

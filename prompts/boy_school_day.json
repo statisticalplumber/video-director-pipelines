@@ -1,0 +1,23 @@
+{
+  "description": "Anime sequence: 1 reference visual -> 3 keyframe story beats (same boy, his day at school) -> each keyframe drives a 3s LTX i2v clip -> stitched 9s final.",
+  "character": "a 15-year-old anime boy with messy dark-brown hair and warm amber eyes, wearing a navy school blazer uniform with white shirt and red tie, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors",
+  "referencePrompt": "a 15-year-old anime boy with messy dark-brown hair and warm amber eyes, wearing a navy school blazer uniform with white shirt and red tie, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors, standing at a sunny school gate with cherry blossom petals drifting, he smiles confidently with his backpack on one shoulder, warm morning light, soft pastel colors, 16:9 key visual composition",
+  "duration": 3,
+  "sequence": [
+    {
+      "title": "a_morning_arrival",
+      "image": "a 15-year-old anime boy with messy dark-brown hair and warm amber eyes, wearing a navy school blazer uniform with white shirt and red tie, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors, running toward the school gate in the morning with his backpack bouncing, cherry blossom petals swirling, other students in the soft-focus background, warm golden morning light, dynamic low angle",
+      "motion": "Very subtle, calm movement: he stands at the school gate with a soft steady smile, only the cherry blossom petals drift and his hair sways gently in the breeze, slow gentle push-in, his face stays relaxed and stable with minimal movement. Anime style, serene, 3 seconds, no cuts."
+    },
+    {
+      "title": "b_classroom",
+      "image": "a 15-year-old anime boy with messy dark-brown hair and warm amber eyes, wearing a navy school blazer uniform with white shirt and red tie, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors, sitting at a wooden school desk in a sunlit classroom, raising his hand with a confident smile, notebook and pencil on the desk, sunlight streaming through the window, soft classroom bokeh",
+      "motion": "He raises his hand and smiles, sunlight shifts across the desk, dust motes float in the window light, his hair sways slightly. Cozy anime classroom scene, 3 seconds, no cuts."
+    },
+    {
+      "title": "c_going_home",
+      "image": "a 15-year-old anime boy with messy dark-brown hair and warm amber eyes, wearing a navy school blazer uniform with white shirt and red tie, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors, walking home along a tree-lined street at dusk with his backpack, orange and purple sunset sky, long soft shadows, birds flying in the distance, peaceful cinematic wide composition",
+      "motion": "He walks calmly toward the camera, his hair sways in the evening breeze, leaves drift down, the sunset glows through the trees, distant birds glide by. Serene anime ending shot, 3 seconds, no cuts."
+    }
+  ]
+}

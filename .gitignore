@@ -1,0 +1,5 @@
+.env
+outputs/*
+!outputs/.gitkeep
+workflows/merged_pipeline.json
+node_modules/
