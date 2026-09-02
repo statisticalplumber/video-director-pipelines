@@ -18,8 +18,8 @@ videos. No local GPU. Everything is ESM (`.mjs`), Node ≥ 18, no dependencies.
    output files — keep that pattern.
 5. **Stitch with ffmpeg concat** (`-c copy`): all clips from one ComfyUI run share
    codec/resolution/fps, so stream-copy concat is safe and lossless.
-6. **The project is self-contained**: all base workflow JSONs live in `video_test/workflows/`
-   and are loaded from there by `lib/comfy.mjs`. No files outside `video_test/` are read
+6. **The project is self-contained**: all base workflow JSONs live in `workflows/` (repo root)
+   and are loaded from there by `lib/comfy.mjs`. No files outside the repo are read
    at runtime (only the remote ComfyUI via `COMFY_BASE`).
 
 ## Scripts (current layout)
@@ -50,7 +50,7 @@ Projects (own scripts, own output dirs):
 All runners support `--stitch` (re-stitch final only) and skip existing outputs.
 
 ## Configuration
-- `COMFY_BASE` comes from `video_test/.env` (gitignored) via the tiny built-in loader
+- `COMFY_BASE` comes from `.env` (gitignored, repo root) via the tiny built-in loader
   in `lib/comfy.mjs` — **never hardcode the ComfyUI URL in code or docs**.
   `.env.example` is the template. Real env vars override `.env`.
 

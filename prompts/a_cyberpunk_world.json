@@ -1,0 +1,18 @@
+{
+  "description": "Cyberpunk sequence: 1 reference key visual -> 4 keyframe story beats (same character) -> each keyframe drives a 2s LTX i2v clip -> stitched final.",
+  "character": "a cyberpunk street mercenary with glowing neon blue cybernetic left arm, short spiky black hair with electric blue highlights, wearing a tattered black tactical jacket with holographic patches, dark rain-soaked aesthetic, cinematic lighting, highly detailed, gritty texture, vibrant neon colors",
+  "referencePrompt": "a cyberpunk street mercenary with glowing neon blue cybernetic left arm, short spiky black hair with electric blue highlights, wearing a tattered black tactical jacket with holographic patches, dark rain-soaked aesthetic, cinematic lighting, highly detailed, gritty texture, vibrant neon colors, standing in the foreground of a dense megacity street at night, towering skyscrapers with flickering holographic ads, heavy rain, atmospheric fog, deep shadows, 16:9 key visual composition",
+  "duration": 2,
+  "sequence": [
+    {
+      "title": "a_street_tension",
+      "image": "a cyberpunk street mercenary with glowing neon blue cybernetic left arm, short spiky black hair with electric blue highlights, wearing a tattered black tactical jacket with holographic patches, dark rain-soaked aesthetic, cinematic lighting, highly detailed, gritty texture, vibrant neon colors, standing on a wet neon-lit street corner, looking up at a distant skyscraper, rain dripping from his cybernetic arm, tense atmosphere, low angle shot",
+      "motion": "The mercenary stands still, rain runs down his cybernetic arm, neon signs flicker and buzz in the background, his head turns slowly upward. Gritty cyberpunk style, 2 seconds, no cuts."
+    },
+    {
+      "title": "b_flash_initiation",
+      "image": "a cyberpunk street mercenary with glowing neon blue cybernetic left arm, short spiky black hair with electric blue highlights, wearing a tattered black tactical jacket with holographic patches, dark rain-soaked aesthetic, cinematic lighting, highly detailed, gritty texture, vibrant neon colors, silhouetted against a sudden blinding white-orange flash from a distant explosion, shockwave beginning to distort the air, intense heat haze, dramatic backlighting",
+      "motion": "A massive blinding flash erupts in the distance, the light rapidly intensifies, the mercenary shields his eyes with his cybernetic arm, raindrops vaporize in the air. Intense cyberpunk style, 2 seconds, no cuts."
+    }
+  ]
+}

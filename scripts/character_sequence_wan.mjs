@@ -44,6 +44,10 @@ const N = seq.length;
 const finalPath = path.join(outDir, `${scenario}_wan_final.mp4`);
 const tag = `[wanchar:${scenario}]`;
 
+// Structured progress events for the frontend (ignored by plain terminals).
+const asset = (kind, file, stage, index) =>
+  console.log(`[asset] ${JSON.stringify({ kind, file, stage, index })}`);
+
 /** duration (s) -> Wan frame count (4n+1 at fixed 16fps). 3s -> 49, 4s -> 65. */
 function wanFrames(duration) {
   return Math.floor((duration * 16) / 4) * 4 + 1;
@@ -70,6 +74,7 @@ if (process.argv.includes("--stitch")) {
     const entry = await run(buildFluxGraph({ prompt: cfg.referencePrompt, prefix: `${scenario}/wan_ref` }), "ref");
     await download(firstImageUrl(entry), dest);
   }
+  asset("image", path.basename(dest), "reference");
 }
 
 // Stage 2: keyframes (Flux) — same subject, N story beats
@@ -77,32 +82,39 @@ const keyframes = [];
 for (let i = 0; i < N; i++) {
   const dest = path.join(outDir, `${scenario}_wan_seq${i + 1}_${seq[i].title}.png`);
   keyframes.push(dest);
-  if (fs.existsSync(dest)) { console.log(`${tag} 2/3 keyframe ${i + 1}/${N} — exists, skipping`); continue; }
-  console.log(`${tag} 2/3 keyframe ${i + 1}/${N} (${seq[i].title})...`);
-  const entry = await run(buildFluxGraph({ prompt: seq[i].image, prefix: `${scenario}/wan_seq${i + 1}` }), `seq${i + 1}`);
-  await download(firstImageUrl(entry), dest);
+  if (fs.existsSync(dest)) console.log(`${tag} 2/3 keyframe ${i + 1}/${N} — exists, skipping`);
+  else {
+    console.log(`${tag} 2/3 keyframe ${i + 1}/${N} (${seq[i].title})...`);
+    const entry = await run(buildFluxGraph({ prompt: seq[i].image, prefix: `${scenario}/wan_seq${i + 1}` }), `seq${i + 1}`);
+    await download(firstImageUrl(entry), dest);
+  }
+  asset("image", path.basename(dest), "keyframe", i + 1);
 }
 
 // Stage 3: each keyframe -> Wan 2.1 i2v clip
 for (let i = 0; i < N; i++) {
   const dest = path.join(outDir, `${scenario}_wan_clip${i + 1}_${seq[i].title}.mp4`);
-  if (fs.existsSync(dest)) { console.log(`${tag} 3/3 clip ${i + 1}/${N} — exists, skipping`); continue; }
-  const length = cfg.length ?? wanFrames(cfg.duration ?? 3);
-  console.log(`${tag} 3/3 Wan i2v clip ${i + 1}/${N} (${cfg.width ?? 512}x${cfg.height ?? 512}, ${length} frames, ${cfg.steps ?? 8} steps)...`);
-  const inputName = await uploadToInput(keyframes[i], `${scenario}_wan_kf${i + 1}`);
-  const graph = buildWanGraph({
-    prompt: seq[i].motion,
-    image: inputName,
-    width: cfg.width ?? 512,
-    height: cfg.height ?? 512,
-    length,
-    steps: cfg.steps ?? 8,
-    negative: cfg.negative,
-    prefix: `${scenario}/wan_clip${i + 1}_${seq[i].title}`,
-  });
-  const entry = await run(graph, `clip${i + 1}`);
-  await download(firstVideoUrl(entry, "56"), dest); // Wan SaveVideo is node 56
+  if (fs.existsSync(dest)) console.log(`${tag} 3/3 clip ${i + 1}/${N} — exists, skipping`);
+  else {
+    const length = cfg.length ?? wanFrames(cfg.duration ?? 3);
+    console.log(`${tag} 3/3 Wan i2v clip ${i + 1}/${N} (${cfg.width ?? 512}x${cfg.height ?? 512}, ${length} frames, ${cfg.steps ?? 8} steps)...`);
+    const inputName = await uploadToInput(keyframes[i], `${scenario}_wan_kf${i + 1}`);
+    const graph = buildWanGraph({
+      prompt: seq[i].motion,
+      image: inputName,
+      width: cfg.width ?? 512,
+      height: cfg.height ?? 512,
+      length,
+      steps: cfg.steps ?? 8,
+      negative: cfg.negative,
+      prefix: `${scenario}/wan_clip${i + 1}_${seq[i].title}`,
+    });
+    const entry = await run(graph, `clip${i + 1}`);
+    await download(firstVideoUrl(entry, "56"), dest); // Wan SaveVideo is node 56
+  }
+  asset("video", path.basename(dest), "clip", i + 1);
 }
 
 stitch();
+asset("video", path.basename(finalPath), "final");
 console.log(`${tag} DONE`);
