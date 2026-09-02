@@ -35,6 +35,10 @@ fs.mkdirSync(outDir, { recursive: true });
 
 const seq = cfg.sequence;
 const N = seq.length;
+
+// Structured progress events for the frontend (ignored by plain terminals).
+const asset = (kind, file, stage, index) =>
+  console.log(`[asset] ${JSON.stringify({ kind, file, stage, index })}`);
 const finalPath = path.join(outDir, `${scenario}_final.mp4`);
 const tag = `[char:${scenario}]`;
 
@@ -59,6 +63,7 @@ if (process.argv.includes("--stitch")) {
     const entry = await run(buildFluxGraph({ prompt: cfg.referencePrompt, prefix: `${scenario}/ref` }), "ref");
     await download(firstImageUrl(entry), dest);
   }
+  asset("image", path.basename(dest), "reference");
 }
 
 // Stage 2: keyframes
@@ -66,27 +71,34 @@ const keyframes = [];
 for (let i = 0; i < N; i++) {
   const dest = path.join(outDir, `${scenario}_seq${i + 1}_${seq[i].title}.png`);
   keyframes.push(dest);
-  if (fs.existsSync(dest)) { console.log(`${tag} 2/3 keyframe ${i + 1}/${N} — exists, skipping`); continue; }
-  console.log(`${tag} 2/3 keyframe ${i + 1}/${N} (${seq[i].title})...`);
-  const entry = await run(buildFluxGraph({ prompt: seq[i].image, prefix: `${scenario}/seq${i + 1}` }), `seq${i + 1}`);
-  await download(firstImageUrl(entry), dest);
+  if (fs.existsSync(dest)) console.log(`${tag} 2/3 keyframe ${i + 1}/${N} — exists, skipping`);
+  else {
+    console.log(`${tag} 2/3 keyframe ${i + 1}/${N} (${seq[i].title})...`);
+    const entry = await run(buildFluxGraph({ prompt: seq[i].image, prefix: `${scenario}/seq${i + 1}` }), `seq${i + 1}`);
+    await download(firstImageUrl(entry), dest);
+  }
+  asset("image", path.basename(dest), "keyframe", i + 1);
 }
 
 // Stage 3: each keyframe -> LTX i2v clip
 for (let i = 0; i < N; i++) {
   const dest = path.join(outDir, `${scenario}_clip${i + 1}_${seq[i].title}.mp4`);
-  if (fs.existsSync(dest)) { console.log(`${tag} 3/3 clip ${i + 1}/${N} — exists, skipping`); continue; }
-  console.log(`${tag} 3/3 i2v clip ${i + 1}/${N} from keyframe...`);
-  const inputName = await uploadToInput(keyframes[i], `${scenario}_kf${i + 1}`);
-  const graph = buildLtxGraph({
-    prompt: seq[i].motion,
-    image: inputName,
-    duration: cfg.duration ?? 3,
-    prefix: `${scenario}/clip${i + 1}_${seq[i].title}`,
-  });
-  const entry = await run(graph, `clip${i + 1}`);
-  await download(firstVideoUrl(entry), dest);
+  if (fs.existsSync(dest)) console.log(`${tag} 3/3 clip ${i + 1}/${N} — exists, skipping`);
+  else {
+    console.log(`${tag} 3/3 i2v clip ${i + 1}/${N} from keyframe...`);
+    const inputName = await uploadToInput(keyframes[i], `${scenario}_kf${i + 1}`);
+    const graph = buildLtxGraph({
+      prompt: seq[i].motion,
+      image: inputName,
+      duration: cfg.duration ?? 3,
+      prefix: `${scenario}/clip${i + 1}_${seq[i].title}`,
+    });
+    const entry = await run(graph, `clip${i + 1}`);
+    await download(firstVideoUrl(entry), dest);
+  }
+  asset("video", path.basename(dest), "clip", i + 1);
 }
 
 stitch();
+asset("video", path.basename(finalPath), "final");
 console.log(`${tag} DONE`);

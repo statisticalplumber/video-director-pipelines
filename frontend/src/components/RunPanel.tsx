@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import { startRun, killRun, tailRun } from "../api";
+import { startRun, killRun, tailRun, type AssetEvent } from "../api";
+import OutputGallery from "./OutputGallery";
 
 interface Props {
   scenario: string;
   onDone: () => void;
 }
 
-// Start / stitch / stop a run + live log tail (SSE).
+// Start / stitch / stop a run + live log tail (SSE) + live asset gallery.
 export default function RunPanel({ scenario, onDone }: Props) {
   const [runId, setRunId] = useState<string | null>(null);
   const [status, setStatus] = useState<"idle" | "running" | "done" | "error">("idle");
   const [log, setLog] = useState("");
+  const [assets, setAssets] = useState<AssetEvent[]>([]);
   const closeTail = useRef<() => void>(() => {});
   const boxRef = useRef<HTMLPreElement>(null);
 
@@ -25,11 +27,13 @@ export default function RunPanel({ scenario, onDone }: Props) {
     setRunId(id);
     setStatus("running");
     setLog("");
+    setAssets([]);
     closeTail.current();
     closeTail.current = tailRun(
       id,
       (line) => setLog((l) => l + line),
-      (s) => { setStatus(s === "done" ? "done" : "error"); onDone(); }
+      (s) => { setStatus(s === "done" ? "done" : "error"); onDone(); },
+      (a) => setAssets((prev) => prev.some((x) => x.file === a.file) ? prev : [...prev, a])
     );
   };
 
@@ -56,6 +60,9 @@ export default function RunPanel({ scenario, onDone }: Props) {
       </div>
       {!scenario && <p className="muted">Save the draft scenario first, then run.</p>}
       <pre ref={boxRef} className="log">{log || "(no log yet)"}</pre>
+      {assets.length > 0 && (
+        <OutputGallery scenario={scenario} refreshKey={0} assets={assets} bare />
+      )}
     </section>
   );
 }

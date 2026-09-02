@@ -24,10 +24,23 @@ export const comfyStatus = () => get<ComfyStatus>("/api/comfy");
 export const listOutputs = (scenario: string) =>
   get<{ files: string[] }>(`/api/outputs?scenario=${scenario}`);
 
+export interface AssetEvent {
+  kind: "image" | "video";
+  file: string;
+  stage: "reference" | "keyframe" | "clip" | "final";
+  index?: number;
+}
+
 // SSE tail of a run's log. Returns a close function.
-export function tailRun(id: string, onChunk: (line: string) => void, onDone: (status: string) => void) {
+export function tailRun(
+  id: string,
+  onChunk: (line: string) => void,
+  onDone: (status: string) => void,
+  onAsset?: (a: AssetEvent) => void
+) {
   const es = new EventSource(`/api/runs/${id}/logs`);
   es.onmessage = (e) => onChunk(JSON.parse(e.data).line);
+  if (onAsset) es.addEventListener("asset", (e) => onAsset(JSON.parse(e.data) as AssetEvent));
   es.addEventListener("close", (e) => { onDone(JSON.parse(e.data).status); es.close(); });
   return () => es.close();
 }

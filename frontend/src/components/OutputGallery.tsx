@@ -1,31 +1,40 @@
 import { useEffect, useState } from "react";
-import { listOutputs, outputUrl } from "../api";
+import { listOutputs, outputUrl, type AssetEvent } from "../api";
 
 interface Props {
   scenario: string;
   refreshKey: number; // bump to re-list files
+  assets?: AssetEvent[]; // live: assets finished so far in the current run
+  bare?: boolean; // render without the outer card (for nesting in RunPanel)
 }
 
-const kind = (f: string) =>
-  f.endsWith(".mp4") ? "video" : f.endsWith(".png") || f.endsWith(".jpg") ? "image" : "other";
-
 // Gallery of outputs/<scenario>/: ref, keyframes, clips, final cut.
-export default function OutputGallery({ scenario, refreshKey }: Props) {
+export default function OutputGallery({ scenario, refreshKey, assets, bare }: Props) {
   const [files, setFiles] = useState<string[]>([]);
 
   useEffect(() => {
-    listOutputs(scenario).then((r) => setFiles(r.files));
-  }, [scenario, refreshKey]);
+    if (!assets) listOutputs(scenario).then((r) => setFiles(r.files));
+  }, [scenario, refreshKey, assets]);
 
-  const media = files.filter((f) => kind(f) !== "other");
-  const final = files.find((f) => f.endsWith("_final.mp4"));
-  const ref = files.find((f) => f.endsWith("_ref.png"));
-  const keyframes = files.filter((f) => /_seq\d+_.*\.png$/.test(f));
-  const clips = files.filter((f) => /_clip\d+_.*\.mp4$/.test(f));
+  const byIndex = (a: AssetEvent, b: AssetEvent) => (a.index ?? 0) - (b.index ?? 0);
+  const final = assets
+    ? assets.find((a) => a.stage === "final")?.file
+    : files.find((f) => f.endsWith("_final.mp4"));
+  const ref = assets
+    ? assets.find((a) => a.stage === "reference")?.file
+    : files.find((f) => f.endsWith("_ref.png"));
+  const keyframes = assets
+    ? assets.filter((a) => a.stage === "keyframe").sort(byIndex).map((a) => a.file)
+    : files.filter((f) => /_seq\d+_.*\.png$/.test(f));
+  const clips = assets
+    ? assets.filter((a) => a.stage === "clip").sort(byIndex).map((a) => a.file)
+    : files.filter((f) => /_clip\d+_.*\.mp4$/.test(f));
+  const mediaCount = keyframes.length + clips.length + (ref ? 1 : 0) + (final ? 1 : 0);
 
+  const Tag = bare ? "div" : "section";
   return (
-    <section className="card">
-      <h2>Outputs</h2>
+    <Tag className={bare ? undefined : "card"}>
+      <h2>{bare ? "Generated so far" : "Outputs"}</h2>
       {final && (
         <>
           <h3>Final cut</h3>
@@ -51,7 +60,7 @@ export default function OutputGallery({ scenario, refreshKey }: Props) {
           </div>
         </>
       )}
-      {media.length === 0 && <p className="muted">No outputs yet — run the pipeline.</p>}
-    </section>
+      {mediaCount === 0 && <p className="muted">No outputs yet — run the pipeline.</p>}
+    </Tag>
   );
 }

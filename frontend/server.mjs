@@ -48,11 +48,25 @@ function startRun(scenario, stitch = false) {
   const proc = spawn("node", ["scripts/character_sequence.mjs", scenario, ...(stitch ? ["--stitch"] : [])], {
     cwd: ROOT, env: process.env,
   });
-  const run = { id, scenario, status: "running", log: "", startedAt: Date.now(), proc, subs: new Set() };
+  const run = { id, scenario, status: "running", log: "", assets: [], startedAt: Date.now(), proc, subs: new Set() };
   runs.set(id, run);
+  let lineBuf = "";
   const push = (chunk) => {
     run.log += chunk;
     for (const s of run.subs) s.write(`data: ${JSON.stringify({ line: chunk })}\n\n`);
+    // Detect structured `[asset] {...}` lines (script emits one per finished file).
+    lineBuf += chunk;
+    let nl;
+    while ((nl = lineBuf.indexOf("\n")) >= 0) {
+      const line = lineBuf.slice(0, nl);
+      lineBuf = lineBuf.slice(nl + 1);
+      const m = line.match(/^\[asset\] (\{.*\})\s*$/);
+      if (m) {
+        const asset = JSON.parse(m[1]);
+        run.assets.push(asset);
+        for (const s of run.subs) s.write(`event: asset\ndata: ${JSON.stringify(asset)}\n\n`);
+      }
+    }
   };
   proc.stdout.on("data", (d) => push(d.toString()));
   proc.stderr.on("data", (d) => push(d.toString()));
@@ -188,6 +202,7 @@ const server = http.createServer(async (req, res) => {
       if (!run) return json(res, 404, { error: "no run" });
       res.writeHead(200, { "Content-Type": "text/event-stream", "Cache-Control": "no-cache" });
       res.write(`data: ${JSON.stringify({ line: run.log })}\n\n`);
+      for (const a of run.assets) res.write(`event: asset\ndata: ${JSON.stringify(a)}\n\n`);
       run.subs.add(res);
       req.on("close", () => run.subs.delete(res));
       return;
