@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import { startRun, killRun, tailRun, type AssetEvent } from "../api";
+import { startRun, killRun, tailRun, outScenario, type AssetEvent, type Engine } from "../api";
 import OutputGallery from "./OutputGallery";
 
 interface Props {
   scenario: string;
+  engine: Engine;
+  onEngine: (e: Engine) => void;
   onDone: () => void;
 }
 
 // Start / stitch / stop a run + live log tail (SSE) + live asset gallery.
-export default function RunPanel({ scenario, onDone }: Props) {
+export default function RunPanel({ scenario, engine, onEngine, onDone }: Props) {
   const [runId, setRunId] = useState<string | null>(null);
   const [status, setStatus] = useState<"idle" | "running" | "done" | "error">("idle");
   const [log, setLog] = useState("");
@@ -23,7 +25,7 @@ export default function RunPanel({ scenario, onDone }: Props) {
 
   const begin = async (stitch: boolean) => {
     if (!scenario) return;
-    const { id } = await startRun(scenario, stitch);
+    const { id } = await startRun(scenario, stitch, engine);
     setRunId(id);
     setStatus("running");
     setLog("");
@@ -44,6 +46,16 @@ export default function RunPanel({ scenario, onDone }: Props) {
         <span className={`pill ${status}`}>{status}</span>
       </div>
       <div className="row">
+        <div className="seg" title="i2v engine">
+          <button className={engine === "ltx" ? "on" : ""} onClick={() => onEngine("ltx")}>
+            LTX 2.5
+          </button>
+          <button className={engine === "wan" ? "on" : ""} onClick={() => onEngine("wan")}>
+            Wan 2.1
+          </button>
+        </div>
+      </div>
+      <div className="row">
         <button onClick={() => begin(false)} disabled={status === "running" || !scenario}>
           ▶ Generate (resumable)
         </button>
@@ -61,7 +73,7 @@ export default function RunPanel({ scenario, onDone }: Props) {
       {!scenario && <p className="muted">Save the draft scenario first, then run.</p>}
       <pre ref={boxRef} className="log">{log || "(no log yet)"}</pre>
       {assets.length > 0 && (
-        <OutputGallery scenario={scenario} refreshKey={0} assets={assets} bare />
+        <OutputGallery scenario={outScenario(scenario, engine)} refreshKey={0} assets={assets} bare />
       )}
     </section>
   );

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { listScenarios, getScenario, saveScenario, comfyStatus } from "./api";
+import { listScenarios, getScenario, saveScenario, comfyStatus, outScenario, type Engine } from "./api";
 import type { Scenario, ScenarioInfo, ComfyStatus } from "./types";
 import ScenarioEditor from "./components/ScenarioEditor";
 import RunPanel from "./components/RunPanel";
@@ -11,6 +11,7 @@ export default function App() {
   const [name, setName] = useState("");
   const [cfg, setCfg] = useState<Scenario | null>(null);
   const [draft, setDraft] = useState<{ name: string; config: Scenario } | null>(null);
+  const [engine, setEngine] = useState<Engine>("ltx");
   const [comfy, setComfy] = useState<ComfyStatus | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
 
@@ -82,10 +83,18 @@ export default function App() {
               onSave={handleSave}
             />
           )}
-          <RunPanel scenario={draft ? "" : name} onDone={refresh} />
+          <RunPanel
+            scenario={draft ? "" : name}
+            engine={engine}
+            onEngine={setEngine}
+            onDone={refresh}
+          />
         </div>
         <div className="col">
-          <OutputGallery scenario={draft ? draft.name : name} refreshKey={refreshKey} />
+          <OutputGallery
+            scenario={outScenario(draft ? draft.name : name, engine)}
+            refreshKey={refreshKey}
+          />
         </div>
       </div>
     </div>

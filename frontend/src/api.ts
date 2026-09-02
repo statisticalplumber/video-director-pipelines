@@ -11,12 +11,18 @@ export const saveScenario = (name: string, config: Scenario) =>
     body: JSON.stringify(config),
   }).then((r) => r.json());
 
-export const startRun = (scenario: string, stitch = false) =>
+export type Engine = "ltx" | "wan";
+
+export const startRun = (scenario: string, stitch = false, engine: Engine = "ltx") =>
   fetch("/api/runs", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ scenario, stitch }),
+    body: JSON.stringify({ scenario, stitch, engine }),
   }).then((r) => r.json() as Promise<{ id: string }>);
+
+// Output dir for a scenario+engine (Wan runs write to outputs/<scenario>_wan/).
+export const outScenario = (scenario: string, engine: Engine) =>
+  engine === "wan" ? `${scenario}_wan` : scenario;
 
 export const listRuns = () => get<Run[]>("/api/runs");
 export const killRun = (id: string) => fetch(`/api/runs/${id}`, { method: "DELETE" }).then((r) => r.json());

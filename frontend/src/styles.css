@@ -24,6 +24,11 @@ button:disabled { opacity: .45; cursor: default; }
 button.ghost { background: transparent; border: 1px solid var(--line); color: var(--fg); }
 button.danger { background: var(--err); }
 .row { display: flex; gap: 8px; margin-bottom: 10px; }
+.seg { display: inline-flex; background: #0c0e12; border: 1px solid var(--line);
+  border-radius: 8px; padding: 3px; gap: 3px; align-items: center; }
+.seg button { background: transparent; color: var(--muted); border-radius: 5px;
+  padding: 5px 14px; font-size: 13px; }
+.seg button.on { background: var(--acc); color: #fff; }
 .muted { color: var(--muted); }
 .err-text { color: var(--err); }
 .hint { font-size: 12px; margin-bottom: 0; }

@@ -38,17 +38,19 @@ const readJson = (req) => new Promise((res, rej) => {
 });
 
 // ---------------------------------------------------------------- runs
-// One run = one spawned `node scripts/character_sequence.mjs <scenario>`.
+// One run = one spawned `node scripts/character_sequence{,_wan}.mjs <scenario>`.
+// engine: "ltx" (default) or "wan" — picks the i2v backend script.
 const runs = new Map(); // id -> { scenario, status, log, startedAt, proc, subs:Set<res> }
 
-function startRun(scenario, stitch = false) {
+function startRun(scenario, stitch = false, engine = "ltx") {
   if ([...runs.values()].some((r) => r.status === "running"))
     throw new Error("another run is still active (ComfyUI queue is serial)");
+  const script = engine === "wan" ? "scripts/character_sequence_wan.mjs" : "scripts/character_sequence.mjs";
   const id = Date.now().toString(36);
-  const proc = spawn("node", ["scripts/character_sequence.mjs", scenario, ...(stitch ? ["--stitch"] : [])], {
+  const proc = spawn("node", [script, scenario, ...(stitch ? ["--stitch"] : [])], {
     cwd: ROOT, env: process.env,
   });
-  const run = { id, scenario, status: "running", log: "", assets: [], startedAt: Date.now(), proc, subs: new Set() };
+  const run = { id, scenario, engine, status: "running", log: "", assets: [], startedAt: Date.now(), proc, subs: new Set() };
   runs.set(id, run);
   let lineBuf = "";
   const push = (chunk) => {
@@ -192,7 +194,7 @@ const server = http.createServer(async (req, res) => {
     }
     if (p === "/api/runs" && req.method === "POST") {
       const body = await readJson(req);
-      const run = startRun(body.scenario, body.stitch);
+      const run = startRun(body.scenario, body.stitch, body.engine);
       return json(res, 200, { id: run.id });
     }
     if (p === "/api/runs" && req.method === "GET")
