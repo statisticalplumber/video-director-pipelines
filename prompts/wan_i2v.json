@@ -1,0 +1,9 @@
+{
+  "description": "Generic Wan i2v pipeline: Flux 2 keyframe (imagePrompt) -> Wan 2.1 i2v (motionPrompt) -> saved result. Edit the prompts below for each new shot.",
+  "imagePrompt": "cinematic photorealistic epic wide shot, a massive medieval stone castle on a rocky cliff in the foreground, and in the far distance a huge nuclear explosion — towering fireball and mushroom cloud rising on the horizon, intense orange glow lighting the dusk sky and clouds, silhouetted towers, dramatic contrast, film grain, National Geographic documentary style, 16:9 composition",
+  "motionPrompt": "Slow cinematic push-in toward the castle, the distant nuclear fireball expands and the mushroom cloud rises, orange glow pulsing across the sky, embers and dust drifting in the air, banners swaying. Cinematic, 4 seconds, no cuts.",
+  "width": 832,
+  "height": 480,
+  "length": 65,
+  "steps": 8
+}

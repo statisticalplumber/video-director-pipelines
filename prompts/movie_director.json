@@ -1,0 +1,45 @@
+{
+  "description": "Movie director: 20s National Geographic narration (LTX t2v at 64x64, audio extracted) + 5 cinematic 9:16 trailer clips (Flux keyframe -> LTX i2v, 3-5s each) -> final cut: clips as video, narration as main audio, clip audio ducked to 20%.",
+  "narrationScript": "Beneath the thunder of the storm, the ancient forest holds its final breath. For ten thousand years, this giant has watched the seasons turn. But a shadow is rising in the north. Tonight, one small creature will risk everything to save the last seed of the old world. This is a story of survival. Of courage. And of the moment a legend is born.",
+  "narrationPrompt": "Natural documentary voiceover, National Geographic style. A warm, deep male narrator in his 50s speaks like he is telling a story by a fire — calm, intimate, confident, with natural pauses between sentences and a soft breath before the final line, never robotic, never reading from a script. Sound quality: warm close-mic studio recording, rich rounded low end, smooth mids, crisp but gentle consonants, subtle large-hall reverb tail, clean noise floor, no music, no sound effects, no crowd, only his voice. He says, slowly and clearly: \"Beneath the thunder of the storm, the ancient forest holds its final breath. For ten thousand years, this giant has watched the seasons turn. But a shadow is rising in the north. Tonight, one small creature will risk everything to save the last seed of the old world. This is a story of survival. Of courage. And of the moment a legend is born.\"",
+  "narrationDuration": 20,
+  "narrationFps": 24,
+  "narrationSize": [64, 64],
+  "ratio": "9:16 (Portrait Widescreen)",
+  "megapixels": 0.5,
+  "keyframeWidth": 768,
+  "keyframeHeight": 1280,
+  "clipAudioVolume": 0.2,
+  "sequence": [
+    {
+      "title": "a_forest_awakens",
+      "duration": 4,
+      "image": "cinematic photorealistic 9:16 vertical frame, vast ancient misty forest at dawn, towering mossy redwood trunks, golden light rays piercing the fog, low ground mist, dew on ferns, epic National Geographic documentary still, shallow depth of field, film grain",
+      "motion": "Slow aerial push-in through drifting dawn mist between giant trunks, light rays shift as clouds move, mist rolls across the forest floor. Cinematic documentary, 4 seconds, no cuts."
+    },
+    {
+      "title": "b_the_giant",
+      "duration": 4,
+      "image": "cinematic photorealistic 9:16 vertical frame, a massive ancient forest elephant standing in a sunlit clearing, dust motes in the golden light, long grass, dramatic low angle, epic National Geographic wildlife documentary still, cinematic color grade",
+      "motion": "The giant slowly lifts its head, ears swaying, dust and grass stir around its feet, slow push-in, golden backlight. Cinematic documentary, 4 seconds, no cuts."
+    },
+    {
+      "title": "c_shadow_rises",
+      "duration": 4,
+      "image": "cinematic photorealistic 9:16 vertical frame, dark storm clouds rolling over a mountain ridge at dusk, lightning flickering inside the clouds, silhouette of a lone wolf on the ridge, moody blue and amber light, epic cinematic trailer still",
+      "motion": "Storm clouds churn and roll faster, a lightning flash illuminates the ridge, the wolf's silhouette holds still, wind pushes through the grass. Cinematic trailer, 4 seconds, no cuts."
+    },
+    {
+      "title": "d_the_risk",
+      "duration": 4,
+      "image": "cinematic photorealistic 9:16 vertical frame, a small red fox carrying a glowing seed in its mouth, running across wet rocks beside a rushing river at night, rain streaking through moonlight, dramatic cinematic trailer still, high contrast",
+      "motion": "The fox sprints low across the wet rocks, water splashing, rain and moonlight streaking, fast handheld-style push, urgent energy. Cinematic trailer, 4 seconds, no cuts."
+    },
+    {
+      "title": "e_legend_born",
+      "duration": 4,
+      "image": "cinematic photorealistic 9:16 vertical frame, the fox standing on a cliff edge at sunrise, holding the seed high, vast valley below filled with golden mist, epic wide cinematic composition, National Geographic finale shot, lens flare, film grain",
+      "motion": "The fox stands proud on the cliff, its tail lifts, the seed glows softly, sun rises behind the valley and the mist burns gold, slow majestic push-in. Cinematic finale, 4 seconds, no cuts."
+    }
+  ]
+}

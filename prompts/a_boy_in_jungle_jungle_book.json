@@ -1,0 +1,28 @@
+{
+  "description": "Anime sequence: 1 reference key visual -> 4 keyframe story beats (same character) -> each keyframe drives a 3s LTX i2v clip -> stitched final.",
+  "character": "a 12-year-old boy with messy brown hair, bright amber eyes, wearing a tattered khaki explorer shirt with rolled-up sleeves, brown leather belt, and sturdy hiking boots, Jhumpa Lahiri or Studio Ghibli inspired anime style, cinematic lighting, highly detailed, clean lineart, vibrant jungle colors",
+  "referencePrompt": "a 12-year-old boy with messy brown hair, bright amber eyes, wearing a tattered khaki explorer shirt with rolled-up sleeves, brown leather belt, and sturdy hiking boots, Jhumpa Lahiri or Studio Ghibli inspired anime style, cinematic lighting, highly detailed, clean lineart, vibrant jungle colors, standing in the center of a dense, misty jungle clearing, sunlight filtering through the canopy, surrounded by giant ferns and exotic flowers, mysterious and adventurous atmosphere, 16:9 key visual composition",
+  "duration": 3,
+  "sequence": [
+    {
+      "title": "jungle_entry",
+      "image": "a 12-year-old boy with messy brown hair, bright amber eyes, wearing a tattered khaki explorer shirt with rolled-up sleeves, brown leather belt, and sturdy hiking boots, Jhumpa Lahiri or Studio Ghibli inspired anime style, cinematic lighting, highly detailed, clean lineart, vibrant jungle colors, pushing through thick green vines and foliage, shafts of golden sunlight piercing through the dense canopy, dust motes dancing in the light, sense of discovery",
+      "motion": "He pushes through the dense foliage, vines swing gently as he moves, sunlight flickers through the leaves above, his clothes rustle with the movement. Anime style, immersive jungle atmosphere, 3 seconds, no cuts."
+    },
+    {
+      "title": "monkey_encounter",
+      "image": "a 12-year-old boy with messy brown hair, bright amber eyes, wearing a tattered khaki explorer shirt with rolled-up sleeves, brown leather belt, and sturdy hiking boots, Jhumpa Lahiri or Studio Ghibli inspired anime style, cinematic lighting, highly detailed, clean lineart, vibrant jungle colors, sitting on a fallen log looking up at a playful capuchin monkey perched on a branch above, the monkey holds a small banana, the boy smiles with wonder, bright green background, playful and light-hearted mood",
+      "motion": "The monkey on the branch chatters and swings slightly, the boy looks up with wide eyes and a gentle smile, leaves rustle in the background. Anime style, lighthearted interaction, 3 seconds, no cuts."
+    },
+    {
+      "title": "tiger_shadow",
+      "image": "a 12-year-old boy with messy brown hair, bright amber eyes, wearing a tattered khaki explorer shirt with rolled-up sleeves, brown leather belt, and sturdy hiking boots, Jhumpa Lahiri or Studio Ghibli inspired anime style, cinematic lighting, highly detailed, clean lineart, vibrant jungle colors, standing frozen in a dark, shadowy part of the jungle, a large tiger's glowing yellow eyes visible in the mist behind him, tension, dramatic low angle, cool blue and dark green palette, sense of danger",
+      "motion": "The mist swirls slowly around the tiger's eyes, the boy holds his breath, his hair moves slightly in the cool wind, the tiger's eyes blink slowly. Anime style, tense and suspenseful, 3 seconds, no cuts."
+    },
+    {
+      "title": "dawn_peace",
+      "image": "a 12-year-old boy with messy brown hair, bright amber eyes, wearing a tattered khaki explorer shirt with rolled-up sleeves, brown leather belt, and sturdy hiking boots, Jhumpa Lahiri or Studio Ghibli inspired anime style, cinematic lighting, highly detailed, clean lineart, vibrant jungle colors, sitting peacefully on a mossy rock at sunrise, a deer drinking from a nearby stream in the background, soft pink and orange sky, tranquil and serene atmosphere, cinematic wide shot",
+      "motion": "The deer drinks calmly from the stream, ripples spread out, the boy watches with a peaceful expression, birds fly across the sunrise sky. Anime style, serene and beautiful ending, 3 seconds, no cuts."
+    }
+  ]
+}

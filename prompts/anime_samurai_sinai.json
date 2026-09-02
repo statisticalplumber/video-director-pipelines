@@ -1,0 +1,45 @@
+{
+  "description": "Anime trailer: 20s cinematic trailer of a samurai's life on the Sinai mountains. LTX t2v at 64x64 generates the full audio bed (epic orchestral + Japanese instruments + trailer narration; video throwaway) + 5 anime 9:16 trailer clips (Flux keyframe -> LTX i2v) -> final cut: clips as video, score/narration as main audio, clip ambient audio ducked to 20%.",
+  "narrationScript": "Beyond the edge of the map, where the desert climbs into the sky, he kept his vigil on the Sinai. A blade without a lord. A soul without a homeland. The wind carved his oath into stone. And when the storm finally came... he answered with the only language he knew. This is not a story of war. It is the legend of the last samurai of the Sinai.",
+  "narrationPrompt": "Epic cinematic anime trailer soundscape, 20 seconds. A powerful orchestral score: low rumbling taiko drums, deep solo shakuhachi flute theme, soaring strings, sparse koto plucks, desert wind and heat shimmer, a single resonant katana draw and a sword on stone, distant thunder rolling over mountains. On top, a deep gravelly male narrator in his 40s speaks like a movie trailer voice — slow, weighty, intimate, with dramatic pauses between phrases, never rushed. Warm close-mic voice, subtle large-hall reverb, clean mix, voice clearly on top of the music, music swells under the final line. The narrator says, slowly and clearly: \"Beyond the edge of the map, where the desert climbs into the sky, he kept his vigil on the Sinai. A blade without a lord. A soul without a homeland. The wind carved his oath into stone. And when the storm finally came... he answered with the only language he knew. This is not a story of war. It is the legend of the last samurai of the Sinai.\"",
+  "narrationDuration": 20,
+  "narrationFps": 24,
+  "narrationSize": [64, 64],
+  "ratio": "9:16 (Portrait Widescreen)",
+  "megapixels": 0.5,
+  "keyframeWidth": 768,
+  "keyframeHeight": 1280,
+  "clipAudioVolume": 0.2,
+  "sequence": [
+    {
+      "title": "a_the_vigil",
+      "duration": 4,
+      "image": "epic anime film still, 9:16 vertical, a lone ronin samurai in a tattered dark kimono and straw hat standing on a wind-carved granite ridge of the Sinai desert mountains at dawn, twin katana at his hip, vast golden dunes below, thin red mist in the gorges, dramatic god rays, ukiyo-e inspired sky, painterly cinematic lighting, film grain, high detail anime key visual",
+      "motion": "Slow cinematic push-in toward the samurai, his straw hat brim and kimono hem ripple in the hot desert wind, red dust devils rise from the ridge, god rays shift. Epic anime trailer, 4 seconds, no cuts."
+    },
+    {
+      "title": "b_the_path",
+      "duration": 4,
+      "image": "epic anime film still, 9:16 vertical, the ronin samurai walking alone along a narrow cliff path carved into the Sinai mountain, long shadow stretching over scree, hawk circling overhead, endless desert valley far below, golden hour light, painterly anime background art, cinematic composition, film grain",
+      "motion": "The samurai walks steadily forward, cloak and sash flowing in the wind, dust lifting off his boots with each step, the hawk circles, slow tracking shot. Anime trailer, 4 seconds, no cuts."
+    },
+    {
+      "title": "c_the_storm",
+      "duration": 4,
+      "image": "epic anime film still, 9:16 vertical, a black sandstorm rolling over the Sinai peaks at dusk, the samurai's silhouette on the ridge with his hat nearly torn away, lightning inside the storm wall, dramatic blue and amber contrast, intense anime key visual, high contrast, film grain",
+      "motion": "The storm wall churns and accelerates, lightning flashes illuminate the ridge, the samurai plants his feet and draws his katana, blade gleaming, wind whipping his hair. Anime trailer, 4 seconds, no cuts."
+    },
+    {
+      "title": "d_the_duel",
+      "duration": 4,
+      "image": "epic anime film still, 9:16 vertical, the samurai in a low stance mid-sword-draw facing an unseen rival across a wind-scoured plateau, sparks and grit in the air, motion blur on the blade arc, dramatic low angle, intense cinematic anime action key visual, rim lighting, film grain",
+      "motion": "The samurai's katana flashes in a swift arc, grit and pebbles burst from the blade's wake, his eyes narrow in focus, slow-motion impact frame energy. Anime trailer, 4 seconds, no cuts."
+    },
+    {
+      "title": "e_the_legend",
+      "duration": 4,
+      "image": "epic anime film still, 9:16 vertical, the samurai sheathing his katana on the highest Sinai peak at sunrise, the storm cleared behind him, a sea of golden clouds and light below the mountain range, his silhouette small and triumphant against a giant red sun, breathtaking anime finale key visual, lens flare, film grain",
+      "motion": "The katana slides into its sheath with a soft click, the samurai's cloak settles as the wind calms, the sun crests the horizon and floods the valley with gold, slow majestic pull-back. Anime finale, 4 seconds, no cuts."
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+.env
+outputs/
+workflows/merged_pipeline.json
+node_modules/
