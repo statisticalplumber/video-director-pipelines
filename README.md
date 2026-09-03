@@ -1,4 +1,4 @@
-# comfyui-video-pipelines — Flux 2 + LTX-2.5 + Wan 2.1 video generation
+# video-director-pipelines — Flux 2 + LTX-2.5 + Wan 2.1 video generation
 
 Generates videos on a remote ComfyUI using base workflows from `workflows/`:
 
@@ -44,7 +44,7 @@ See `frontend/README.md` for the API and layout.
 ## Layout
 
 ```
-comfyui-video-pipelines/
+video-director-pipelines/
 ├── README.md            # this file
 ├── AGENTS.md            # agent operating notes (architecture, gotchas)
 ├── lib/
