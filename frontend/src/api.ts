@@ -1,6 +1,22 @@
-import type { Scenario, ScenarioInfo, Run, ComfyStatus } from "./types";
+import type { Scenario, ScenarioInfo, Run, ComfyStatus, AuthUser } from "./types";
 
 const get = async <T,>(url: string) => (await fetch(url)).json() as Promise<T>;
+
+// ---------------------------------------------------------------- auth
+export type { AuthUser } from "./types";
+
+export const me = async (): Promise<AuthUser> => {
+  const r = await fetch("/api/me");
+  if (!r.ok) throw new Error("unauthorized");
+  return r.json() as Promise<AuthUser>;
+};
+export const login = (username: string, password: string) =>
+  fetch("/api/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password }),
+  }).then((r) => (r.ok ? r.json() as Promise<AuthUser> : r.json().then((d) => Promise.reject(new Error(d.error || "login failed")))));
+export const logout = () => fetch("/api/logout", { method: "POST" }).then((r) => r.json());
 
 export const listScenarios = () => get<ScenarioInfo[]>("/api/scenarios");
 export const getScenario = (name: string) => get<{ name: string; config: Scenario }>(`/api/scenario/${name}`);

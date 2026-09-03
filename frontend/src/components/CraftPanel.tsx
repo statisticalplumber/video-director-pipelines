@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Scenario } from "../types";
+import { IconSparkles, Spinner } from "./Icons";
 
 interface Props {
   onCrafted: (name: string, config: Scenario) => void;
@@ -41,29 +42,43 @@ export default function CraftPanel({ onCrafted }: Props) {
   return (
     <section className="card">
       <div className="card-head">
-        <h2>Craft scenario with LLM</h2>
-        {busy && <span className="pill running">{Math.round(seconds)}s…</span>}
+        <h2>
+          <span className="head-icon"><IconSparkles size={15} /></span>
+          Craft scenario
+        </h2>
+        {busy && (
+          <span className="pill running">
+            <Spinner size={11} />
+            {Math.round(seconds)}s
+          </span>
+        )}
       </div>
+
       <label>High-level topic</label>
       <input
         value={topic}
         placeholder="e.g. a cyberpunk street medic in Neo-Mumbai"
         onChange={(e) => setTopic(e.target.value)}
+        disabled={busy}
       />
-      <label>Requirements (style, mood, beats, length…)</label>
+      <label>Requirements — style, mood, beats, length…</label>
       <textarea
         rows={3}
         value={reqs}
         placeholder="e.g. neo-noir, rain, 4 beats: arrival, surgery, escape, dawn on the roof"
         onChange={(e) => setReqs(e.target.value)}
+        disabled={busy}
       />
-      <div className="row">
-        <button onClick={craft} disabled={busy || !topic.trim()}>
-          ✨ Craft scenario
+      <div className="row" style={{ marginTop: 12 }}>
+        <button className="primary" onClick={craft} disabled={busy || !topic.trim()}>
+          {busy ? <Spinner size={13} /> : <IconSparkles size={13} />}
+          {busy ? "Crafting…" : "Craft scenario"}
         </button>
       </div>
-      {error && <p className="muted err-text">{error}</p>}
-      <p className="muted hint">Result loads into the editor below — review, then Save.</p>
+      {error && <p className="hint err-text">{error}</p>}
+      <p className="hint">
+        The LLM drafts a full scenario — review it in the editor below, then save and run.
+      </p>
     </section>
   );
 }

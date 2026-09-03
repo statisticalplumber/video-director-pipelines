@@ -25,6 +25,10 @@ export interface Run {
   startedAt: number;
 }
 
+export interface AuthUser {
+  user: string;
+}
+
 export interface ComfyStatus {
   up: boolean;
   error?: string;

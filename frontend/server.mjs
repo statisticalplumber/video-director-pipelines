@@ -4,6 +4,7 @@
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
+import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { spawn } from "node:child_process";
 
@@ -24,6 +25,41 @@ const OUTPUTS = path.join(ROOT, "outputs");
 const DIST = path.join(__dirname, "dist");
 const PORT = Number(process.env.PORT || 8790);
 const LLM_BASE = (process.env.LLM_BASE || "https://furian-1.tailb2c0b0.ts.net").replace(/\/+$/, "");
+
+// ---------------------------------------------------------------- auth
+// Single-user login. Credentials come from env (video_test/.env or real env);
+// defaults are admin / admin — override for anything non-local.
+const AUTH_USER = process.env.LOGIN_USER || "admin";
+const AUTH_PASS = process.env.LOGIN_PASS || "admin";
+const SESSION_TTL_MS = 12 * 60 * 60 * 1000; // 12h
+const COOKIE_NAME = "ss_session";
+
+const sessions = new Map(); // token -> { user, exp }
+function pruneSessions() {
+  const now = Date.now();
+  for (const [t, s] of sessions) if (s.exp <= now) sessions.delete(t);
+}
+function cookieValue(req) {
+  const raw = req.headers.cookie || "";
+  for (const part of raw.split(";")) {
+    const [k, ...v] = part.trim().split("=");
+    if (k === COOKIE_NAME) return decodeURIComponent(v.join("="));
+  }
+  return null;
+}
+function authedUser(req) {
+  const token = cookieValue(req);
+  if (!token) return null;
+  const s = sessions.get(token);
+  if (!s || s.exp <= Date.now()) { sessions.delete(token); return null; }
+  return s.user;
+}
+function sessionCookie(token, maxAgeSec) {
+  const attrs = [`${COOKIE_NAME}=${token}`, "HttpOnly", "SameSite=Lax", "Path=/"];
+  if (maxAgeSec != null) attrs.push(`Max-Age=${maxAgeSec}`);
+  else attrs.push("Expires=Thu, 01 Jan 1970 00:00:00 GMT");
+  return attrs.join("; ");
+}
 
 // ---------------------------------------------------------------- helpers
 const isSafe = (name) => !name.includes("..") && !name.includes("/") && !name.includes("\\");
@@ -174,6 +210,31 @@ const server = http.createServer(async (req, res) => {
   const u = new URL(req.url, "http://x");
   const p = u.pathname;
   try {
+    if (p === "/api/login" && req.method === "POST") {
+      const body = await readJson(req);
+      const ok = String(body.username || "") === AUTH_USER && String(body.password || "") === AUTH_PASS;
+      if (!ok) return json(res, 401, { error: "invalid credentials" });
+      pruneSessions();
+      const token = crypto.randomBytes(32).toString("hex");
+      sessions.set(token, { user: AUTH_USER, exp: Date.now() + SESSION_TTL_MS });
+      res.setHeader("Set-Cookie", sessionCookie(token, Math.floor(SESSION_TTL_MS / 1000)));
+      return json(res, 200, { user: AUTH_USER });
+    }
+    if (p === "/api/logout" && req.method === "POST") {
+      const token = cookieValue(req);
+      if (token) sessions.delete(token);
+      res.setHeader("Set-Cookie", sessionCookie("", 0));
+      return json(res, 200, { ok: true });
+    }
+    if (p === "/api/me" && req.method === "GET") {
+      const user = authedUser(req);
+      return user ? json(res, 200, { user }) : json(res, 401, { error: "unauthorized" });
+    }
+
+    // Everything below (API + generated outputs) requires a session.
+    if ((p.startsWith("/api/") || p.startsWith("/outputs/")) && !authedUser(req))
+      return json(res, 401, { error: "unauthorized" });
+
     if (p === "/api/scenarios" && req.method === "GET")
       return json(res, 200, fs.readdirSync(PROMPTS).filter((f) => f.endsWith(".json")).map((f) => {
         const c = JSON.parse(fs.readFileSync(path.join(PROMPTS, f), "utf8"));

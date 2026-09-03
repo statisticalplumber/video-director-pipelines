@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { startRun, killRun, tailRun, outScenario, type AssetEvent, type Engine } from "../api";
 import OutputGallery from "./OutputGallery";
+import { IconPlay, IconScissors, IconStop, IconTerminal, Spinner } from "./Icons";
 
 interface Props {
   scenario: string;
@@ -8,6 +9,8 @@ interface Props {
   onEngine: (e: Engine) => void;
   onDone: () => void;
 }
+
+const STAGES = ["Reference", "Keyframes", "Clips", "Stitch"];
 
 // Start / stitch / stop a run + live log tail (SSE) + live asset gallery.
 export default function RunPanel({ scenario, engine, onEngine, onDone }: Props) {
@@ -39,27 +42,64 @@ export default function RunPanel({ scenario, engine, onEngine, onDone }: Props) 
     );
   };
 
+  // Derive a coarse stage from the live asset stream.
+  const stage =
+    assets.some((a) => a.stage === "final") ? 3 :
+    assets.some((a) => a.stage === "clip") ? 2 :
+    assets.some((a) => a.stage === "keyframe") ? 1 :
+    assets.some((a) => a.stage === "reference") ? 0.5 : 0;
+  const pct = Math.min(100, (stage / 3) * 100);
+
+  const statusPill = {
+    idle: <span className="pill">idle</span>,
+    running: (
+      <span className="pill running">
+        <Spinner size={11} />
+        running
+      </span>
+    ),
+    done: <span className="pill done">done</span>,
+    error: <span className="pill error">error</span>,
+  }[status];
+
   return (
     <section className="card">
       <div className="card-head">
-        <h2>Run</h2>
-        <span className={`pill ${status}`}>{status}</span>
-      </div>
-      <div className="row">
-        <div className="seg" title="i2v engine">
+        <h2>
+          <span className="head-icon"><IconTerminal size={15} /></span>
+          Run
+        </h2>
+        <span className="spacer" />
+        <span className="seg" title="i2v engine">
           <button className={engine === "ltx" ? "on" : ""} onClick={() => onEngine("ltx")}>
             LTX 2.5
           </button>
           <button className={engine === "wan" ? "on" : ""} onClick={() => onEngine("wan")}>
             Wan 2.1
           </button>
-        </div>
+        </span>
+        {statusPill}
       </div>
+
+      {status === "running" && (
+        <div className="progress">
+          <div className="progress-bar">
+            <div className="progress-fill" style={{ width: `${pct}%` }} />
+          </div>
+          <div className="progress-meta">
+            <span>{STAGES[Math.min(3, Math.floor(stage))]}…</span>
+            <span className="muted">{assets.length} asset{assets.length === 1 ? "" : "s"}</span>
+          </div>
+        </div>
+      )}
+
       <div className="row">
-        <button onClick={() => begin(false)} disabled={status === "running" || !scenario}>
-          ▶ Generate (resumable)
+        <button className="primary" onClick={() => begin(false)} disabled={status === "running" || !scenario}>
+          <IconPlay size={12} />
+          Generate
         </button>
-        <button className="ghost" onClick={() => begin(true)} disabled={status === "running" || !scenario}>
+        <button onClick={() => begin(true)} disabled={status === "running" || !scenario}>
+          <IconScissors size={12} />
           Stitch only
         </button>
         <button
@@ -67,11 +107,18 @@ export default function RunPanel({ scenario, engine, onEngine, onDone }: Props) 
           disabled={status !== "running" || !runId}
           onClick={() => runId && killRun(runId)}
         >
+          <IconStop size={12} />
           Stop
         </button>
       </div>
-      {!scenario && <p className="muted">Save the draft scenario first, then run.</p>}
-      <pre ref={boxRef} className="log">{log || "(no log yet)"}</pre>
+      {!scenario && (
+        <p className="hint">Select or save a scenario first, then start a run.</p>
+      )}
+
+      <pre ref={boxRef} className="log">
+        {log || <span className="log-empty">— log will stream here once a run starts —</span>}
+      </pre>
+
       {assets.length > 0 && (
         <OutputGallery scenario={outScenario(scenario, engine)} refreshKey={0} assets={assets} bare />
       )}

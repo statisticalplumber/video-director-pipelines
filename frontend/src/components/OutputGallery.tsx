@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { listOutputs, outputUrl, type AssetEvent } from "../api";
+import { IconFilm, IconImage } from "./Icons";
 
 interface Props {
   scenario: string;
@@ -8,11 +9,17 @@ interface Props {
   bare?: boolean; // render without the outer card (for nesting in RunPanel)
 }
 
+const pretty = (f: string) =>
+  f.replace(/_[a-z]+\d+_.*\.(mp4|png)$/, "")
+    .replace(/_/g, " ")
+    .trim();
+
 // Gallery of outputs/<scenario>/: ref, keyframes, clips, final cut.
 export default function OutputGallery({ scenario, refreshKey, assets, bare }: Props) {
   const [files, setFiles] = useState<string[]>([]);
 
   useEffect(() => {
+    setFiles([]);
     if (!assets) listOutputs(scenario).then((r) => setFiles(r.files));
   }, [scenario, refreshKey, assets]);
 
@@ -34,33 +41,71 @@ export default function OutputGallery({ scenario, refreshKey, assets, bare }: Pr
   const Tag = bare ? "div" : "section";
   return (
     <Tag className={bare ? undefined : "card"}>
-      <h2>{bare ? "Generated so far" : "Outputs"}</h2>
+      {!bare && (
+        <div className="card-head">
+          <h2>
+            <span className="head-icon"><IconFilm size={15} /></span>
+            Outputs
+          </h2>
+          <span className="spacer" />
+          {scenario && (
+            <span className="muted" style={{ fontSize: 12, fontFamily: "var(--mono)" }}>
+              outputs/{scenario}/
+            </span>
+          )}
+        </div>
+      )}
+
+      {bare && <div className="section-label">Generated so far</div>}
+
       {final && (
         <>
-          <h3>Final cut</h3>
-          <video controls src={outputUrl(scenario, final)} />
+          <div className="section-label">Final cut</div>
+          <div className="video-frame">
+            <video controls src={outputUrl(scenario, final)} />
+          </div>
         </>
       )}
       {ref && (
         <>
-          <h3>Reference</h3>
-          <img src={outputUrl(scenario, ref)} alt="reference" />
+          <div className="section-label">Reference</div>
+          <div className="img-frame">
+            <img src={outputUrl(scenario, ref)} alt="reference" loading="lazy" />
+          </div>
         </>
       )}
       {keyframes.length > 0 && (
         <>
-          <h3>Keyframes → clips</h3>
+          <div className="section-label">Keyframes → clips</div>
           <div className="grid">
             {keyframes.map((kf, i) => (
               <div className="shot" key={kf}>
-                <img src={outputUrl(scenario, kf)} alt={kf} />
-                {clips[i] && <video controls src={outputUrl(scenario, clips[i])} />}
+                <div className="img-frame">
+                  <img src={outputUrl(scenario, kf)} alt={pretty(kf)} loading="lazy" />
+                </div>
+                {clips[i] && (
+                  <div className="video-frame">
+                    <video controls src={outputUrl(scenario, clips[i])} />
+                  </div>
+                )}
               </div>
             ))}
           </div>
         </>
       )}
-      {mediaCount === 0 && <p className="muted">No outputs yet — run the pipeline.</p>}
+      {mediaCount === 0 && (
+        <div className="empty">
+          <span className="empty-icon">
+            <IconImage size={20} />
+          </span>
+          <span className="empty-title">No outputs yet</span>
+          <span className="empty-sub">
+            {scenario
+              ? "Start a run to see the reference, keyframes, and final cut land here."
+              : "Select a scenario to view its outputs."}
+          </span>
+        </div>
+      )}
     </Tag>
   );
 }

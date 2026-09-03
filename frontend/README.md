@@ -59,19 +59,30 @@ npm run dev       # vite dev server on :5173 (proxies /api + /outputs to :8790)
 `lib/comfy.mjs`). The LLM call uses `/v1/chat/completions` with
 `chat_template_kwargs: {enable_thinking: false}` (Qwen3 thinking off).
 
+## Design
+
+Dark "studio console" UI, all vanilla CSS (`src/styles.css` holds the full
+design system: tokens, cards, controls, pills, sidebar, gallery) — no UI
+framework. App shell: sticky top bar (brand + ComfyUI status), left sidebar
+with the scenario list, center column (craft / editor / run), right rail with
+the output gallery. Icons are inline SVG (`src/components/Icons.tsx`),
+Inter + JetBrains Mono via Google Fonts with system fallbacks (works offline).
+
 ## Layout
 
 ```
 frontend/
 ├── server.mjs               # zero-dep backend (API + static dist/)
 ├── src/
-│   ├── App.tsx              # scenario picker + layout + comfy status
+│   ├── App.tsx              # app shell: top bar, sidebar, columns
 │   ├── api.ts               # fetch/EventSource helpers
 │   ├── types.ts
+│   ├── styles.css           # design system + all component styles
 │   └── components/
 │       ├── CraftPanel.tsx       # topic + requirements -> LLM-crafted draft
 │       ├── ScenarioEditor.tsx   # prompts JSON editor
-│       ├── RunPanel.tsx         # run/stitch/stop + live log
-│       └── OutputGallery.tsx    # final / ref / keyframes+clips
+│       ├── RunPanel.tsx         # run/stitch/stop + live log + progress
+│       ├── OutputGallery.tsx    # final / ref / keyframes+clips
+│       └── Icons.tsx            # inline SVG icon set
 └── dist/                    # vite build output (served by server.mjs)
 ```
