@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import { listScenarios, getScenario, saveScenario, comfyStatus, outScenario, me, logout, type Engine, type AuthUser } from "./api";
-import type { Scenario, ScenarioInfo, ComfyStatus } from "./types";
+import { listScenarios, getScenario, saveScenario, comfyStatus, outScenario, me, logout, type Engine, type AuthUser, type RegenSpec } from "./api";
+import type { Scenario, ScenarioInfo, ComfyStatus, AssetKind } from "./types";
 import ScenarioEditor from "./components/ScenarioEditor";
 import RunPanel from "./components/RunPanel";
 import OutputGallery from "./components/OutputGallery";
@@ -70,6 +70,10 @@ function Studio({ user, onLogout, theme, onToggleTheme }: {
   const [engine, setEngine] = useState<Engine>("ltx");
   const [comfy, setComfy] = useState<ComfyStatus | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [runActive, setRunActive] = useState(false);
+  const [runScenario, setRunScenario] = useState<string | null>(null);
+  const [regenTarget, setRegenTarget] = useState<{ kind: AssetKind; index?: number } | null>(null);
+  const [pendingRun, setPendingRun] = useState<{ nonce: number; stitch?: boolean; regen?: RegenSpec | null } | null>(null);
 
   const refresh = useCallback(() => setRefreshKey((k) => k + 1), []);
   const refreshScenarios = useCallback(async () => {
@@ -200,6 +204,14 @@ function Studio({ user, onLogout, theme, onToggleTheme }: {
             engine={engine}
             onEngine={setEngine}
             onDone={refresh}
+            onStatus={(s, sc) => {
+              setRunActive(s === "running");
+              setRunScenario(s === "running" ? sc : null);
+              // While a regen run is active, the gallery blinks the exact asset
+              // being regenerated (a full run has no regen target).
+              setRegenTarget(s === "running" ? (pendingRun?.regen ?? null) : null);
+            }}
+            pendingRun={pendingRun}
           />
         </div>
 
@@ -207,6 +219,12 @@ function Studio({ user, onLogout, theme, onToggleTheme }: {
           <OutputGallery
             scenario={outScenario(draft ? draft.name : name, engine)}
             refreshKey={refreshKey}
+            generatingScenario={runActive ? runScenario : null}
+            regenTarget={runActive ? regenTarget : null}
+            onStitch={() => !runActive && setPendingRun({ nonce: Date.now(), stitch: true })}
+            onRegen={(kind: AssetKind, index: number | null) =>
+              !runActive && setPendingRun({ nonce: Date.now(), regen: { kind, index: index ?? undefined } })}
+            onUploaded={refresh}
           />
         </div>
       </div>

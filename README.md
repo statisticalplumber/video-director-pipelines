@@ -1,6 +1,6 @@
-# video-director-pipelines — Flux 2 + LTX-2.5 + Wan 2.1 video generation
+# video_test — Flux 2 + LTX-2.5 video generation pipelines
 
-Generates videos on a remote ComfyUI using base workflows from `workflows/`:
+Generates videos on a remote ComfyUI (via gradio.live) using base workflows from `workflows/`:
 
 - **Flux 2 Klein 9B** (`flux-t2i.json`) — text-to-image first frames
 - **LTX-2.5 22B** (`ltx2_5_i2v.json`) — image-to-video with audio (int8, half-res gen + 2× latent upscale)
@@ -22,29 +22,10 @@ node scripts/character_sequence.mjs anime_sequence
 All scripts are **resumable**: any stage whose output file already exists is skipped.
 Re-stitch a final cut without regenerating: `node scripts/director.mjs --stitch`.
 
-## Frontend (web UI)
-
-`frontend/` is a React + TypeScript (Vite) UI over the character-sequence
-pipeline, with a tiny zero-dependency Node backend (`frontend/server.mjs`):
-
-```bash
-cd frontend && npm install && npm run build && npm run serve
-# -> http://localhost:8790
-```
-
-- **Craft** — a local LLM (`LLM_BASE`, llama-server / OpenAI-compatible) turns a
-  topic + requirements into a full scenario JSON draft
-- **Edit** — scenario picker + editor over `prompts/*.json`
-- **Run** — resumable runs with live log (SSE), **LTX 2.5 / Wan 2.1** engine
-  toggle, live asset preview (files appear as each stage finishes), Stop
-- **Outputs** — final cut, reference, keyframes + clips in the browser
-
-See `frontend/README.md` for the API and layout.
-
 ## Layout
 
 ```
-video-director-pipelines/
+video_test/
 ├── README.md            # this file
 ├── AGENTS.md            # agent operating notes (architecture, gotchas)
 ├── lib/
@@ -53,15 +34,10 @@ video-director-pipelines/
 │   ├── merged_test.json     # artistic t2i->i2v test runs
 │   ├── wildlife_doc.json    # 4-scene documentary (story beats + prompts)
 │   └── anime_sequence.json  # character + 4 keyframe beats
-├── frontend/
-│   ├── server.mjs             # zero-dep Node backend (API + SSE + static UI)
-│   ├── src/                   # React + TypeScript UI (Vite)
-│   └── dist/                  # built UI (served by server.mjs)
 ├── scripts/
 │   ├── run_flux_ltx_test.mjs  # single merged pipeline (t2i -> i2v)
 │   ├── director.mjs         # scene-by-scene documentary + stitch
-│   ├── character_sequence.mjs # ref + keyframe beats -> clips + stitch (generic: [scenario])
-│   └── character_sequence_wan.mjs # same, with Wan 2.1 i2v (outputs/<scenario>_wan/)
+│   └── character_sequence.mjs # ref + keyframe beats -> clips + stitch (generic: [scenario])
 ├── workflows/
 │   ├── flux-t2i.json          # Flux 2 Klein t2i base graph (cloned by builders)
 │   ├── ltx2_5_i2v.json        # LTX-2.5 i2v base graph (cloned by builders)
@@ -78,14 +54,13 @@ video-director-pipelines/
 Copy `.env.example` to `.env` and set your URL (`.env` is gitignored):
 
 ```bash
-COMFY_BASE="https://YOUR-COMFYUI-HOST:8188"
+COMFY_BASE="https://YOUR-APP.gradio.live"
 ```
 
 | Var | Default | Meaning |
 |-----|---------|---------|
-| `COMFY_BASE` | *(required, from `.env`)* | ComfyUI API base (host:port) |
-| `LLM_BASE` | *(optional, frontend Craft)* | local LLM base URL (llama-server, OpenAI-compatible) |
-| `WORKFLOWS_DIR` | `workflows/` (inside the repo) | where the base workflow JSONs live |
+| `COMFY_BASE` | *(required, from `.env`)* | ComfyUI API base (gradio.live proxy or host:port) |
+| `WORKFLOWS_DIR` | `workflows/` (inside video_test) | where the base workflow JSONs live |
 
 `lib/comfy.mjs` loads `.env` automatically (tiny built-in parser, no deps; real
 environment variables always win). No API keys needed. Node ≥ 18 (uses global

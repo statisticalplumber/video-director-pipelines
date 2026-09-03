@@ -7,6 +7,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { spawn } from "node:child_process";
+import { versionMap, setMain, nextVersion } from "../lib/sequence_state.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -76,14 +77,22 @@ const readJson = (req) => new Promise((res, rej) => {
 // ---------------------------------------------------------------- runs
 // One run = one spawned `node scripts/character_sequence{,_wan}.mjs <scenario>`.
 // engine: "ltx" (default) or "wan" — picks the i2v backend script.
+// opts.stitch   -> --stitch (re-stitch final from selected mains only)
+// opts.regen    -> --regen <ref|keyframe|clip> [beat] (regenerate one asset, keeps old versions)
 const runs = new Map(); // id -> { scenario, status, log, startedAt, proc, subs:Set<res> }
 
-function startRun(scenario, stitch = false, engine = "ltx") {
+function startRun(scenario, opts = {}) {
+  const { stitch = false, regen = null, engine = "ltx" } = opts;
   if ([...runs.values()].some((r) => r.status === "running"))
     throw new Error("another run is still active (ComfyUI queue is serial)");
   const script = engine === "wan" ? "scripts/character_sequence_wan.mjs" : "scripts/character_sequence.mjs";
+  const argv = [script, scenario];
+  if (stitch) argv.push("--stitch");
+  if (regen) {
+    argv.push("--regen", regen.kind, ...(regen.index ? [String(regen.index)] : []));
+  }
   const id = Date.now().toString(36);
-  const proc = spawn("node", [script, scenario, ...(stitch ? ["--stitch"] : [])], {
+  const proc = spawn("node", argv, {
     cwd: ROOT, env: process.env,
   });
   const run = { id, scenario, engine, status: "running", log: "", assets: [], startedAt: Date.now(), proc, subs: new Set() };
@@ -205,6 +214,39 @@ function serveOutput(res, scenario, file) {
   fs.createReadStream(p).pipe(res);
 }
 
+// ---------------------------------------------------------------- outputs (versions + mains)
+// Output dir name -> scenario config name (Wan runs use outputs/<scenario>_wan/).
+const cfgNameFor = (dirName) => (dirName.endsWith("_wan") ? dirName.slice(0, -4) : dirName);
+const prefixFor = (dirName) => (dirName.endsWith("_wan") ? `${cfgNameFor(dirName)}_wan` : dirName);
+
+/**
+ * List output files + versioned assets for a scenario output dir.
+ * versions: { ref: [{file,v}], beats: { n: { keyframe: [...], clip: [...] } } }
+ * mains:    { ref: file|null,    beats: { n: { keyframe: file|null, clip: file|null } } }
+ */
+function outputsPayload(name) {
+  const dir = path.join(OUTPUTS, name);
+  const files = fs.existsSync(dir)
+    ? fs.readdirSync(dir).filter((f) => !f.startsWith(".")).sort()
+    : [];
+  const versions = { ref: [], beats: {} };
+  const mains = { ref: null, beats: {} };
+  const cfgPath = path.join(PROMPTS, cfgNameFor(name) + ".json");
+  if (files.length && fs.existsSync(cfgPath)) {
+    const cfg = JSON.parse(fs.readFileSync(cfgPath, "utf8"));
+    if (cfg.referencePrompt && Array.isArray(cfg.sequence) && cfg.sequence.length) {
+      const vm = versionMap(dir, prefixFor(name), cfg.sequence);
+      mains.ref = vm.refMain;
+      for (const [n, b] of Object.entries(vm.beats)) {
+        versions.beats[n] = { keyframe: b.keyframe, clip: b.clip };
+        mains.beats[n] = { keyframe: b.keyframeMain, clip: b.clipMain };
+      }
+      versions.ref = vm.ref;
+    }
+  }
+  return { files, versions, mains };
+}
+
 // ---------------------------------------------------------------- router
 const server = http.createServer(async (req, res) => {
   const u = new URL(req.url, "http://x");
@@ -255,7 +297,11 @@ const server = http.createServer(async (req, res) => {
     }
     if (p === "/api/runs" && req.method === "POST") {
       const body = await readJson(req);
-      const run = startRun(body.scenario, body.stitch, body.engine);
+      const run = startRun(body.scenario, {
+        stitch: !!body.stitch,
+        engine: body.engine || "ltx",
+        regen: body.regen || null,
+      });
       return json(res, 200, { id: run.id });
     }
     if (p === "/api/runs" && req.method === "GET")
@@ -278,9 +324,43 @@ const server = http.createServer(async (req, res) => {
     if (p === "/api/outputs" && req.method === "GET") {
       const name = u.searchParams.get("scenario");
       if (!isSafe(name)) return json(res, 400, { error: "bad name" });
-      const dir = path.join(OUTPUTS, name);
-      if (!fs.existsSync(dir)) return json(res, 200, { files: [] });
-      return json(res, 200, { files: fs.readdirSync(dir).filter((f) => !f.startsWith(".")).sort() });
+      return json(res, 200, outputsPayload(name));
+    }
+    if (p === "/api/outputs/select" && req.method === "POST") {
+      const body = await readJson(req);
+      const { scenario, kind, index, file } = body;
+      if (!isSafe(scenario) || typeof file !== "string") return json(res, 400, { error: "bad body" });
+      const dir = path.join(OUTPUTS, scenario);
+      if (!fs.existsSync(dir)) return json(res, 404, { error: "no outputs" });
+      setMain(dir, prefixFor(scenario), kind, kind === "ref" ? 0 : index, null, file);
+      return json(res, 200, outputsPayload(scenario));
+    }
+    if (p === "/api/upload/ref" && req.method === "POST") {
+      // Upload an image as the scenario's reference (browse / drag-drop / clipboard).
+      // Stored as the next ref version in outputs/<scenario>/ and selected as main,
+      // so the pipeline skips Flux ref generation and uses the uploaded image.
+      const body = await readJson(req);
+      const scenario = String(body.scenario || "");
+      if (!isSafe(scenario)) return json(res, 400, { error: "bad scenario" });
+      if (typeof body.data !== "string") return json(res, 400, { error: "data (base64) required" });
+      const m = body.data.match(/^data:image\/\w+;base64,(.+)$/s);
+      if (!m) return json(res, 400, { error: "expected a data:image base64 payload" });
+      const buf = Buffer.from(m[1], "base64");
+      if (!buf.length) return json(res, 400, { error: "empty image" });
+      const outDir = path.join(OUTPUTS, scenario);
+      fs.mkdirSync(outDir, { recursive: true });
+      const prefix = prefixFor(scenario);
+      const v = nextVersion(outDir, prefix, "ref", 0, ".png");
+      const file = v === 1 ? `${prefix}_ref.png` : `${prefix}_ref_v${v}.png`;
+      fs.writeFileSync(path.join(outDir, file), buf);
+      setMain(outDir, prefix, "ref", 0, null, file);
+      return json(res, 200, outputsPayload(scenario));
+    }
+    if (p === "/api/outputs/stitch" && req.method === "POST") {
+      const body = await readJson(req);
+      if (!isSafe(body.scenario)) return json(res, 400, { error: "bad scenario" });
+      const run = startRun(body.scenario, { stitch: true, engine: body.engine || "ltx" });
+      return json(res, 200, { id: run.id });
     }
     if (p === "/api/craft" && req.method === "POST") {
       const body = await readJson(req);

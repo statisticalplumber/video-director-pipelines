@@ -1,0 +1,33 @@
+{
+  "description": "Epic mythological trailer: 1 reference key visual -> 5 keyframe story beats (Odysseus vs monsters) -> each keyframe drives a 4s LTX i2v clip -> stitched final 20s sequence.",
+  "character": "Odysseus, a battle-worn Greek warrior with a determined, intense expression, wearing detailed bronze armor and a dark red cloak, holding a bronze sword and shield, photorealistic Hollywood blockbuster style, ancient Greek world, cinematic lighting, 4K cinematic realism",
+  "referencePrompt": "Odysseus, a battle-worn Greek warrior with a determined, intense expression, wearing detailed bronze armor and a dark red cloak, holding a bronze sword and shield, photorealistic Hollywood blockbuster style, ancient Greek world, cinematic lighting, 4K cinematic realism, standing on the bow of a wooden warship amidst a stormy sea, dramatic clouds, volumetric mist, anamorphic lens, high contrast, epic scale",
+  "duration": 4,
+  "sequence": [
+    {
+      "title": "a_cyclops_cave",
+      "image": "Odysseus, a battle-worn Greek warrior with a determined, intense expression, wearing detailed bronze armor and a dark red cloak, holding a bronze sword and shield, photorealistic Hollywood blockbuster style, ancient Greek world, cinematic lighting, 4K cinematic realism, inside a gigantic torch-lit stone cave, an enormous one-eyed Cyclops emerges from darkness behind him, glowing eye, dust and rocks falling, fast camera push perspective, high contrast, dramatic shadows",
+      "motion": "Odysseus slowly raises his sword, the Cyclops roars shaking dust from the ceiling, camera pushes rapidly toward the glowing cyclops eye, Odysseus turns just before the attack, intense tension, 4 seconds, no cuts."
+    },
+    {
+      "title": "b_sirens_storm",
+      "image": "Odysseus, a battle-worn Greek warrior with a determined, intense expression, wearing detailed bronze armor and a dark red cloak, holding a bronze sword and shield, photorealistic Hollywood blockbuster style, ancient Greek world, cinematic lighting, 4K cinematic realism, tied tightly to the mast of a wooden warship during a violent sunset storm, supernatural Sirens rising from jagged rocks, faces transforming into predatory creatures, sailors covering ears, enormous waves crashing, dynamic low angle, orange and dark blue palette",
+      "motion": "Camera circles rapidly around Odysseus, Sirens sing and transform, waves crash over the deck, sailors struggle, Odysseus strains against the ropes, violent storm motion, 4 seconds, no cuts."
+    },
+    {
+      "title": "c_scylla_passage",
+      "image": "Odysseus, a battle-worn Greek warrior with a determined, intense expression, wearing detailed bronze armor and a dark red cloak, holding a bronze sword and shield, photorealistic Hollywood blockbuster style, ancient Greek world, cinematic lighting, 4K cinematic realism, in a narrow black ocean passage beneath towering cliffs, colossal multi-headed Scylla exploding from the water, serpentine necks snapping, mist, Odysseus leaping forward with shield raised, one head lunging toward camera, dark teal and black palette",
+      "motion": "Scylla erupts from the mist, serpentine necks thrash violently, Odysseus leaps forward raising his shield, one head lunges directly at the lens, chaotic water splashes, 4 seconds, no cuts."
+    },
+    {
+      "title": "d_charybdis_vortex",
+      "image": "Odysseus, a battle-worn Greek warrior with a determined, intense expression, wearing detailed bronze armor and a dark red cloak, holding a bronze sword and shield, photorealistic Hollywood blockbuster style, ancient Greek world, cinematic lighting, 4K cinematic realism, on a ship being swallowed by a gigantic ocean whirlpool, broken ships and barrels in the vortex, lightning illuminating the sea, Odysseus grabbing a rope screaming orders, wide aerial perspective diving toward the center, chaotic motion blur, blue and grey palette",
+      "motion": "The ship spins rapidly toward the whirlpool center, lightning flashes, waves crash violently, Odysseus grips the rope and shouts, camera dives rapidly from wide aerial to closer view of the spinning vessel, 4 seconds, no cuts."
+    },
+    {
+      "title": "e_poseidon_wrath",
+      "image": "Odysseus, a battle-worn Greek warrior with a determined, intense expression, wearing detailed bronze armor and a dark red cloak, holding a bronze sword and shield, photorealistic Hollywood blockbuster style, ancient Greek world, cinematic lighting, 4K cinematic realism, standing alone on the bow of a damaged ship during a massive midnight thunderstorm, a colossal ancient sea monster rising behind towering waves, glowing eyes visible through rain and lightning, Odysseus lifting his sword, dramatic backlighting, epic scale, dark blue and white palette",
+      "motion": "Rain falls heavily, lightning strikes behind Odysseus, the colossal monster rises from the waves, Odysseus slowly lifts his sword toward the creature, camera holds steady on the epic confrontation, 4 seconds, no cuts."
+    }
+  ]
+}

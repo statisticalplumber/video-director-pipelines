@@ -1,21 +1,31 @@
 import { useEffect, useRef, useState } from "react";
-import { startRun, killRun, tailRun, outScenario, type AssetEvent, type Engine } from "../api";
+import { startRun, killRun, tailRun, outScenario, type AssetEvent, type Engine, type RegenSpec } from "../api";
 import OutputGallery from "./OutputGallery";
 import { IconPlay, IconScissors, IconStop, IconTerminal, Spinner } from "./Icons";
+
+export type RunStatus = "idle" | "running" | "done" | "error";
 
 interface Props {
   scenario: string;
   engine: Engine;
   onEngine: (e: Engine) => void;
   onDone: () => void;
+  onStatus?: (s: RunStatus, scenario: string) => void;
+  // External run trigger (Stitch final / Regenerate from the output gallery).
+  pendingRun: { nonce: number; stitch?: boolean; regen?: RegenSpec | null } | null;
 }
 
 const STAGES = ["Reference", "Keyframes", "Clips", "Stitch"];
 
 // Start / stitch / stop a run + live log tail (SSE) + live asset gallery.
-export default function RunPanel({ scenario, engine, onEngine, onDone }: Props) {
+export default function RunPanel({ scenario, engine, onEngine, onDone, onStatus, pendingRun }: Props) {
   const [runId, setRunId] = useState<string | null>(null);
-  const [status, setStatus] = useState<"idle" | "running" | "done" | "error">("idle");
+  const [status, setStatus] = useState<RunStatus>("idle");
+  // Scenario this panel's run is generating (captured at start, so it stays
+  // correct even if the user switches scenarios mid-run).
+  const [runScenario, setRunScenario] = useState<string | null>(null);
+
+  useEffect(() => { onStatus?.(status, runScenario ?? scenario); }, [status, onStatus, runScenario, scenario]);
   const [log, setLog] = useState("");
   const [assets, setAssets] = useState<AssetEvent[]>([]);
   const closeTail = useRef<() => void>(() => {});
@@ -26,21 +36,33 @@ export default function RunPanel({ scenario, engine, onEngine, onDone }: Props) 
     boxRef.current?.scrollTo(0, boxRef.current.scrollHeight);
   }, [log]);
 
-  const begin = async (stitch: boolean) => {
+  const begin = async (stitch: boolean, regen: RegenSpec | null = null) => {
     if (!scenario) return;
-    const { id } = await startRun(scenario, stitch, engine);
-    setRunId(id);
-    setStatus("running");
-    setLog("");
-    setAssets([]);
-    closeTail.current();
-    closeTail.current = tailRun(
-      id,
-      (line) => setLog((l) => l + line),
-      (s) => { setStatus(s === "done" ? "done" : "error"); onDone(); },
-      (a) => setAssets((prev) => prev.some((x) => x.file === a.file) ? prev : [...prev, a])
-    );
+    try {
+      const { id } = await startRun(scenario, { stitch, regen, engine });
+      setRunId(id);
+      setRunScenario(scenario);
+      setStatus("running");
+      setLog("");
+      setAssets([]);
+      closeTail.current();
+      closeTail.current = tailRun(
+        id,
+        (line) => setLog((l) => l + line),
+        (s) => { setStatus(s === "done" ? "done" : "error"); onDone(); },
+        (a) => setAssets((prev) => prev.some((x) => x.file === a.file) ? prev : [...prev, a])
+      );
+    } catch (e) {
+      setStatus("error");
+      setLog(`run failed to start: ${e instanceof Error ? e.message : String(e)}\n`);
+    }
   };
+
+  // Runs triggered from the output gallery (stitch / regenerate).
+  useEffect(() => {
+    if (pendingRun) begin(!!pendingRun.stitch, pendingRun.regen || null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pendingRun?.nonce]);
 
   // Derive a coarse stage from the live asset stream.
   const stage =
@@ -55,7 +77,7 @@ export default function RunPanel({ scenario, engine, onEngine, onDone }: Props) 
     running: (
       <span className="pill running">
         <Spinner size={11} />
-        running
+        running{runScenario && runScenario !== scenario ? ` · ${runScenario}` : ""}
       </span>
     ),
     done: <span className="pill done">done</span>,

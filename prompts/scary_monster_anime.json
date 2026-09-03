@@ -1,0 +1,23 @@
+{
+  "description": "Horror anime sequence: 1 reference key visual -> 4 keyframe story beats (same character) -> each keyframe drives a 3s LTX i2v clip -> stitched final.",
+  "character": "a terrifying anime shapeshifter monster with jagged obsidian scales, glowing crimson vertical-slit eyes, elongated limbs with razor-sharp claws, wearing tattered black robes, dark horror anime style, cinematic lighting, highly detailed, gritty textures, ominous atmosphere",
+  "referencePrompt": "a terrifying anime shapeshifter monster with jagged obsidian scales, glowing crimson vertical-slit eyes, elongated limbs with razor-sharp claws, wearing tattered black robes, dark horror anime style, cinematic lighting, highly detailed, gritty textures, ominous atmosphere, emerging from a dense fog in a ruined forest, moonlight filtering through broken branches, low-angle shot, 16:9 key visual composition",
+  "duration": 3,
+  "sequence": [
+    {
+      "title": "a_emergence",
+      "image": "a terrifying anime shapeshifter monster with jagged obsidian scales, glowing crimson vertical-slit eyes, elongated limbs with razor-sharp claws, wearing tattered black robes, dark horror anime style, cinematic lighting, highly detailed, gritty textures, ominous atmosphere, rising slowly from the dark mist in a dead forest, its form partially obscured by swirling fog, red eyes piercing through the gloom, low angle, ominous",
+      "motion": "The monster rises slowly from the dense fog, its tattered robes billow as it stands, its head tilts slightly, and its crimson eyes glow brighter. The fog swirls around its feet. Dark horror anime style, 3 seconds, no cuts."
+    },
+    {
+      "title": "b_stalk",
+      "image": "a terrifying anime shapeshifter monster with jagged obsidian scales, glowing crimson vertical-slit eyes, elongated limbs with razor-sharp claws, wearing tattered black robes, dark horror anime style, cinematic lighting, highly detailed, gritty textures, ominous atmosphere, crouched low in the shadows of a crumbling stone wall, long claws dragging on the wet ground, intense focus, dim moonlight, high contrast",
+      "motion": "It crouches in the shadows, its claws drag slightly on the wet stone, creating faint screeches, its head snaps toward the camera, eyes narrowing. The camera pushes in slowly. Dark horror anime style, tense, 3 seconds, no cuts."
+    },
+    {
+      "title": "d_vanish",
+      "image": "a terrifying anime shapeshifter monster with jagged obsidian scales, glowing crimson vertical-slit eyes, elongated limbs with razor-sharp claws, wearing tattered black robes, dark horror anime style, cinematic lighting, highly detailed, gritty textures, ominous atmosphere, standing motionless in the center of a moonlit clearing, back to the camera, facing a full blood moon, its form beginning to dissolve into black smoke, eerie silence, wide shot",
+      "motion": "It stands still, then its body begins to dissolve into swirling black smoke, the smoke drifts upward into the night sky, leaving only a faint red glow that fades out. The camera holds steady. Dark horror anime style, eerie, 3 seconds, no cuts."
+    }
+  ]
+}

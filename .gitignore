@@ -1,6 +1,5 @@
 .env
-outputs/*
-!outputs/.gitkeep
+outputs/
 workflows/merged_pipeline.json
 node_modules/
-frontend/server.log
+*.log

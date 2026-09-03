@@ -1,49 +1,51 @@
 /* ============================================================
    Sequence Studio — design system
+   Palette mirrors the Furian Try-On Studio app:
+   emerald accent, gray-950/gray-900 dark surfaces, #F8F9FA light bg
    ============================================================ */
 :root {
-  /* palette */
-  --bg: #0b0d12;
-  --bg-raise: #10141c;
-  --surface: #141824;
-  --surface-2: #1a2030;
-  --inset: #0d1017;
-  --line: #222939;
-  --line-2: #2f3749;
-  --text: #e8ebf2;
-  --text-2: #9aa3b5;
-  --text-3: #5f6980;
-  --accent: #5b8cff;
-  --accent-2: #7ba3ff;
-  --accent-soft: rgba(91, 140, 255, 0.13);
-  --accent-line: rgba(91, 140, 255, 0.35);
-  --ok: #3ecf8e;
-  --ok-soft: rgba(62, 207, 142, 0.12);
-  --warn: #f5b942;
-  --warn-soft: rgba(245, 185, 66, 0.12);
-  --err: #f0564f;
-  --err-soft: rgba(240, 86, 79, 0.12);
+  /* palette — dark (default) */
+  --bg: #030712;                          /* gray-950 */
+  --bg-raise: #0a101d;
+  --surface: #111827;                     /* gray-900 */
+  --surface-2: #1f2937;                   /* gray-800 */
+  --inset: #0b111e;
+  --line: rgba(255, 255, 255, 0.10);      /* white/10 */
+  --line-2: rgba(255, 255, 255, 0.16);
+  --text: #f3f4f6;                        /* gray-100 */
+  --text-2: #d1d5db;                      /* gray-300 */
+  --text-3: #9ca3af;                      /* gray-400 */
+  --accent: #10b981;                      /* emerald-500 */
+  --accent-2: #34d399;                    /* emerald-400 */
+  --accent-soft: rgba(16, 185, 129, 0.10); /* emerald-500/10 */
+  --accent-line: rgba(16, 185, 129, 0.35);
+  --ok: #34d399;
+  --ok-soft: rgba(52, 211, 153, 0.12);
+  --warn: #fbbf24;
+  --warn-soft: rgba(251, 191, 36, 0.12);
+  --err: #f87171;                         /* red-400 */
+  --err-soft: rgba(248, 113, 113, 0.10);
 
   /* component-level tokens */
-  --topbar-bg: rgba(11, 13, 18, 0.82);
-  --btn-hover-bg: #202739;
-  --btn-hover-line: #39415a;
-  --input-focus-bg: #0e1219;
-  --scrollbar: #2c3446;
-  --scrollbar-hover: #3a4560;
-  --log-bg: var(--inset);
+  --topbar-bg: rgba(3, 7, 18, 0.80);      /* gray-950/80 */
+  --btn-hover-bg: #273244;
+  --btn-hover-line: rgba(255, 255, 255, 0.22);
+  --input-focus-bg: #0d1523;
+  --scrollbar: #374151;
+  --scrollbar-hover: #4b5563;
+  --log-bg: #060b14;
   --log-color: #b9c2d4;
-  --glow-1: rgba(91, 140, 255, 0.16);
-  --glow-2: rgba(138, 99, 240, 0.14);
-  --glow-3: rgba(62, 207, 142, 0.06);
-  --card-glass: rgba(20, 24, 36, 0.75);
+  --glow-1: rgba(16, 185, 129, 0.14);
+  --glow-2: rgba(16, 185, 129, 0.08);
+  --glow-3: rgba(52, 211, 153, 0.05);
+  --card-glass: rgba(17, 24, 39, 0.78);
 
   /* geometry */
-  --radius-s: 6px;
-  --radius-m: 10px;
-  --radius-l: 14px;
-  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.35);
-  --shadow-2: 0 4px 16px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --radius-s: 8px;
+  --radius-m: 14px;
+  --radius-l: 16px;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.40);
+  --shadow-2: 0 8px 24px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.35);
 
   /* type */
   --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -56,48 +58,48 @@
 
 /* light theme — override on <html data-theme="light"> */
 :root[data-theme="light"] {
-  --bg: #f4f6fb;
+  --bg: #f8f9fa;
   --bg-raise: #ffffff;
   --surface: #ffffff;
-  --surface-2: #eef1f7;
-  --inset: #f7f9fc;
-  --line: #dfe4ee;
-  --line-2: #c9d1e0;
-  --text: #1a2030;
-  --text-2: #4d5669;
-  --text-3: #7d879c;
-  --accent: #3d6ef0;
-  --accent-2: #2f5fd8;
-  --accent-soft: rgba(61, 110, 240, 0.10);
-  --accent-line: rgba(61, 110, 240, 0.32);
-  --ok: #178a5b;
-  --ok-soft: rgba(23, 138, 91, 0.10);
-  --warn: #b07a10;
-  --warn-soft: rgba(245, 185, 66, 0.16);
-  --err: #d63b34;
-  --err-soft: rgba(214, 59, 52, 0.09);
+  --surface-2: #f3f4f6;                   /* gray-100 */
+  --inset: #ffffff;
+  --line: rgba(0, 0, 0, 0.05);            /* black/5 */
+  --line-2: rgba(0, 0, 0, 0.12);
+  --text: #1a1a1a;
+  --text-2: #4b5563;                      /* gray-600 */
+  --text-3: #9ca3af;                      /* gray-400 */
+  --accent: #10b981;                      /* emerald-500 */
+  --accent-2: #059669;                    /* emerald-600 */
+  --accent-soft: rgba(16, 185, 129, 0.10); /* emerald-50 */
+  --accent-line: rgba(16, 185, 129, 0.40);
+  --ok: #059669;
+  --ok-soft: rgba(16, 185, 129, 0.10);
+  --warn: #b45309;
+  --warn-soft: rgba(251, 191, 36, 0.16);
+  --err: #dc2626;                         /* red-600 */
+  --err-soft: rgba(220, 38, 38, 0.08);
 
-  --shadow-1: 0 1px 2px rgba(23, 30, 51, 0.07);
-  --shadow-2: 0 6px 20px rgba(23, 30, 51, 0.10), 0 1px 3px rgba(23, 30, 51, 0.08);
+  --shadow-1: 0 1px 2px rgba(23, 30, 51, 0.06);
+  --shadow-2: 0 8px 24px rgba(23, 30, 51, 0.10), 0 1px 3px rgba(23, 30, 51, 0.07);
 
-  --topbar-bg: rgba(255, 255, 255, 0.82);
-  --btn-hover-bg: #e4e9f2;
-  --btn-hover-line: #b9c3d6;
+  --topbar-bg: rgba(255, 255, 255, 0.80); /* white/80 */
+  --btn-hover-bg: #e5e7eb;
+  --btn-hover-line: #c9ced8;
   --input-focus-bg: #ffffff;
   --scrollbar: #c3cbdb;
   --scrollbar-hover: #a8b3c9;
-  --log-bg: #141824;
+  --log-bg: #111827;
   --log-color: #b9c2d4;
-  --glow-1: rgba(61, 110, 240, 0.13);
-  --glow-2: rgba(138, 99, 240, 0.11);
-  --glow-3: rgba(23, 138, 91, 0.07);
+  --glow-1: rgba(16, 185, 129, 0.10);
+  --glow-2: rgba(16, 185, 129, 0.06);
+  --glow-3: rgba(5, 150, 105, 0.05);
   --card-glass: rgba(255, 255, 255, 0.82);
 
   color-scheme: light;
 }
 :root[data-theme="light"] body {
   background:
-    radial-gradient(1200px 500px at 50% -10%, rgba(61, 110, 240, 0.05), transparent 70%),
+    radial-gradient(1200px 500px at 50% -10%, rgba(16, 185, 129, 0.05), transparent 70%),
     var(--bg);
 }
 
@@ -139,10 +141,11 @@ body {
 }
 .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .brand-mark {
-  width: 30px; height: 30px; border-radius: 8px; flex: none;
+  width: 30px; height: 30px; border-radius: 9px; flex: none;
   display: grid; place-items: center;
-  background: linear-gradient(135deg, #5b8cff 0%, #8a63f0 100%);
-  color: #fff; box-shadow: 0 2px 8px rgba(91, 140, 255, 0.35);
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
 }
 .brand-name { font-size: 14.5px; font-weight: 650; letter-spacing: -0.01em; white-space: nowrap; }
 .brand-sub {
@@ -172,9 +175,6 @@ body {
   border: 1px solid var(--line);
   border-radius: var(--radius-l);
   padding: 16px;
-  box-shadow: var(--shadow-1);
-}
-:root[data-theme="light"] .card {
   box-shadow: var(--shadow-1);
 }
 .card + .card { margin-top: 0; }
@@ -226,7 +226,7 @@ input:disabled, select:disabled, textarea:disabled { opacity: 0.5; }
 textarea { resize: vertical; min-height: 40px; }
 select {
   appearance: none; -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239aa3b5' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
   padding-right: 30px;
@@ -250,23 +250,23 @@ button:active { transform: translateY(1px); }
 button:disabled { opacity: 0.45; cursor: default; transform: none; }
 button:disabled:hover { background: var(--surface-2); border-color: var(--line-2); }
 button.primary {
-  background: linear-gradient(180deg, #6495ff 0%, #4d7df0 100%);
-  border-color: #3f6fd8;
+  background: var(--accent);
+  border-color: transparent;
   color: #fff;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 1px 3px rgba(0, 0, 0, 0.35);
 }
-button.primary:hover { background: linear-gradient(180deg, #6f9fff 0%, #5585f2 100%); border-color: #4a7ae0; }
+button.primary:hover { background: #059669; border-color: transparent; }
 :root[data-theme="light"] button.primary {
-  background: linear-gradient(180deg, #4d82ff 0%, #3568e8 100%);
-  border-color: #2f5fd8;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.18) inset, 0 1px 3px rgba(47, 95, 216, 0.35);
+  background: var(--accent);
+  border-color: transparent;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.18) inset, 0 1px 3px rgba(5, 150, 105, 0.35);
 }
 :root[data-theme="light"] button.primary:hover {
-  background: linear-gradient(180deg, #5b8dff 0%, #4070f0 100%);
-  border-color: #3568e8;
+  background: #059669;
+  border-color: transparent;
 }
-button.danger { background: var(--err-soft); border-color: rgba(240, 86, 79, 0.4); color: var(--err); }
-button.danger:hover { background: rgba(240, 86, 79, 0.2); border-color: rgba(240, 86, 79, 0.55); }
+button.danger { background: var(--err-soft); border-color: rgba(248, 113, 113, 0.4); color: var(--err); }
+button.danger:hover { background: rgba(248, 113, 113, 0.2); border-color: rgba(248, 113, 113, 0.55); }
 button.ghost { background: transparent; border-color: var(--line-2); color: var(--text-2); }
 button.ghost:hover { color: var(--text); background: var(--surface-2); }
 button.icon-btn {
@@ -284,11 +284,11 @@ button.icon-btn.danger:hover { color: var(--err); background: var(--err-soft); }
   display: inline-flex; gap: 2px; padding: 3px;
   background: var(--inset);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 9px;
 }
 .seg button {
   background: transparent; border: 0; color: var(--text-2);
-  border-radius: 5px; padding: 5px 13px;
+  border-radius: 6px; padding: 5px 13px;
   font-size: 12.5px; font-weight: 600;
 }
 .seg button:hover { background: transparent; color: var(--text); }
@@ -307,10 +307,10 @@ button.icon-btn.danger:hover { color: var(--err); background: var(--err-soft); }
   border: 1px solid var(--line);
   white-space: nowrap;
 }
-.pill.ok, .pill.done { background: var(--ok-soft); color: var(--ok); border-color: rgba(62, 207, 142, 0.3); }
-.pill.err, .pill.error { background: var(--err-soft); color: var(--err); border-color: rgba(240, 86, 79, 0.3); }
+.pill.ok, .pill.done { background: var(--ok-soft); color: var(--ok); border-color: rgba(52, 211, 153, 0.3); }
+.pill.err, .pill.error { background: var(--err-soft); color: var(--err); border-color: rgba(248, 113, 113, 0.3); }
 .pill.running { background: var(--accent-soft); color: var(--accent-2); border-color: var(--accent-line); }
-.pill.warn { background: var(--warn-soft); color: var(--warn); border-color: rgba(245, 185, 66, 0.3); }
+.pill.warn { background: var(--warn-soft); color: var(--warn); border-color: rgba(251, 191, 36, 0.3); }
 
 .dot {
   width: 7px; height: 7px; border-radius: 50%;
@@ -447,6 +447,80 @@ button.icon-btn.danger:hover { color: var(--err); background: var(--err-soft); }
 .shot video { margin-top: 0; }
 .shot .video-frame, .shot .img-frame { aspect-ratio: 16 / 9; }
 .shot .img-frame img { object-fit: cover; height: 100%; }
+.frame-missing {
+  width: 100%; height: 100%;
+  display: grid; place-items: center;
+  font-size: 11.5px; color: var(--text-3);
+  background: var(--inset);
+}
+
+/* version chips + regen */
+.versions {
+  display: flex; align-items: center; gap: 5px; flex-wrap: wrap;
+  min-height: 22px;
+}
+.vchip {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 8px;
+  font: 600 11px/1.4 var(--mono);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: background 0.1s, border-color 0.1s, color 0.1s;
+}
+.vchip:hover { background: var(--btn-hover-bg); border-color: var(--btn-hover-line); color: var(--text); }
+.vchip.on {
+  background: var(--accent-soft);
+  border-color: var(--accent-line);
+  color: var(--accent-2);
+}
+.vchip.regen { color: var(--text-3); }
+.vchip.regen:hover { color: var(--accent-2); border-color: var(--accent-line); background: var(--accent-soft); }
+/* "generating" indicator chip (blinking dot) — not clickable */
+.vchip.gen {
+  cursor: default;
+  background: var(--accent-soft);
+  border-color: var(--accent-line);
+  color: var(--accent-2);
+}
+.vchip.gen .dot { width: 6px; height: 6px; }
+/* inline flag for section labels (e.g. "stitching" next to Final cut) */
+.gen-flag {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-left: 8px;
+  font-size: 11px; font-weight: 600;
+  color: var(--accent-2);
+  text-transform: none; letter-spacing: 0.01em;
+}
+.gen-flag .dot { width: 6px; height: 6px; }
+
+/* reference source toggle (Generate / Upload) */
+.seg.ref-mode { margin-bottom: 10px; }
+
+/* reference upload zone (browse / drag-drop / paste) */
+.upload-zone {
+  position: relative;
+  border-radius: var(--radius-m);
+  border: 1.5px dashed var(--line-2);
+  background: var(--inset);
+  overflow: hidden;
+  transition: border-color 0.12s, background 0.12s;
+}
+.upload-zone.over { border-color: var(--accent); background: var(--accent-soft); }
+.upload-zone.busy { opacity: 0.7; pointer-events: none; }
+.upload-zone img {
+  width: 100%; display: block;
+  min-height: 120px; object-fit: cover;
+}
+.upload-actions {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  padding: 8px 10px;
+  border-top: 1px solid var(--line);
+  background: var(--surface-2);
+}
+.upload-hint { font-size: 11.5px; margin-left: auto; }
 
 /* empty states */
 .empty {
@@ -474,7 +548,7 @@ button.icon-btn.danger:hover { color: var(--err); background: var(--err-soft); }
 }
 .progress-fill {
   height: 100%; border-radius: 99px;
-  background: linear-gradient(90deg, var(--accent) 0%, #8a63f0 100%);
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
   transition: width 0.4s ease;
 }
 .progress-meta { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--text-3); }
@@ -519,7 +593,7 @@ button.icon-btn.danger:hover { color: var(--err); background: var(--err-soft); }
   border: 1px solid var(--line-2);
   border-radius: 18px;
   padding: 34px 32px 28px;
-  box-shadow: var(--shadow-2), 0 0 0 1px rgba(91, 140, 255, 0.05);
+  box-shadow: var(--shadow-2), 0 0 0 1px rgba(16, 185, 129, 0.05);
   animation: login-in 0.35s cubic-bezier(0.21, 1.02, 0.73, 1);
 }
 @keyframes login-in {
@@ -577,7 +651,7 @@ button.icon-btn.danger:hover { color: var(--err); background: var(--err-soft); }
   padding: 9px 12px;
   border-radius: var(--radius-s);
   background: var(--err-soft);
-  border: 1px solid rgba(240, 86, 79, 0.35);
+  border: 1px solid rgba(248, 113, 113, 0.35);
   color: var(--err);
   font-size: 12.5px; font-weight: 550;
 }
@@ -633,7 +707,7 @@ button.icon-btn.danger:hover { color: var(--err); background: var(--err-soft); }
   width: 22px; height: 22px; border-radius: 50%; flex: none;
   display: grid; place-items: center;
   font: 700 11px var(--font);
-  background: linear-gradient(135deg, #5b8cff 0%, #8a63f0 100%);
+  background: var(--accent);
   color: #fff;
 }
 .user-name {

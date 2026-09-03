@@ -39,6 +39,21 @@ export const IconScissors = (p: P) => (
   </svg>
 );
 
+export const IconUpload = (p: P) => (
+  <svg {...base(p)}>
+    <path d="M12 16V4m0 0L8 8m4-4 4 4" />
+    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+  </svg>
+);
+
+export const IconClipboard = (p: P) => (
+  <svg {...base(p)}>
+    <rect x="6" y="4" width="12" height="16" rx="2" />
+    <path d="M9 4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1H9z" />
+    <path d="M9 12h6M9 16h4" />
+  </svg>
+);
+
 export const IconSparkles = (p: P) => (
   <svg {...base(p)}>
     <path d="M12 3l1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3L12 3z" />
@@ -101,6 +116,13 @@ export const IconX = (p: P) => (
 export const IconCheck = (p: P) => (
   <svg {...base(p)}>
     <path d="M20 6 9 17l-5-5" />
+  </svg>
+);
+
+export const IconRefresh = (p: P) => (
+  <svg {...base(p)}>
+    <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+    <path d="M21 3v6h-6" />
   </svg>
 );
 

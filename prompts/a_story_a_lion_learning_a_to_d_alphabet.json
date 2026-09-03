@@ -1,0 +1,33 @@
+{
+  "description": "Cute 3D animated sequence: A lion cub learns the first four letters of the alphabet (A, B, C, D) in a playful, educational setting. Each beat focuses on one letter with a corresponding visual cue.",
+  "character": "a cute 3D animated lion cub with fluffy golden fur, big expressive amber eyes, wearing a small red letter 'A' on his chest, Pixar-style rendering, soft studio lighting, highly detailed, adorable expression",
+  "referencePrompt": "a cute 3D animated lion cub with fluffy golden fur, big expressive amber eyes, wearing a small red letter 'A' on his chest, Pixar-style rendering, soft studio lighting, highly detailed, adorable expression, sitting in a bright, colorful classroom filled with alphabet blocks, warm inviting atmosphere, 16:9 key visual composition",
+  "duration": 2,
+  "sequence": [
+    {
+      "title": "letter_a_apple",
+      "image": "a cute 3D animated lion cub with fluffy golden fur, big expressive amber eyes, wearing a small red letter 'A' on his chest, Pixar-style rendering, soft studio lighting, highly detailed, adorable expression, sitting next to a giant red Apple, looking at it with curiosity, bright green background, soft focus, educational cartoon style",
+      "motion": "The lion cub tilts his head curiously at the apple, his tail wags gently, soft light pulses around the apple. Smooth 3D animation, 2 seconds, no cuts."
+    },
+    {
+      "title": "letter_b_ball",
+      "image": "a cute 3D animated lion cub with fluffy golden fur, big expressive amber eyes, wearing a small red letter 'A' on his chest, Pixar-style rendering, soft studio lighting, highly detailed, adorable expression, sitting next to a colorful blue and yellow Ball, paws resting on it, cheerful blue background, vibrant colors, educational cartoon style",
+      "motion": "The lion cub bounces the ball slightly with his paw, his eyes widen with joy, the ball spins slowly. Playful 3D animation, 2 seconds, no cuts."
+    },
+    {
+      "title": "letter_c_cloud",
+      "image": "a cute 3D animated lion cub with fluffy golden fur, big expressive amber eyes, wearing a small red letter 'A' on his chest, Pixar-style rendering, soft studio lighting, highly detailed, adorable expression, sitting under a soft white Cloud floating above him, dreamy sky-blue background, gentle lighting, educational cartoon style",
+      "motion": "The lion cub reaches up toward the cloud, his fur ripples softly as if in a gentle breeze, the cloud floats slowly upward. Dreamy 3D animation, 2 seconds, no cuts."
+    },
+    {
+      "title": "letter_d_drum",
+      "image": "a cute 3D animated lion cub with fluffy golden fur, big expressive amber eyes, wearing a small red letter 'A' on his chest, Pixar-style rendering, soft studio lighting, highly detailed, adorable expression, sitting behind a red Drum, holding drumsticks, festive red background, energetic pose, educational cartoon style",
+      "motion": "The lion cub taps the drum rhythmically, his ears perk up with excitement, the drum vibrates slightly. Energetic 3D animation, 2 seconds, no cuts."
+    },
+    {
+      "title": "beat5",
+      "image": "a cute 3D animated lion cub with fluffy golden fur, big expressive amber eyes, wearing a small red letter 'A' on his chest, Pixar-style rendering, soft studio lighting, highly detailed, adorable expression, sitting behind a Elephant, energetic pose, educational cartoon style",
+      "motion": "a cute 3D animated lion cub with fluffy golden fur, big expressive amber eyes, wearing a small red letter 'A' on his chest, Pixar-style rendering, soft studio lighting, highly detailed, adorable expression, sitting behind a Elephant, energetic pose, educational cartoon style"
+    }
+  ]
+}
