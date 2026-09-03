@@ -4,8 +4,10 @@
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
+import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { spawn } from "node:child_process";
+import { versionMap, setMain } from "../lib/sequence_state.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -25,6 +27,41 @@ const DIST = path.join(__dirname, "dist");
 const PORT = Number(process.env.PORT || 8790);
 const LLM_BASE = (process.env.LLM_BASE || "https://furian-1.tailb2c0b0.ts.net").replace(/\/+$/, "");
 
+// ---------------------------------------------------------------- auth
+// Single-user login. Credentials come from env (video_test/.env or real env);
+// defaults are admin / admin — override for anything non-local.
+const AUTH_USER = process.env.LOGIN_USER || "admin";
+const AUTH_PASS = process.env.LOGIN_PASS || "admin";
+const SESSION_TTL_MS = 12 * 60 * 60 * 1000; // 12h
+const COOKIE_NAME = "ss_session";
+
+const sessions = new Map(); // token -> { user, exp }
+function pruneSessions() {
+  const now = Date.now();
+  for (const [t, s] of sessions) if (s.exp <= now) sessions.delete(t);
+}
+function cookieValue(req) {
+  const raw = req.headers.cookie || "";
+  for (const part of raw.split(";")) {
+    const [k, ...v] = part.trim().split("=");
+    if (k === COOKIE_NAME) return decodeURIComponent(v.join("="));
+  }
+  return null;
+}
+function authedUser(req) {
+  const token = cookieValue(req);
+  if (!token) return null;
+  const s = sessions.get(token);
+  if (!s || s.exp <= Date.now()) { sessions.delete(token); return null; }
+  return s.user;
+}
+function sessionCookie(token, maxAgeSec) {
+  const attrs = [`${COOKIE_NAME}=${token}`, "HttpOnly", "SameSite=Lax", "Path=/"];
+  if (maxAgeSec != null) attrs.push(`Max-Age=${maxAgeSec}`);
+  else attrs.push("Expires=Thu, 01 Jan 1970 00:00:00 GMT");
+  return attrs.join("; ");
+}
+
 // ---------------------------------------------------------------- helpers
 const isSafe = (name) => !name.includes("..") && !name.includes("/") && !name.includes("\\");
 const json = (res, code, data) => {
@@ -40,14 +77,22 @@ const readJson = (req) => new Promise((res, rej) => {
 // ---------------------------------------------------------------- runs
 // One run = one spawned `node scripts/character_sequence{,_wan}.mjs <scenario>`.
 // engine: "ltx" (default) or "wan" — picks the i2v backend script.
+// opts.stitch   -> --stitch (re-stitch final from selected mains only)
+// opts.regen    -> --regen <ref|keyframe|clip> [beat] (regenerate one asset, keeps old versions)
 const runs = new Map(); // id -> { scenario, status, log, startedAt, proc, subs:Set<res> }
 
-function startRun(scenario, stitch = false, engine = "ltx") {
+function startRun(scenario, opts = {}) {
+  const { stitch = false, regen = null, engine = "ltx" } = opts;
   if ([...runs.values()].some((r) => r.status === "running"))
     throw new Error("another run is still active (ComfyUI queue is serial)");
   const script = engine === "wan" ? "scripts/character_sequence_wan.mjs" : "scripts/character_sequence.mjs";
+  const argv = [script, scenario];
+  if (stitch) argv.push("--stitch");
+  if (regen) {
+    argv.push("--regen", regen.kind, ...(regen.index ? [String(regen.index)] : []));
+  }
   const id = Date.now().toString(36);
-  const proc = spawn("node", [script, scenario, ...(stitch ? ["--stitch"] : [])], {
+  const proc = spawn("node", argv, {
     cwd: ROOT, env: process.env,
   });
   const run = { id, scenario, engine, status: "running", log: "", assets: [], startedAt: Date.now(), proc, subs: new Set() };
@@ -169,11 +214,69 @@ function serveOutput(res, scenario, file) {
   fs.createReadStream(p).pipe(res);
 }
 
+// ---------------------------------------------------------------- outputs (versions + mains)
+// Output dir name -> scenario config name (Wan runs use outputs/<scenario>_wan/).
+const cfgNameFor = (dirName) => (dirName.endsWith("_wan") ? dirName.slice(0, -4) : dirName);
+const prefixFor = (dirName) => (dirName.endsWith("_wan") ? `${cfgNameFor(dirName)}_wan` : dirName);
+
+/**
+ * List output files + versioned assets for a scenario output dir.
+ * versions: { ref: [{file,v}], beats: { n: { keyframe: [...], clip: [...] } } }
+ * mains:    { ref: file|null,    beats: { n: { keyframe: file|null, clip: file|null } } }
+ */
+function outputsPayload(name) {
+  const dir = path.join(OUTPUTS, name);
+  const files = fs.existsSync(dir)
+    ? fs.readdirSync(dir).filter((f) => !f.startsWith(".")).sort()
+    : [];
+  const versions = { ref: [], beats: {} };
+  const mains = { ref: null, beats: {} };
+  const cfgPath = path.join(PROMPTS, cfgNameFor(name) + ".json");
+  if (files.length && fs.existsSync(cfgPath)) {
+    const cfg = JSON.parse(fs.readFileSync(cfgPath, "utf8"));
+    if (cfg.referencePrompt && Array.isArray(cfg.sequence) && cfg.sequence.length) {
+      const vm = versionMap(dir, prefixFor(name), cfg.sequence);
+      mains.ref = vm.refMain;
+      for (const [n, b] of Object.entries(vm.beats)) {
+        versions.beats[n] = { keyframe: b.keyframe, clip: b.clip };
+        mains.beats[n] = { keyframe: b.keyframeMain, clip: b.clipMain };
+      }
+      versions.ref = vm.ref;
+    }
+  }
+  return { files, versions, mains };
+}
+
 // ---------------------------------------------------------------- router
 const server = http.createServer(async (req, res) => {
   const u = new URL(req.url, "http://x");
   const p = u.pathname;
   try {
+    if (p === "/api/login" && req.method === "POST") {
+      const body = await readJson(req);
+      const ok = String(body.username || "") === AUTH_USER && String(body.password || "") === AUTH_PASS;
+      if (!ok) return json(res, 401, { error: "invalid credentials" });
+      pruneSessions();
+      const token = crypto.randomBytes(32).toString("hex");
+      sessions.set(token, { user: AUTH_USER, exp: Date.now() + SESSION_TTL_MS });
+      res.setHeader("Set-Cookie", sessionCookie(token, Math.floor(SESSION_TTL_MS / 1000)));
+      return json(res, 200, { user: AUTH_USER });
+    }
+    if (p === "/api/logout" && req.method === "POST") {
+      const token = cookieValue(req);
+      if (token) sessions.delete(token);
+      res.setHeader("Set-Cookie", sessionCookie("", 0));
+      return json(res, 200, { ok: true });
+    }
+    if (p === "/api/me" && req.method === "GET") {
+      const user = authedUser(req);
+      return user ? json(res, 200, { user }) : json(res, 401, { error: "unauthorized" });
+    }
+
+    // Everything below (API + generated outputs) requires a session.
+    if ((p.startsWith("/api/") || p.startsWith("/outputs/")) && !authedUser(req))
+      return json(res, 401, { error: "unauthorized" });
+
     if (p === "/api/scenarios" && req.method === "GET")
       return json(res, 200, fs.readdirSync(PROMPTS).filter((f) => f.endsWith(".json")).map((f) => {
         const c = JSON.parse(fs.readFileSync(path.join(PROMPTS, f), "utf8"));
@@ -194,7 +297,11 @@ const server = http.createServer(async (req, res) => {
     }
     if (p === "/api/runs" && req.method === "POST") {
       const body = await readJson(req);
-      const run = startRun(body.scenario, body.stitch, body.engine);
+      const run = startRun(body.scenario, {
+        stitch: !!body.stitch,
+        engine: body.engine || "ltx",
+        regen: body.regen || null,
+      });
       return json(res, 200, { id: run.id });
     }
     if (p === "/api/runs" && req.method === "GET")
@@ -217,9 +324,22 @@ const server = http.createServer(async (req, res) => {
     if (p === "/api/outputs" && req.method === "GET") {
       const name = u.searchParams.get("scenario");
       if (!isSafe(name)) return json(res, 400, { error: "bad name" });
-      const dir = path.join(OUTPUTS, name);
-      if (!fs.existsSync(dir)) return json(res, 200, { files: [] });
-      return json(res, 200, { files: fs.readdirSync(dir).filter((f) => !f.startsWith(".")).sort() });
+      return json(res, 200, outputsPayload(name));
+    }
+    if (p === "/api/outputs/select" && req.method === "POST") {
+      const body = await readJson(req);
+      const { scenario, kind, index, file } = body;
+      if (!isSafe(scenario) || typeof file !== "string") return json(res, 400, { error: "bad body" });
+      const dir = path.join(OUTPUTS, scenario);
+      if (!fs.existsSync(dir)) return json(res, 404, { error: "no outputs" });
+      setMain(dir, prefixFor(scenario), kind, kind === "ref" ? 0 : index, null, file);
+      return json(res, 200, outputsPayload(scenario));
+    }
+    if (p === "/api/outputs/stitch" && req.method === "POST") {
+      const body = await readJson(req);
+      if (!isSafe(body.scenario)) return json(res, 400, { error: "bad scenario" });
+      const run = startRun(body.scenario, { stitch: true, engine: body.engine || "ltx" });
+      return json(res, 200, { id: run.id });
     }
     if (p === "/api/craft" && req.method === "POST") {
       const body = await readJson(req);
