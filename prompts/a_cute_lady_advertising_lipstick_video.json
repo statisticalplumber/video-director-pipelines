@@ -1,0 +1,28 @@
+{
+  "description": "Cinematic vertical lipstick advertisement: 1 reference key visual -> 4 keyframe story beats (same character) -> each keyframe drives a 3s LTX i2v clip -> stitched final.",
+  "character": "a stunning 25-year-old female model with flawless porcelain skin, long wavy auburn hair, bold red lips, wearing a sleek black minimalist dress, high-fashion beauty photography, cinematic lighting, highly detailed, sharp focus, vibrant colors",
+  "referencePrompt": "a stunning 25-year-old female model with flawless porcelain skin, long wavy auburn hair, bold red lips, wearing a sleek black minimalist dress, high-fashion beauty photography, cinematic lighting, highly detailed, sharp focus, vibrant colors, holding a luxury gold-cased lipstick close to her lips, studio background with soft rim lighting, macro depth of field, 9:16 vertical composition",
+  "duration": 3,
+  "sequence": [
+    {
+      "title": "a_reveal",
+      "image": "a stunning 25-year-old female model with flawless porcelain skin, long wavy auburn hair, bold red lips, wearing a sleek black minimalist dress, high-fashion beauty photography, cinematic lighting, highly detailed, sharp focus, vibrant colors, close-up shot, she holds the gold lipstick near her mouth, eyes looking directly at camera, soft studio glow, luxurious atmosphere, 9:16 vertical",
+      "motion": "Slowly brings the lipstick cap to her lips, tilts head slightly, eyes blink naturally. Soft studio lighting remains constant. High-fashion beauty style, 3 seconds, no cuts."
+    },
+    {
+      "title": "b_application",
+      "image": "a stunning 25-year-old female model with flawless porcelain skin, long wavy auburn hair, bold red lips, wearing a sleek black minimalist dress, high-fashion beauty photography, cinematic lighting, highly detailed, sharp focus, vibrant colors, extreme close-up on lips and hand, applying the red lipstick with precision, glossy finish, shallow depth of field, 9:16 vertical",
+      "motion": "Hand moves smoothly applying the lipstick to the lower lip, subtle gloss reflects the light. Camera remains static on the face. Crisp macro detail, 3 seconds, no cuts."
+    },
+    {
+      "title": "c_confidence",
+      "image": "a stunning 25-year-old female model with flawless porcelain skin, long wavy auburn hair, bold red lips, wearing a sleek black minimalist dress, high-fashion beauty photography, cinematic lighting, highly detailed, sharp focus, vibrant colors, medium shot, she smiles confidently showing perfect red lips, holds the lipstick product in front of her chest, bright clean background, 9:16 vertical",
+      "motion": "She smiles broadly, her hair sways gently as she turns her head slightly to the side, showcasing the product. Bright, energetic lighting. Commercial beauty style, 3 seconds, no cuts."
+    },
+    {
+      "title": "d_product_hero",
+      "image": "a stunning 25-year-old female model with flawless porcelain skin, long wavy auburn hair, bold red lips, wearing a sleek black minimalist dress, high-fashion beauty photography, cinematic lighting, highly detailed, sharp focus, vibrant colors, final pose, she holds the lipstick up to the light, dramatic rim lighting on her face, dark elegant background, luxury branding feel, 9:16 vertical",
+      "motion": "She holds the lipstick steady, light flares subtly across the gold casing, she gazes intensely at the camera. Slow zoom in. Luxurious, ending shot, 3 seconds, no cuts."
+    }
+  ]
+}

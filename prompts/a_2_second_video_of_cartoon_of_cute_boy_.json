@@ -1,0 +1,23 @@
+{
+  "description": "Cartoon sequence: 1 reference key visual -> 2 keyframe story beats (same character) -> each keyframe drives a 2s LTX i2v clip -> stitched final.",
+  "character": "a cute 5-year-old cartoon boy with messy brown hair, large sparkling green eyes, rosy cheeks, wearing a yellow t-shirt with a small apple print, bright and cheerful 2D cartoon style, thick clean outlines, vibrant colors, soft shading",
+  "referencePrompt": "a cute 5-year-old cartoon boy with messy brown hair, large sparkling green eyes, rosy cheeks, wearing a yellow t-shirt with a small apple print, bright and cheerful 2D cartoon style, thick clean outlines, vibrant colors, soft shading, standing in a sunny classroom with colorful alphabet blocks in the background, smiling brightly, 16:9 key visual composition",
+  "duration": 2,
+  "sequence": [
+    {
+      "title": "a_for_apple",
+      "image": "a cute 5-year-old cartoon boy with messy brown hair, large sparkling green eyes, rosy cheeks, wearing a yellow t-shirt with a small apple print, bright and cheerful 2D cartoon style, thick clean outlines, vibrant colors, soft shading, holding a big shiny red apple next to a giant letter A, looking surprised and happy, sunny classroom background, bright lighting",
+      "motion": "He holds up the red apple next to the letter A, his eyes widen in excitement, the apple sparkles slightly. Bright cartoon style, 2 seconds, no cuts."
+    },
+    {
+      "title": "b_for_boy",
+      "image": "a cute 5-year-old cartoon boy with messy brown hair, large sparkling green eyes, rosy cheeks, wearing a yellow t-shirt with a small apple print, bright and cheerful 2D cartoon style, thick clean outlines, vibrant colors, soft shading, pointing at a giant letter B next to a cartoon boy icon, smiling proudly, sunny classroom background, bright lighting",
+      "motion": "He points confidently at the letter B, his head bobs slightly with pride, the letter B glows softly. Bright cartoon style, 2 seconds, no cuts."
+    },
+    {
+      "title": "c_for_cat",
+      "image": "a cute 5-year-old cartoon boy with messy brown hair, large sparkling green eyes, rosy cheeks, wearing a yellow t-shirt with a small apple print, bright and cheerful 2D cartoon style, thick clean outlines, vibrant colors, soft shading, gently petting a fluffy orange cartoon cat next to a giant letter C, smiling warmly, sunny classroom background, bright lighting",
+      "motion": "He gently strokes the orange cat's head, the cat purrs and wiggles slightly, the letter C sparkles softly in the background. Bright cartoon style, 2 seconds, no cuts."
+    }
+  ]
+}

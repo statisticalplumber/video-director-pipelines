@@ -1,0 +1,138 @@
+{
+  "description": "Cartoon HD sequence: 1 reference key visual -> 4 keyframe story beats (same character) -> each keyframe drives a 3s LTX i2v clip -> stitched final.",
+  "character": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression",
+  "referencePrompt": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, standing in a vibrant colorful classroom with floating alphabet blocks, warm ambient light, 16:9 key visual composition",
+  "duration": 3,
+  "sequence": [
+    {
+      "title": "a_for_apple",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, holding a shiny red apple next to a giant glossy 3D letter A, in a sunny orchard with lush green trees and bright blue sky, cheerful atmosphere",
+      "motion": "He holds the red apple up next to the giant letter A, smiling brightly, the apple sparkles slightly, leaves gently sway in the background. 3D cartoon style, 3 seconds, no cuts."
+    },
+    {
+      "title": "b_for_ball",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, bouncing a colorful rubber ball next to a giant glossy 3D letter B, in a playful playground with soft clouds and bright sunshine, energetic vibe",
+      "motion": "He bounces the colorful ball rhythmically next to the giant letter B, his eyes follow the ball, the ball squishes slightly on impact. 3D cartoon style, 3 seconds, no cuts."
+    },
+    {
+      "title": "c_for_cat",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, petting a cute orange tabby cat sitting next to a giant glossy 3D letter C, in a cozy living room with warm sunlight and soft furniture, heartwarming scene",
+      "motion": "He gently pets the orange cat, who purrs and wags its tail, the giant letter C glows softly in the background. 3D cartoon style, 3 seconds, no cuts."
+    },
+    {
+      "title": "d_for_duck",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, standing by a small pond with a yellow rubber duck floating next to a giant glossy 3D letter D, in a magical garden with glowing flowers and fireflies, whimsical atmosphere",
+      "motion": "The yellow rubber duck bobs gently on the water next to the letter D, fireflies drift slowly around the boy, he watches with wonder. 3D cartoon style, 3 seconds, no cuts."
+    },
+    {
+      "title": "e_for_elephant",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, standing next to a cute small pink cartoon elephant next to a giant glossy 3D letter E, in a sunny savanna landscape with tall grass and distant water hole, playful atmosphere",
+      "motion": "He reaches out to gently touch the elephant's trunk, which curls playfully around his finger, the giant letter E sparkles in the background. 3D cartoon style, 3 seconds, no cuts."
+    },
+    {
+      "title": "f_for_fish",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, holding a clear glass bowl with a small blue fish swimming next to a giant glossy 3D letter F, in a bright underwater-themed playroom with bubble decorations and soft blue ambient light, cheerful and aquatic vibe",
+      "motion": "He tilts the glass bowl slightly, watching the small blue fish swim in a circle, bubbles rise slowly around the letter F. 3D cartoon style, 3 seconds, no cuts."
+    },
+    {
+      "title": "g_for_guitar",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, strumming a small wooden guitar next to a giant glossy 3D letter G, in a cozy attic room with dust motes dancing in sunbeams and musical notes floating in the air, warm and musical atmosphere",
+      "motion": "He strums the wooden guitar with a joyful smile, colorful musical notes float up from the strings, and dust motes dance in the soft sunlight. 3D cartoon style, 3 seconds, no cuts."
+    },
+    {
+      "title": "h_for_hat",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, wearing a red and white checkered picnic hat and holding a sandwich next to a giant glossy 3D letter H, in a sunny meadow with tall wildflowers and a clear blue sky, cheerful picnic atmosphere",
+      "motion": "He adjusts his checkered hat and takes a happy bite of the sandwich, crumbs falling gently as he smiles, the giant letter H glows softly in the background. 3D cartoon style, 3 seconds, no cuts."
+    },
+    {
+      "title": "i_for_igloo",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, standing in front of a small translucent ice igloo next to a giant glossy 3D letter I, in a snowy winter landscape with falling snowflakes and soft blue twilight, magical and chilly atmosphere",
+      "motion": "He waves his hand cheerfully, sending a few snowflakes drifting past the giant letter I, his breath visible in the cold air as he smiles. 3D cartoon style, 3 seconds, no cuts."
+    },
+    {
+      "title": "j_for_juice",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, squeezing orange juice from a fresh orange into a glass next to a giant glossy 3D letter J, in a bright sunny kitchen with lemon trees and sparkling citrus fruits, fresh and vibrant atmosphere",
+      "motion": "He squeezes the orange enthusiastically, juice splashing into the glass, the giant letter J glows with a fresh citrus scent, his eyes widen with delight. 3D cartoon style, 3 seconds, no cuts."
+    },
+    {
+      "title": "k_for_kite",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, flying a colorful diamond-shaped kite next to a giant glossy 3D letter K, in a wide-open grassy field with fluffy cumulus clouds and a bright blue sky, joyful and airy atmosphere",
+      "motion": "He runs forward holding the kite string, the kite soaring high and tilting playfully in the wind, the giant letter K remains grounded in the background as he looks up with delight. 3D cartoon style, 3 seconds, no cuts."
+    },
+    {
+      "title": "l_for_lion",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, sitting on the back of a friendly cartoon lion next to a giant glossy 3D letter L, in a golden-hour African savanna with tall acacia trees and warm orange light, adventurous and warm atmosphere",
+      "motion": "He pats the lion's mane gently while it rumbles softly, the giant letter L glows in the sunset background as the lion blinks slowly. 3D cartoon style, 3 seconds, no cuts."
+    },
+    {
+      "title": "m_for_moon",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, reaching up towards a giant glossy 3D letter M shaped like a crescent moon, in a starry night sky with a small rocket ship floating nearby, dreamy and magical atmosphere",
+      "motion": "He stretches his arm upward, trying to touch the glowing letter M, while the small rocket ship bobs gently beside him, stars twinkling softly in the background. 3D cartoon style, 3 seconds, no cuts."
+    },
+    {
+      "title": "n_for_nest",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, sitting inside a large cozy bird's nest made of soft twigs next to a giant glossy 3D letter N, in a sunny forest canopy with dappled sunlight filtering through green leaves, peaceful and natural atmosphere",
+      "motion": "He settles comfortably into the nest, looking up at the dappled sunlight filtering through the leaves, the giant letter N glows softly among the branches. 3D cartoon style, 3 seconds, no cuts."
+    },
+    {
+      "title": "o_for_owl",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, standing beside a friendly cartoon owl perched on a tree branch next to a giant glossy 3D letter O, in a moonlit forest clearing with soft blue moonlight and glowing mushrooms, serene and mystical atmosphere",
+      "motion": "The owl blinks its large eyes and tilts its head curiously at the boy, who smiles warmly, while the giant letter O glows softly in the moonlit background. 3D cartoon style, 3 seconds, no cuts."
+    },
+    {
+      "title": "p_for_penguin",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, standing beside a cute cartoon penguin waddling on ice next to a giant glossy 3D letter P, in a bright arctic landscape with sparkling snow and distant glaciers, cold and playful atmosphere",
+      "motion": "The penguin waddles playfully in a small circle next to the giant letter P, the boy laughs and mimics its waddle, breath visible in the crisp air. 3D cartoon style, 3 seconds, no cuts."
+    },
+    {
+      "title": "q_for_queen",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, standing beside a cute cartoon fairy queen wearing a tiara next to a giant glossy 3D letter Q, in a sparkling enchanted ballroom with crystal chandeliers and floating ribbons, regal and magical atmosphere",
+      "motion": "The fairy queen spins gracefully, her dress swirling with sparkles, while the boy claps his hands in delight next to the glowing letter Q. 3D cartoon style, 3 seconds, no cuts."
+    },
+    {
+      "title": "r_for_rose",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, holding a single red rose gently in his hands next to a giant glossy 3D letter R, in a romantic rose garden with soft pink petals floating in the air and warm afternoon light, tender and beautiful atmosphere",
+      "motion": "He sniffs the red rose with a happy smile, a few soft pink petals drift down around him and the giant letter R, which glows warmly in the background. 3D cartoon style, 3 seconds, no cuts."
+    },
+    {
+      "title": "s_for_snowman",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, building a small round snowman with a carrot nose next to a giant glossy 3D letter S, in a bright snowy park with snow-covered trees and a clear blue winter sky, festive and cold atmosphere",
+      "motion": "He places the final carrot nose on the snowman and claps his hands together, sending a puff of snow into the air, while the giant letter S stands tall in the background. 3D cartoon style, 3 seconds, no cuts."
+    },
+    {
+      "title": "t_for_train",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, standing next to a colorful wooden toy train chugging along a track beside a giant glossy 3D letter T, in a sunny backyard garden with green grass and a clear blue sky, playful and nostalgic atmosphere",
+      "motion": "The wooden toy train chugs along its track with a cheerful whistle, and the boy waves his hand cheerfully at it, the giant letter T glows softly in the background."
+    },
+    {
+      "title": "u_for_umbrella",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, holding a bright red umbrella next to a giant glossy 3D letter U, in a rainy city street with puddles reflecting neon lights and soft grey clouds, cozy and atmospheric scene",
+      "motion": "Raindrops splatter into the puddles around his feet, he tilts the red umbrella slightly to watch the water drip from the edge, the giant letter U glows softly through the rain in the background."
+    },
+    {
+      "title": "v_for_violin",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, holding a small wooden violin and bow next to a giant glossy 3D letter V, in a sunlit music studio with sheet music floating in the air and warm golden light, artistic and harmonious atmosphere",
+      "motion": "He draws the bow across the violin strings with a focused smile, musical notes swirling gently around the giant letter V as the light shifts softly."
+    },
+    {
+      "title": "w_for_wolf",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, standing next to a cute cartoon grey wolf pup sitting on its haunches next to a giant glossy 3D letter W, in a misty pine forest with soft moonlight filtering through the trees, mysterious and gentle atmosphere",
+      "motion": "The wolf pup tilts its head and wags its fluffy tail, looking up at the boy with soft eyes, while the giant letter W glows faintly in the misty forest background."
+    },
+    {
+      "title": "x_for_xylophone",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, tapping a colorful wooden xylophone with two mallets next to a giant glossy 3D letter X, in a bright sunlit kindergarten room with musical instruments and floating notes, cheerful and rhythmic atmosphere",
+      "motion": "He taps the colorful bars of the xylophone with a rhythmic clack-clack sound, his eyes sparkling with joy, while musical notes float up around the giant letter X."
+    },
+    {
+      "title": "y_for_yoyo",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, holding a bright red yo-yo in mid-air next to a giant glossy 3D letter Y, in a sunny park with tall grass and a clear blue sky, playful and energetic atmosphere",
+      "motion": "He watches the red yo-yo spin down the string and return to his hand, his eyes following the motion, while the giant letter Y glows softly in the sunny background."
+    },
+    {
+      "title": "z_for_zoo",
+      "image": "a cute 5-year-old cartoon boy with short messy brown hair, large sparkling blue eyes, rosy cheeks, wearing a bright yellow t-shirt and blue denim overalls, 3D Pixar style, HD quality, soft lighting, highly detailed, friendly expression, standing in front of a glass zoo exhibit window next to a giant glossy 3D letter Z, with a friendly cartoon zebra visible inside the enclosure behind the glass, in a bright sunny zoo park with lush greenery, joyful and educational atmosphere",
+      "motion": "He presses his hand against the glass, smiling at the zebra inside which mirrors the gesture, while the giant letter Z glows brightly in the background."
+    }
+  ]
+}

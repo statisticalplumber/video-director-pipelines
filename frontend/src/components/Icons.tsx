@@ -119,6 +119,22 @@ export const IconCheck = (p: P) => (
   </svg>
 );
 
+export const IconPanel = (p: P) => (
+  <svg {...base(p)}>
+    <rect x="3" y="4" width="18" height="16" rx="2" />
+    <path d="M9 4v16" />
+  </svg>
+);
+
+export const IconTrash = (p: P) => (
+  <svg {...base(p)}>
+    <path d="M3 6h18" />
+    <path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2" />
+    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+    <path d="M10 11v6M14 11v6" />
+  </svg>
+);
+
 export const IconRefresh = (p: P) => (
   <svg {...base(p)}>
     <path d="M21 12a9 9 0 1 1-2.64-6.36" />

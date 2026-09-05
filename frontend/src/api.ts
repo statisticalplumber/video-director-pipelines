@@ -26,6 +26,10 @@ export const saveScenario = (name: string, config: Scenario) =>
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(config),
   }).then((r) => r.json());
+export const deleteScenario = (name: string) =>
+  fetch(`/api/scenario/${name}`, { method: "DELETE" }).then((r) =>
+    r.ok ? r.json() : r.json().then((d) => Promise.reject(new Error(d.error || `HTTP ${r.status}`)))
+  );
 
 export type Engine = "ltx" | "wan";
 
@@ -80,6 +84,19 @@ export const stitchOnly = (scenario: string, engine: Engine = "ltx") =>
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ scenario, engine }),
   }).then((r) => r.json() as Promise<{ id: string }>);
+
+// Ask the local LLM to extend a scenario with the next beat in the story.
+export const craftBeat = (config: Scenario) =>
+  fetch("/api/craft-beat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ config }),
+  }).then(
+    (r) =>
+      r.ok
+        ? r.json() as Promise<{ beat: { title: string; image: string; motion: string } }>
+        : r.json().then((d) => Promise.reject(new Error(d.error || "craft beat failed")))
+  );
 
 export interface AssetEvent {
   kind: "image" | "video";

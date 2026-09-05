@@ -1,0 +1,42 @@
+{
+  "description": "A man's life across the ages: 1 reference portrait -> 5 era keyframes (same man, ancient -> cyberpunk) -> each keyframe drives a 3s cinematic LTX i2v clip at 9:16 -> stitched 15s final.",
+  "character": "a rugged 35-year-old man, short dark brown hair, light stubble, strong angular jaw, deep brown eyes, lean athletic build, weathered but noble face",
+  "referencePrompt": "cinematic character portrait, a rugged 35-year-old man, short dark brown hair, light stubble, strong angular jaw, deep brown eyes, lean athletic build, weathered but noble face, wearing a simple undyed linen tunic, standing against a plain warm stone background, dramatic rim light, shallow depth of field, photorealistic, 9:16 vertical cinematic key visual",
+  "duration": 3,
+  "ratio": "9:16 (Portrait Widescreen)",
+  "megapixels": 0.5,
+  "keyframeWidth": 768,
+  "keyframeHeight": 1280,
+  "sequence": [
+    {
+      "title": "a_ancient",
+      "image": "cinematic photorealistic 9:16 vertical frame, a rugged 35-year-old man, short dark brown hair, light stubble, strong angular jaw, deep brown eyes, lean athletic build, weathered but noble face, as a stone-age warrior in a fur cloak and bone-and-hide armor, holding a stone-tipped spear, standing on a rocky cliff edge overlooking a vast prehistoric valley at golden hour, drifting dust and fireflies, epic anamorphic lighting, film grain, shallow depth of field",
+      "motion": "Slow push-in toward him as he stands on the cliff, his fur cloak and hair whip in the wind, dust motes drift through golden light, distant valley haze. Cinematic, 3 seconds, no cuts."
+    },
+    {
+      "title": "b_classical",
+      "image": "cinematic photorealistic 9:16 vertical frame, a rugged 35-year-old man, light stubble, strong angular jaw, deep brown eyes, lean athletic build, weathered but noble face, as a Roman centurion wearing a crested bronze helmet on his head and a bronze cuirass with red plastron, both hands relaxed at his sides, no sword, no other weapons, standing in a sunlit marble column courtyard, shafts of light through the columns, bronze and marble textures, epic historical film lighting",
+      "motion": "Slow dolly-in, he lifts his chin, sunlight flares between the marble columns, his red cloak sways gently, his armor and helmet stay perfectly stable. Cinematic, 3 seconds, no cuts."
+    },
+    {
+      "title": "c_medieval",
+      "image": "cinematic photorealistic 9:16 vertical frame, a rugged 35-year-old man, short dark brown hair, light stubble, strong angular jaw, deep brown eyes, lean athletic build, weathered but noble face, as a medieval knight in polished steel plate armor with a fur mantle, standing in a stone castle courtyard at cold dawn, banners snapping in the wind, mist rolling between the towers, moody blue-gold light, epic historical film lighting",
+      "motion": "Slow low-angle push-in, mist drifts through the courtyard, banners snap and ripple, frost breaths faintly in the cold air. Cinematic, 3 seconds, no cuts."
+    },
+    {
+      "title": "d_modern",
+      "image": "cinematic photorealistic 9:16 vertical frame, a rugged 35-year-old man, short dark brown hair, light stubble, strong angular jaw, deep brown eyes, lean athletic build, weathered but noble face, as a modern businessman in a tailored charcoal suit, standing in a glass office tower at night, city lights bokeh behind him, cool blue and warm amber city glow, shallow depth of field, cinematic color grade",
+      "motion": "Slow push-in, he turns his head slightly toward the camera, city lights and traffic streaks shimmer in the glass behind him, subtle reflection sweep. Cinematic, 3 seconds, no cuts."
+    },
+    {
+      "title": "e_cyberpunk",
+      "image": "cinematic photorealistic 9:16 vertical frame, a rugged 35-year-old man, short dark brown hair, light stubble, strong angular jaw, deep brown eyes, lean athletic build, weathered but noble face, as a cyberpunk hacker in black techwear with a glowing cyan neural implant at his temple, rain-soaked neon street at night, holographic ads and kanji signs reflecting in puddles, magenta and cyan neon haze, cyberpunk film still",
+      "motion": "Slow push-in through the rain, neon signs flicker and reflect in wet surfaces, holograms shimmer above the street, his breath visible in the cold. Cinematic, 3 seconds, no cuts."
+    },
+    {
+      "title": "f_future",
+      "image": "cinematic photorealistic 9:16 vertical frame, a rugged 35-year-old man, short dark brown hair, light stubble, strong angular jaw, deep brown eyes, lean athletic build, weathered but noble face, in a sleek white futuristic exosuit with subtle glowing blue circuits, standing on a floating platform above a sprawling solar-civilized earth, bright clear sky, clean architecture, warm sunlight, hopeful utopian atmosphere, cinematic lighting",
+      "motion": "Slow orbital camera movement around the floating platform, clouds drift slowly below, the exosuit's blue circuits pulse gently, his expression remains calm and stoic. Cinematic, 3 seconds, no cuts."
+    }
+  ]
+}

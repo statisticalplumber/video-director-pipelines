@@ -56,18 +56,19 @@
   color-scheme: dark;
 }
 
-/* light theme — override on <html data-theme="light"> */
+/* light theme — override on <html data-theme="light">
+   Warm paper palette (softer, lower-glare than pure white) */
 :root[data-theme="light"] {
-  --bg: #f8f9fa;
-  --bg-raise: #ffffff;
-  --surface: #ffffff;
-  --surface-2: #f3f4f6;                   /* gray-100 */
-  --inset: #ffffff;
-  --line: rgba(0, 0, 0, 0.05);            /* black/5 */
-  --line-2: rgba(0, 0, 0, 0.12);
-  --text: #1a1a1a;
-  --text-2: #4b5563;                      /* gray-600 */
-  --text-3: #9ca3af;                      /* gray-400 */
+  --bg: #f2efe9;                          /* warm paper */
+  --bg-raise: #faf8f4;
+  --surface: #faf8f4;
+  --surface-2: #eceadf;                   /* warm gray */
+  --inset: #f6f4ee;
+  --line: rgba(60, 50, 30, 0.08);
+  --line-2: rgba(60, 50, 30, 0.16);
+  --text: #2b2a26;
+  --text-2: #57534e;                      /* warm gray-600 */
+  --text-3: #8a8577;                      /* warm gray-400 */
   --accent: #10b981;                      /* emerald-500 */
   --accent-2: #059669;                    /* emerald-600 */
   --accent-soft: rgba(16, 185, 129, 0.10); /* emerald-50 */
@@ -82,18 +83,18 @@
   --shadow-1: 0 1px 2px rgba(23, 30, 51, 0.06);
   --shadow-2: 0 8px 24px rgba(23, 30, 51, 0.10), 0 1px 3px rgba(23, 30, 51, 0.07);
 
-  --topbar-bg: rgba(255, 255, 255, 0.80); /* white/80 */
-  --btn-hover-bg: #e5e7eb;
-  --btn-hover-line: #c9ced8;
-  --input-focus-bg: #ffffff;
-  --scrollbar: #c3cbdb;
-  --scrollbar-hover: #a8b3c9;
+  --topbar-bg: rgba(250, 248, 244, 0.80); /* warm white/80 */
+  --btn-hover-bg: #e6e2d8;
+  --btn-hover-line: #d3cec2;
+  --input-focus-bg: #faf8f4;
+  --scrollbar: #cfc9bc;
+  --scrollbar-hover: #b3ac9d;
   --log-bg: #111827;
   --log-color: #b9c2d4;
   --glow-1: rgba(16, 185, 129, 0.10);
   --glow-2: rgba(16, 185, 129, 0.06);
   --glow-3: rgba(5, 150, 105, 0.05);
-  --card-glass: rgba(255, 255, 255, 0.82);
+  --card-glass: rgba(250, 248, 244, 0.82);
 
   color-scheme: light;
 }
@@ -166,6 +167,7 @@ body {
   align-items: start;
 }
 .col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.shell.no-sidebar { grid-template-columns: minmax(0, 1fr) minmax(380px, 460px); }
 
 /* ============================================================
    Cards
@@ -368,16 +370,22 @@ button.icon-btn.danger:hover { color: var(--err); background: var(--err-soft); }
   background: var(--accent-soft); color: var(--accent-2);
   box-shadow: 0 0 0 1px var(--accent-line) inset;
 }
-.scenario-item.on .scenario-file { color: var(--accent-2); }
 .scenario-name {
   flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   font-weight: 500;
 }
 .scenario-item.on .scenario-name { font-weight: 650; }
-.scenario-file {
-  font: 500 10.5px var(--mono); color: var(--text-3);
-  flex: none;
+.scenario-row {
+  display: flex; align-items: center; gap: 2px;
+  border-radius: var(--radius-s);
 }
+.scenario-item { flex: 1; min-width: 0; }
+.scenario-del {
+  flex: none; opacity: 0;
+  transition: opacity 0.12s, color 0.12s, background 0.12s;
+}
+.scenario-row:hover .scenario-del,
+.scenario-del:focus-visible { opacity: 1; }
 .sidebar-empty { padding: 18px 10px; font-size: 12.5px; color: var(--text-3); text-align: center; }
 
 /* ============================================================
@@ -721,6 +729,7 @@ button.icon-btn.danger:hover { color: var(--err); background: var(--err-soft); }
    ============================================================ */
 @media (max-width: 1280px) {
   .shell { grid-template-columns: 220px minmax(0, 1fr) minmax(340px, 400px); }
+  .shell.no-sidebar { grid-template-columns: minmax(0, 1fr) minmax(340px, 400px); }
 }
 @media (max-width: 1020px) {
   .shell { grid-template-columns: 1fr; }

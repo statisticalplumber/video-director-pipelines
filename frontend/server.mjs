@@ -197,6 +197,61 @@ Requirements: ${requirements || "(none)"}`;
   return { name: scenarioName, config: cfg };
 }
 
+/**
+ * Ask the local LLM to extend a scenario with the NEXT beat in the story.
+ * Context = the scenario JSON itself (description / character / referencePrompt
+ * + existing beats), so the new beat continues chronologically from the last
+ * existing beat and keeps the same character and visual style.
+ */
+async function craftNextBeat(cfg) {
+  const existing = (cfg.sequence || []).map((b, i) => ({
+    n: i + 1,
+    title: b.title,
+    image: b.image,
+    motion: b.motion,
+  }));
+  const system = [
+    "You extend a ComfyUI video-generation scenario with exactly ONE next beat.",
+    "The story must continue chronologically from the last existing beat — pick the natural next moment in the arc.",
+    "Rules: title = short snake_case_file_safe and unique among existing titles;",
+    "image = static keyframe prompt for Flux t2i (reuse the character block VERBATIM, keep the same visual style, new moment/pose/setting detail);",
+    "motion = 1-2 sentences of motion + camera direction for LTX image-to-video (no cuts, no new characters).",
+    "Output ONLY a JSON object { title, image, motion } — no prose, no markdown fences.",
+  ].join(" ");
+  const user = `Scenario context:
+${JSON.stringify({
+    description: cfg.description || "",
+    character: cfg.character || "",
+    referencePrompt: cfg.referencePrompt || "",
+    existingBeats: existing,
+  }, null, 2)}
+
+Write the next beat (beat ${existing.length + 1}).`;
+  const r = await fetch(`${LLM_BASE}/v1/chat/completions`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "local",
+      messages: [{ role: "system", content: system }, { role: "user", content: user }],
+      temperature: 0.7,
+      max_tokens: 2000,
+      chat_template_kwargs: { enable_thinking: false },
+    }),
+  });
+  if (!r.ok) throw new Error(`LLM HTTP ${r.status}: ${(await r.text()).slice(0, 200)}`);
+  const d = await r.json();
+  let text = d.choices?.[0]?.message?.content || "";
+  text = text.replace(/^\s*```(?:json)?\s*/, "").replace(/\s*```\s*$/, "").trim();
+  const m = text.match(/\{[\s\S]*\}/);
+  if (!m) throw new Error("LLM returned no JSON object");
+  const b = JSON.parse(m[0]);
+  if (!b.image || !b.motion) throw new Error("crafted beat missing image/motion");
+  let title = slug(b.title) || `beat${existing.length + 1}`;
+  const taken = new Set(existing.map((x) => x.title));
+  if (taken.has(title)) title = `${title}_next`;
+  return { title, image: String(b.image), motion: String(b.motion) };
+}
+
 // ---------------------------------------------------------------- static files
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".png": "image/png", ".jpg": "image/jpeg", ".svg": "image/svg+xml", ".mp4": "video/mp4", ".wav": "audio/wav", ".ico": "image/x-icon" };
 function serveStatic(req, res, urlPath) {
@@ -295,6 +350,16 @@ const server = http.createServer(async (req, res) => {
       fs.writeFileSync(path.join(PROMPTS, name + ".json"), JSON.stringify(cfg, null, 2));
       return json(res, 200, { ok: true });
     }
+    if (p.startsWith("/api/scenario/") && req.method === "DELETE") {
+      const name = p.split("/")[3];
+      if (!isSafe(name)) return json(res, 400, { error: "bad name" });
+      const f = path.join(PROMPTS, name + ".json");
+      if (!fs.existsSync(f)) return json(res, 404, { error: "no such scenario" });
+      fs.unlinkSync(f);
+      const outDir = path.join(OUTPUTS, name);
+      if (fs.existsSync(outDir)) fs.rmSync(outDir, { recursive: true, force: true });
+      return json(res, 200, { ok: true });
+    }
     if (p === "/api/runs" && req.method === "POST") {
       const body = await readJson(req);
       const run = startRun(body.scenario, {
@@ -366,6 +431,12 @@ const server = http.createServer(async (req, res) => {
       const body = await readJson(req);
       if (!body.topic) return json(res, 400, { error: "topic required" });
       return json(res, 200, await craftScenario(body));
+    }
+    if (p === "/api/craft-beat" && req.method === "POST") {
+      const body = await readJson(req);
+      const cfg = body.config;
+      if (!cfg || !Array.isArray(cfg.sequence)) return json(res, 400, { error: "config with sequence required" });
+      return json(res, 200, { beat: await craftNextBeat(cfg) });
     }
     if (p === "/api/comfy" && req.method === "GET") return json(res, 200, await comfyStatus());
     if (p.startsWith("/outputs/")) {

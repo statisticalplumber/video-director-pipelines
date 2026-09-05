@@ -1,0 +1,28 @@
+{
+  "description": "Cinematic sequence: 1 reference key visual -> 4 keyframe story beats (same character) -> each keyframe drives a 2s LTX i2v clip -> stitched final.",
+  "character": "a rugged 40-year-old man with a thick beard and short brown hair, wearing a worn leather vest and khaki jungle gear, accompanied by a majestic male lion with a full dark mane, hyper-realistic 4K photography, cinematic lighting, highly detailed, natural skin textures, vibrant jungle colors",
+  "referencePrompt": "a same man in jungle",
+  "duration": 2,
+  "sequence": [
+    {
+      "title": "jungle_entrance",
+      "image": "a rugged 40-year-old man with a thick beard and short brown hair, wearing a worn leather vest and khaki jungle gear, accompanied by a majestic male lion with a full dark mane, hyper-realistic 4K photography, cinematic lighting, highly detailed, natural skin textures, vibrant jungle colors, walking through dense green foliage, shafts of golden light piercing the canopy, atmospheric mist, low angle shot",
+      "motion": "The man and lion walk slowly forward through the mist, leaves brushing past them, light shafts shift dynamically as the canopy sways. Hyper-realistic, 2 seconds, no cuts."
+    },
+    {
+      "title": "lion_gaze",
+      "image": "a rugged 40-year-old man with a thick beard and short brown hair, wearing a worn leather vest and khaki jungle gear, accompanied by a majestic male lion with a full dark mane, hyper-realistic 4K photography, cinematic lighting, highly detailed, natural skin textures, vibrant jungle colors, close-up of the lion's intense amber eyes and the man's focused expression, shallow depth of field, blurred jungle background, intense mood",
+      "motion": "The lion turns its head slightly toward the camera, breathing slowly, dust motes floating in the air, the man's eyes remain steady. Hyper-realistic, 2 seconds, no cuts."
+    },
+    {
+      "title": "river_crossing",
+      "image": "a rugged 40-year-old man with a thick beard and short brown hair, wearing a worn leather vest and khaki jungle gear, accompanied by a majestic male lion with a full dark mane, hyper-realistic 4K photography, cinematic lighting, highly detailed, natural skin textures, vibrant jungle colors, wading through a shallow clear river, sunlight refracting through the water, ripples spreading, dynamic water interaction",
+      "motion": "Water splashes gently around their legs as they move forward, ripples expand outward, light dances on the water surface. Hyper-realistic, 2 seconds, no cuts."
+    },
+    {
+      "title": "sunset_peak",
+      "image": "a rugged 40-year-old man with a thick beard and short brown hair, wearing a worn leather vest and khaki jungle gear, accompanied by a majestic male lion with a full dark mane, hyper-realistic 4K photography, cinematic lighting, highly detailed, natural skin textures, vibrant jungle colors, silhouetted against a burning orange sunset sky on a high ridge, vast jungle expanse below, epic wide shot, dramatic backlighting",
+      "motion": "The wind gently blows their fur and hair, the clouds drift slowly in the sunset sky, the scene remains majestic and still. Hyper-realistic, 2 seconds, no cuts."
+    }
+  ]
+}

@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import { listScenarios, getScenario, saveScenario, comfyStatus, outScenario, me, logout, type Engine, type AuthUser, type RegenSpec } from "./api";
+import { listScenarios, getScenario, saveScenario, deleteScenario, comfyStatus, outScenario, me, logout, type Engine, type AuthUser, type RegenSpec } from "./api";
 import type { Scenario, ScenarioInfo, ComfyStatus, AssetKind } from "./types";
 import ScenarioEditor from "./components/ScenarioEditor";
 import RunPanel from "./components/RunPanel";
 import OutputGallery from "./components/OutputGallery";
 import CraftPanel from "./components/CraftPanel";
 import Login from "./components/Login";
-import { IconClapper, IconFolder, IconLogOut, IconMoon, IconSun, Spinner } from "./components/Icons";
+import { IconClapper, IconFolder, IconLogOut, IconMoon, IconPanel, IconSun, IconTrash, Spinner } from "./components/Icons";
 
 export type Theme = "dark" | "light";
 
@@ -74,8 +74,27 @@ function Studio({ user, onLogout, theme, onToggleTheme }: {
   const [runScenario, setRunScenario] = useState<string | null>(null);
   const [regenTarget, setRegenTarget] = useState<{ kind: AssetKind; index?: number } | null>(null);
   const [pendingRun, setPendingRun] = useState<{ nonce: number; stitch?: boolean; regen?: RegenSpec | null } | null>(null);
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(() => localStorage.getItem("ss-sidebar") !== "closed");
+  const toggleSidebar = () =>
+    setSidebarOpen((o) => {
+      localStorage.setItem("ss-sidebar", o ? "closed" : "open");
+      return !o;
+    });
 
   const refresh = useCallback(() => setRefreshKey((k) => k + 1), []);
+
+  const handleDelete = async (s: string) => {
+    if (!window.confirm(`Delete scenario "${s}"?\nIts generated outputs will be removed too.`)) return;
+    try {
+      await deleteScenario(s);
+      if (draft && draft.name === s) setDraft(null);
+      if (name === s) setName("");
+      await refreshScenarios();
+      refresh();
+    } catch (e) {
+      window.alert(`Delete failed: ${e instanceof Error ? e.message : String(e)}`);
+    }
+  };
   const refreshScenarios = useCallback(async () => {
     const all = await listScenarios();
     setScenarios(all.filter((s) => s.isSequence));
@@ -125,6 +144,14 @@ function Studio({ user, onLogout, theme, onToggleTheme }: {
           <span className="brand-sub">ComfyUI character-sequence pipeline</span>
         </div>
         <div className="topbar-right">
+          <button
+            className="icon-btn theme-toggle"
+            onClick={toggleSidebar}
+            title={sidebarOpen ? "Hide scenarios panel" : "Show scenarios panel"}
+            aria-label={sidebarOpen ? "Hide scenarios panel" : "Show scenarios panel"}
+          >
+            <IconPanel size={15} />
+          </button>
           <span className={`pill ${comfy?.up ? "ok" : "err"}`} title={comfy?.error ?? ""}>
             <span className={`dot ${comfy?.up ? "pulse" : ""}`} />
             {comfy?.up
@@ -149,7 +176,8 @@ function Studio({ user, onLogout, theme, onToggleTheme }: {
         </div>
       </header>
 
-      <div className="shell">
+      <div className={`shell ${sidebarOpen ? "" : "no-sidebar"}`}>
+        {sidebarOpen && (
         <aside className="sidebar">
           <div className="sidebar-head">
             <span>Scenarios</span>
@@ -164,17 +192,26 @@ function Studio({ user, onLogout, theme, onToggleTheme }: {
               </div>
             )}
             {scenarios.map((s) => (
-              <button
-                key={s.name}
-                className={`scenario-item ${!draft && name === s.name ? "on" : ""}`}
-                onClick={() => { setDraft(null); setName(s.name); }}
-              >
-                <span className="scenario-name">{s.name}</span>
-                <span className="scenario-file">.json</span>
-              </button>
+              <div className="scenario-row" key={s.name}>
+                <button
+                  className={`scenario-item ${!draft && name === s.name ? "on" : ""}`}
+                  onClick={() => { setDraft(null); setName(s.name); }}
+                >
+                  <span className="scenario-name">{s.name}</span>
+                </button>
+                <button
+                  className="icon-btn scenario-del"
+                  title={`Delete ${s.name}`}
+                  aria-label={`Delete scenario ${s.name}`}
+                  onClick={() => handleDelete(s.name)}
+                >
+                  <IconTrash size={13} />
+                </button>
+              </div>
             ))}
           </div>
         </aside>
+        )}
 
         <div className="col">
           <CraftPanel onCrafted={(n, c) => setDraft({ name: n, config: c })} />

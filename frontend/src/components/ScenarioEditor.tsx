@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Scenario } from "../types";
-import { IconCheck, IconPlus, IconX, IconLayers } from "./Icons";
+import { craftBeat } from "../api";
+import { IconCheck, IconPlus, IconX, IconLayers, IconSparkles, Spinner } from "./Icons";
 
 interface Props {
   name: string;
@@ -18,6 +19,8 @@ export default function ScenarioEditor({ name, config, isDraft, onSave }: Props)
   const [saved, setSaved] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [genBusy, setGenBusy] = useState(false);
+  const [genError, setGenError] = useState("");
   const set = (patch: Partial<Scenario>) => { setCfg({ ...cfg, ...patch }); setSaved(false); };
   const setBeat = (i: number, patch: Partial<Scenario["sequence"][number]>) => {
     const sequence = cfg.sequence.map((b, j) => (j === i ? { ...b, ...patch } : b));
@@ -26,6 +29,21 @@ export default function ScenarioEditor({ name, config, isDraft, onSave }: Props)
   const addBeat = () =>
     set({ sequence: [...cfg.sequence, { title: `beat${cfg.sequence.length + 1}`, image: "", motion: "" }] });
   const removeBeat = (i: number) => set({ sequence: cfg.sequence.filter((_, j) => j !== i) });
+
+  // LLM proposes the next beat from the scenario JSON (description + existing
+  // beats) and appends it — review/edit it here, then Save + run the pipeline.
+  const generateBeat = async () => {
+    setGenBusy(true);
+    setGenError("");
+    try {
+      const { beat } = await craftBeat(cfg);
+      set({ sequence: [...cfg.sequence, { ...beat, title: slug(beat.title) || `beat${cfg.sequence.length + 1}` }] });
+    } catch (e) {
+      setGenError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setGenBusy(false);
+    }
+  };
 
   const doSave = async () => {
     setSaving(true);
@@ -49,7 +67,7 @@ export default function ScenarioEditor({ name, config, isDraft, onSave }: Props)
           {isDraft && <span className="pill warn">draft · unsaved</span>}
         </h2>
         <span className="spacer" />
-        <span className="muted" style={{ fontSize: 12, fontFamily: "var(--mono)" }}>{name}.json</span>
+        <span className="muted" style={{ fontSize: 12, fontFamily: "var(--mono)" }}>{name}</span>
         <button
           className="primary"
           onClick={doSave}
@@ -111,10 +129,18 @@ export default function ScenarioEditor({ name, config, isDraft, onSave }: Props)
           />
         </div>
       ))}
-      <button className="ghost" onClick={addBeat}>
-        <IconPlus size={13} />
-        Add beat
-      </button>
+      <div className="row" style={{ marginTop: 4 }}>
+        <button className="ghost" onClick={addBeat} disabled={genBusy}>
+          <IconPlus size={13} />
+          Add beat
+        </button>
+        <button className="ghost" onClick={generateBeat} disabled={genBusy} title="LLM proposes the next beat from the scenario + existing beats">
+          {genBusy ? <Spinner size={13} /> : <IconSparkles size={13} />}
+          {genBusy ? "Generating…" : "Generate beat"}
+        </button>
+      </div>
+      {genError && <p className="hint err-text">{genError}</p>}
+      <p className="hint">Generate beat asks the LLM for the next story beat from the scenario JSON — review, edit, then save &amp; run.</p>
     </section>
   );
 }
