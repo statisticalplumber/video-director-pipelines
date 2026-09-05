@@ -23,6 +23,7 @@ export default function ScenarioEditor({ name, config, isDraft, onSave }: Props)
   const [error, setError] = useState("");
   const [genBusy, setGenBusy] = useState(false);
   const [genError, setGenError] = useState("");
+  const [genCount, setGenCount] = useState(1);
   const autosaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const cfgRef = useRef(cfg);
   cfgRef.current = cfg;
@@ -54,14 +55,23 @@ export default function ScenarioEditor({ name, config, isDraft, onSave }: Props)
     set({ sequence: [...cfg.sequence, { title: `beat${cfg.sequence.length + 1}`, image: "", motion: "" }] });
   const removeBeat = (i: number) => set({ sequence: cfg.sequence.filter((_, j) => j !== i) });
 
-  // LLM proposes the next beat from the scenario JSON (description + existing
-  // beats) and appends it — review/edit it here, then Save + run the pipeline.
+  // LLM proposes the next N beats from the scenario JSON (description + existing
+  // beats), each continuing from the previous one, and appends them —
+  // review/edit them here, then Save + run the pipeline.
   const generateBeat = async () => {
     setGenBusy(true);
     setGenError("");
     try {
-      const { beat } = await craftBeat(cfg);
-      set({ sequence: [...cfg.sequence, { ...beat, title: slug(beat.title) || `beat${cfg.sequence.length + 1}` }] });
+      const res = await craftBeat(cfg, genCount);
+      const beats = res.beats ?? (res.beat ? [res.beat] : []); // beat = old server shape
+      const used = new Set(cfg.sequence.map((b) => b.title));
+      const next = beats.map((b, k) => {
+        let title = slug(b.title) || `beat${cfg.sequence.length + k + 1}`;
+        if (used.has(title)) title = `${title}_next`;
+        used.add(title);
+        return { ...b, title };
+      });
+      set({ sequence: [...cfg.sequence, ...next] });
     } catch (e) {
       setGenError(e instanceof Error ? e.message : String(e));
     } finally {
@@ -158,13 +168,24 @@ export default function ScenarioEditor({ name, config, isDraft, onSave }: Props)
           <IconPlus size={13} />
           Add beat
         </button>
-        <button className="ghost" onClick={generateBeat} disabled={genBusy} title="LLM proposes the next beat from the scenario + existing beats">
+        <button className="ghost" onClick={generateBeat} disabled={genBusy} title="LLM proposes the next beat(s) from the scenario + existing beats">
           {genBusy ? <Spinner size={13} /> : <IconSparkles size={13} />}
           {genBusy ? "Generating…" : "Generate beat"}
         </button>
+        <label className="gen-count" title="How many next beats to generate (1–8)">
+          ×
+          <input
+            type="number"
+            min={1}
+            max={8}
+            value={genCount}
+            disabled={genBusy}
+            onChange={(e) => setGenCount(Math.min(8, Math.max(1, Number(e.target.value) || 1)))}
+          />
+        </label>
       </div>
       {genError && <p className="hint err-text">{genError}</p>}
-      <p className="hint">Generate beat asks the LLM for the next story beat from the scenario JSON. Edits autosave once you stop typing.</p>
+      <p className="hint">Generate beat asks the LLM for the next story beat(s) from the scenario JSON. Edits autosave once you stop typing.</p>
     </section>
   );
 }

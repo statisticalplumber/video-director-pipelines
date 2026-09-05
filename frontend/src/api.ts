@@ -99,16 +99,16 @@ export const stitchOnly = (scenario: string, engine: Engine = "ltx") =>
     body: JSON.stringify({ scenario, engine }),
   }).then((r) => r.json() as Promise<{ id: string }>);
 
-// Ask the local LLM to extend a scenario with the next beat in the story.
-export const craftBeat = (config: Scenario) =>
+// Ask the local LLM to extend a scenario with the next `count` beats in the story.
+export const craftBeat = (config: Scenario, count = 1) =>
   fetch("/api/craft-beat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ config }),
+    body: JSON.stringify({ config, count }),
   }).then(
     (r) =>
       r.ok
-        ? r.json() as Promise<{ beat: { title: string; image: string; motion: string } }>
+        ? r.json() as Promise<{ beats?: { title: string; image: string; motion: string }[]; beat?: { title: string; image: string; motion: string } }>
         : r.json().then((d) => Promise.reject(new Error(d.error || "craft beat failed")))
   );
 

@@ -257,6 +257,18 @@ Write the next beat (beat ${existing.length + 1}).`;
   return { title, image: String(b.image), motion: String(b.motion) };
 }
 
+/** Generate `count` consecutive beats; each call continues from the previous one. */
+async function craftNextBeats(cfg, count) {
+  const beats = [];
+  const cur = { ...cfg, sequence: [...(cfg.sequence || [])] };
+  for (let i = 0; i < count; i++) {
+    const b = await craftNextBeat(cur);
+    beats.push(b);
+    cur.sequence.push(b);
+  }
+  return beats;
+}
+
 // ---------------------------------------------------------------- static files
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".png": "image/png", ".jpg": "image/jpeg", ".svg": "image/svg+xml", ".mp4": "video/mp4", ".wav": "audio/wav", ".ico": "image/x-icon" };
 function serveStatic(req, res, urlPath) {
@@ -457,7 +469,8 @@ const server = http.createServer(async (req, res) => {
       const body = await readJson(req);
       const cfg = body.config;
       if (!cfg || !Array.isArray(cfg.sequence)) return json(res, 400, { error: "config with sequence required" });
-      return json(res, 200, { beat: await craftNextBeat(cfg) });
+      const count = Math.min(8, Math.max(1, Number(body.count) || 1));
+      return json(res, 200, { beats: await craftNextBeats(cfg, count) });
     }
     if (p === "/api/comfy" && req.method === "GET") return json(res, 200, await comfyStatus());
     if (p.startsWith("/outputs/")) {

@@ -1,0 +1,53 @@
+{
+  "description": "Cinematic automotive sequence: 1 reference key visual -> 4 keyframe story beats (same car) -> each keyframe drives a 3s LTX i2v clip -> stitched final.",
+  "character": "a sleek matte black electric sports sedan with aggressive aerodynamic lines, glowing cyan LED light strips, low profile, wide stance, ultra-realistic automotive photography, cinematic lighting, highly detailed, 8k, sharp focus",
+  "referencePrompt": "a sleek matte black electric sports sedan with aggressive aerodynamic lines, glowing cyan LED light strips, low profile, wide stance, ultra-realistic automotive photography, cinematic lighting, highly detailed, 8k, sharp focus, parked on a wet asphalt surface in a dark urban alley at night, neon city lights reflecting off the glossy bodywork, dramatic rim lighting, 16:9 key visual composition",
+  "duration": 3,
+  "sequence": [
+    {
+      "title": "a_awakening",
+      "image": "a sleek matte black electric sports sedan with aggressive aerodynamic lines, glowing cyan LED light strips, low profile, wide stance, ultra-realistic automotive photography, cinematic lighting, highly detailed, 8k, sharp focus, stationary in a dim garage, headlights flicker on to reveal the full front fascia, dust particles floating in the light beams, moody industrial atmosphere",
+      "motion": "The headlights power on with a soft hum, bright cyan LEDs illuminate the dark garage, dust motes dance in the light beams, the camera slowly pushes in on the front grille. Cinematic, slow pace, 3 seconds, no cuts."
+    },
+    {
+      "title": "b_acceleration",
+      "image": "a sleek matte black electric sports sedan with aggressive aerodynamic lines, glowing cyan LED light strips, low profile, wide stance, ultra-realistic automotive photography, cinematic lighting, highly detailed, 8k, sharp focus, launching forward on a straight highway at dawn, motion blur on the background, low angle shot emphasizing speed and power, golden sunrise light flaring through the windshield",
+      "motion": "The car accelerates rapidly, the background stretches into horizontal motion blur, the camera tracks alongside the vehicle at low speed, capturing the rush of wind and the vibration of the chassis. High energy, dynamic, 3 seconds, no cuts."
+    },
+    {
+      "title": "c_cornering",
+      "image": "a sleek matte black electric sports sedan with aggressive aerodynamic lines, glowing cyan LED light strips, low profile, wide stance, ultra-realistic automotive photography, cinematic lighting, highly detailed, 8k, sharp focus, mid-corner on a wet racetrack, tires kicking up a mist of water spray, side profile view showing extreme lean, high contrast, dramatic shadows",
+      "motion": "The car drifts through the apex, water spray erupts from the rear tires, the body leans into the turn, the camera orbits slightly to follow the rotation, capturing the precision of the handling. Dynamic, wet surfaces, 3 seconds, no cuts."
+    },
+    {
+      "title": "d_destination",
+      "image": "a sleek matte black electric sports sedan with aggressive aerodynamic lines, glowing cyan LED light strips, low profile, wide stance, ultra-realistic automotive photography, cinematic lighting, highly detailed, 8k, sharp focus, parked on a cliff edge overlooking the ocean at sunset, brake lights glowing red, silhouette against the orange sky, wide cinematic composition",
+      "motion": "The car comes to a gentle stop, the brake lights fade from bright red to a steady glow, the camera pans slowly upward to reveal the vast ocean horizon and the setting sun. Serene, concluding shot, 3 seconds, no cuts."
+    },
+    {
+      "title": "e_night_drive",
+      "image": "a sleek matte black electric sports sedan with aggressive aerodynamic lines, glowing cyan LED light strips, low profile, wide stance, ultra-realistic automotive photography, cinematic lighting, highly detailed, 8k, sharp focus, cruising through a rain-slicked city street at night, neon signs reflecting in the wet pavement, low angle tracking shot, long exposure light trails in the background",
+      "motion": "The car glides smoothly down the wet road, cyan headlights cutting through the night, neon reflections shimmer and ripple across the glossy black paint as the camera tracks alongside at a steady pace. Atmospheric, rhythmic, 3 seconds, no cuts."
+    },
+    {
+      "title": "f_highway_transit",
+      "image": "a sleek matte black electric sports sedan with aggressive aerodynamic lines, glowing cyan LED light strips, low profile, wide stance, ultra-realistic automotive photography, cinematic lighting, highly detailed, 8k, sharp focus, speeding on a desert highway at twilight, long streaks of light from passing vehicles in the background, low angle side profile emphasizing the wide stance and aerodynamic shape, purple and orange sky gradient",
+      "motion": "The car travels at high speed along the open highway, the background blurs into horizontal streaks of light, the camera maintains a stable low-angle tracking shot alongside the vehicle, capturing the sense of velocity and the isolation of the desert landscape. Fast, smooth, 3 seconds, no cuts."
+    },
+    {
+      "title": "g_tunnel_speed",
+      "image": "a sleek matte black electric sports sedan with aggressive aerodynamic lines, glowing cyan LED light strips, low profile, wide stance, ultra-realistic automotive photography, cinematic lighting, highly detailed, 8k, sharp focus, emerging from a long concrete tunnel into bright daylight, harsh transition from shadow to light, front three-quarter view, dust and heat haze in the air, high contrast",
+      "motion": "The car exits the dark tunnel into blinding sunlight, the camera tracks forward as the lighting shifts rapidly from cool shadows to warm brightness, capturing the emergence from the confined space into the open world. Dramatic lighting shift, 3 seconds, no cuts."
+    },
+    {
+      "title": "h_mountain_descent",
+      "image": "a sleek matte black electric sports sedan with aggressive aerodynamic lines, glowing cyan LED light strips, low profile, wide stance, ultra-realistic automotive photography, cinematic lighting, highly detailed, 8k, sharp focus, navigating a sharp hairpin turn on a misty mountain road, fog rolling over the cliff edge, brake lights illuminating the damp asphalt, side profile view showing the car leaning into the curve, moody atmospheric lighting",
+      "motion": "The car navigates a sharp hairpin turn, the body leans slightly into the curve as mist swirls around the tires, the camera tracks alongside the vehicle to capture the precision of the descent and the atmospheric fog. Moody, precise, 3 seconds, no cuts."
+    },
+    {
+      "title": "i_final_arrival",
+      "image": "a sleek matte black electric sports sedan with aggressive aerodynamic lines, glowing cyan LED light strips, low profile, wide stance, ultra-realistic automotive photography, cinematic lighting, highly detailed, 8k, sharp focus, parked on a polished concrete rooftop helipad at night, city skyline lights in the background, wet floor reflecting the cyan underglow and red taillights, front three-quarter view, sharp focus on the grille",
+      "motion": "The car comes to a complete stop, the tires settling onto the concrete surface, the camera slowly pushes in on the front fascia as the ambient city lights reflect off the glossy black paint, creating a sense of arrival and closure. Smooth, cinematic, 3 seconds, no cuts."
+    }
+  ]
+}

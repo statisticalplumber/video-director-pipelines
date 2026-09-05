@@ -413,6 +413,19 @@ button.icon-btn.danger:hover { color: var(--err); background: var(--err-soft); }
   margin: 10px 0;
   position: relative;
 }
+.gen-count {
+  display: inline-flex; align-items: center; gap: 4px;
+  font: 600 12px var(--mono); color: var(--text-3);
+}
+.gen-count input {
+  width: 44px; padding: 6px 8px;
+  font: 600 12px var(--mono); color: var(--text);
+  background: var(--inset);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-s);
+  text-align: center;
+}
+.gen-count input:focus { outline: none; border-color: var(--accent-line); background: var(--input-focus-bg); }
 /* Alternate beat tint so consecutive beats are easy to tell apart. */
 .beat.alt {
   background: var(--warn-soft);
