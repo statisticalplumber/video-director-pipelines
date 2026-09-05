@@ -415,14 +415,14 @@ button.icon-btn.danger:hover { color: var(--err); background: var(--err-soft); }
 }
 /* Alternate beat tint so consecutive beats are easy to tell apart. */
 .beat.alt {
-  background: #ff2ec4;
-  border: 4px solid #fff;
-  box-shadow: 0 0 0 4px #ff2ec4, 0 0 46px rgba(255, 46, 196, 1);
+  background: var(--warn-soft);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  box-shadow: 0 0 0 3px var(--warn-soft);
 }
 .beat.alt .beat-index {
-  background: #fff;
-  color: #d61fae;
-  box-shadow: 0 0 0 4px #fff inset;
+  background: var(--warn);
+  color: #fff;
+  box-shadow: 0 0 0 3px var(--bg-raise) inset;
 }
 .beat-head { display: flex; gap: 8px; align-items: center; margin-bottom: 2px; }
 .beat-index {
