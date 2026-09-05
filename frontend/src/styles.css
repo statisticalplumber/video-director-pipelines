@@ -374,6 +374,11 @@ button.icon-btn.danger:hover { color: var(--err); background: var(--err-soft); }
   flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   font-weight: 500;
 }
+.scenario-date {
+  flex: none;
+  font: 500 10.5px var(--mono);
+  color: var(--text-3);
+}
 .scenario-item.on .scenario-name { font-weight: 650; }
 .scenario-row {
   display: flex; align-items: center; gap: 2px;
@@ -386,18 +391,38 @@ button.icon-btn.danger:hover { color: var(--err); background: var(--err-soft); }
 }
 .scenario-row:hover .scenario-del,
 .scenario-del:focus-visible { opacity: 1; }
+.scenario-fav {
+  flex: none; opacity: 0;
+  color: var(--text-3);
+  transition: opacity 0.12s, color 0.12s, background 0.12s;
+}
+.scenario-row:hover .scenario-fav,
+.scenario-fav:focus-visible { opacity: 1; }
+.scenario-fav.on { opacity: 1; color: #fbbf24; }
+.scenario-fav:hover { color: #fbbf24; }
 .sidebar-empty { padding: 18px 10px; font-size: 12.5px; color: var(--text-3); text-align: center; }
 
 /* ============================================================
    Beats (scenario editor)
    ============================================================ */
 .beat {
-  background: var(--bg-raise);
-  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--accent) 7%, var(--bg-raise));
+  border: 1px solid var(--accent-line);
   border-radius: var(--radius-m);
   padding: 12px 14px 14px;
   margin: 10px 0;
   position: relative;
+}
+/* Alternate beat tint so consecutive beats are easy to tell apart. */
+.beat.alt {
+  background: #ff2ec4;
+  border: 4px solid #fff;
+  box-shadow: 0 0 0 4px #ff2ec4, 0 0 46px rgba(255, 46, 196, 1);
+}
+.beat.alt .beat-index {
+  background: #fff;
+  color: #d61fae;
+  box-shadow: 0 0 0 4px #fff inset;
 }
 .beat-head { display: flex; gap: 8px; align-items: center; margin-bottom: 2px; }
 .beat-index {

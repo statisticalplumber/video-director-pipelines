@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Scenario } from "../types";
 import { craftBeat } from "../api";
 import { IconCheck, IconPlus, IconX, IconLayers, IconSparkles, Spinner } from "./Icons";
@@ -14,6 +14,8 @@ const slug = (s: string) =>
   s.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
 
 // Editable prompt JSON: reference prompt, duration, and the keyframe beats.
+const AUTOSAVE_DELAY_MS = 800;
+
 export default function ScenarioEditor({ name, config, isDraft, onSave }: Props) {
   const [cfg, setCfg] = useState<Scenario>(config);
   const [saved, setSaved] = useState(false);
@@ -21,7 +23,29 @@ export default function ScenarioEditor({ name, config, isDraft, onSave }: Props)
   const [error, setError] = useState("");
   const [genBusy, setGenBusy] = useState(false);
   const [genError, setGenError] = useState("");
-  const set = (patch: Partial<Scenario>) => { setCfg({ ...cfg, ...patch }); setSaved(false); };
+  const autosaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cfgRef = useRef(cfg);
+  cfgRef.current = cfg;
+  const isDraftRef = useRef(isDraft);
+  isDraftRef.current = isDraft;
+
+  // Debounced autosave: any edit to the scenario JSON (reference prompt,
+  // duration, beats) persists it after the user stops typing.
+  // Drafts are excluded — they don't exist on disk until explicitly saved.
+  const scheduleAutosave = () => {
+    if (isDraftRef.current) return;
+    if (autosaveTimer.current) clearTimeout(autosaveTimer.current);
+    autosaveTimer.current = setTimeout(() => {
+      void doSave(cfgRef.current, true);
+    }, AUTOSAVE_DELAY_MS);
+  };
+  useEffect(() => () => { if (autosaveTimer.current) clearTimeout(autosaveTimer.current); }, []);
+
+  const set = (patch: Partial<Scenario>) => {
+    setCfg({ ...cfg, ...patch });
+    setSaved(false);
+    scheduleAutosave();
+  };
   const setBeat = (i: number, patch: Partial<Scenario["sequence"][number]>) => {
     const sequence = cfg.sequence.map((b, j) => (j === i ? { ...b, ...patch } : b));
     set({ sequence });
@@ -45,14 +69,14 @@ export default function ScenarioEditor({ name, config, isDraft, onSave }: Props)
     }
   };
 
-  const doSave = async () => {
+  const doSave = async (next: Scenario = cfg, auto = false) => {
     setSaving(true);
     setError("");
     try {
-      await onSave(cfg);
+      await onSave(next);
       setSaved(true);
     } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
+      if (!auto) setError(e instanceof Error ? e.message : String(e));
     } finally {
       setSaving(false);
     }
@@ -70,7 +94,7 @@ export default function ScenarioEditor({ name, config, isDraft, onSave }: Props)
         <span className="muted" style={{ fontSize: 12, fontFamily: "var(--mono)" }}>{name}</span>
         <button
           className="primary"
-          onClick={doSave}
+          onClick={() => doSave()}
           disabled={saving || (saved && !isDraft)}
         >
           <IconCheck size={13} />
@@ -97,7 +121,7 @@ export default function ScenarioEditor({ name, config, isDraft, onSave }: Props)
       />
 
       {cfg.sequence.map((b, i) => (
-        <div className="beat" key={i}>
+        <div className={`beat ${i % 2 ? "alt" : ""}`} key={i}>
           <div className="beat-head">
             <span className="beat-index">{i + 1}</span>
             <input
@@ -140,7 +164,7 @@ export default function ScenarioEditor({ name, config, isDraft, onSave }: Props)
         </button>
       </div>
       {genError && <p className="hint err-text">{genError}</p>}
-      <p className="hint">Generate beat asks the LLM for the next story beat from the scenario JSON — review, edit, then save &amp; run.</p>
+      <p className="hint">Generate beat asks the LLM for the next story beat from the scenario JSON. Edits autosave once you stop typing.</p>
     </section>
   );
 }

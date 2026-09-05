@@ -23,6 +23,11 @@ const ROOT = path.resolve(__dirname, "..");
 }
 const PROMPTS = path.join(ROOT, "prompts");
 const OUTPUTS = path.join(ROOT, "outputs");
+const FAVS = path.join(ROOT, "favorites.json");
+const readFavs = () => {
+  try { return JSON.parse(fs.readFileSync(FAVS, "utf8")).names; }
+  catch { return []; }
+};
 const DIST = path.join(__dirname, "dist");
 const PORT = Number(process.env.PORT || 8790);
 const LLM_BASE = (process.env.LLM_BASE || "https://furian-1.tailb2c0b0.ts.net").replace(/\/+$/, "");
@@ -332,11 +337,27 @@ const server = http.createServer(async (req, res) => {
     if ((p.startsWith("/api/") || p.startsWith("/outputs/")) && !authedUser(req))
       return json(res, 401, { error: "unauthorized" });
 
-    if (p === "/api/scenarios" && req.method === "GET")
+    if (p === "/api/scenarios" && req.method === "GET") {
+      const favs = readFavs();
       return json(res, 200, fs.readdirSync(PROMPTS).filter((f) => f.endsWith(".json")).map((f) => {
         const c = JSON.parse(fs.readFileSync(path.join(PROMPTS, f), "utf8"));
-        return { name: f.replace(/\.json$/, ""), isSequence: !!(c.sequence && c.referencePrompt) };
-      }));
+        const name = f.replace(/\.json$/, "");
+        return {
+          name,
+          isSequence: !!(c.sequence && c.referencePrompt),
+          mtimeMs: fs.statSync(path.join(PROMPTS, f)).mtimeMs,
+          favorite: favs.includes(name),
+        };
+      }).sort((a, b) => (b.favorite ? 1 : 0) - (a.favorite ? 1 : 0) || b.mtimeMs - a.mtimeMs)); // favorites first, then latest edited
+    }
+    if (p === "/api/favorites" && req.method === "POST") {
+      const { name, on } = await readJson(req);
+      if (!isSafe(name)) return json(res, 400, { error: "bad name" });
+      let favs = readFavs();
+      favs = on ? (favs.includes(name) ? favs : [...favs, name]) : favs.filter((n) => n !== name);
+      fs.writeFileSync(FAVS, JSON.stringify({ names: favs }, null, 2));
+      return json(res, 200, { ok: true, names: favs });
+    }
     if (p.startsWith("/api/scenario/") && req.method === "GET") {
       const name = p.split("/")[3];
       if (!isSafe(name)) return json(res, 400, { error: "bad name" });

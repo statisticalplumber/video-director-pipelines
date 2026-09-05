@@ -1,0 +1,33 @@
+{
+  "description": "Cinematic photorealistic sequence: 1 reference key visual -> 4 keyframe story beats (same car) -> each keyframe drives a 3s LTX i2v clip -> stitched final. Slow-motion, controlled, sad mood, Mumbai flood setting.",
+  "character": "a damaged silver Tata Nexon compact SUV with minor front bumper scuffs and cracked left headlight, wet exterior, realistic vehicle details, cinematic lighting, 8k, photorealistic",
+  "referencePrompt": "a damaged silver Tata Nexon compact SUV with minor front bumper scuffs and cracked left headlight, wet exterior, realistic vehicle details, cinematic lighting, 8k, photorealistic, parked on a flooded Mumbai street at dusk, rain-soaked asphalt, wet road surface reflecting city lights, sad atmospheric mood, 16:9 key visual composition",
+  "duration": 3,
+  "sequence": [
+    {
+      "title": "a_flood_approach",
+      "image": "a damaged silver Tata Nexon compact SUV with minor front bumper scuffs and cracked left headlight, wet exterior, realistic vehicle details, cinematic lighting, 8k, photorealistic, driving slowly through knee-deep floodwater on a Mumbai road, rain falling heavily, wipers moving, headlights cutting through the gloom, wet asphalt reflections, melancholic atmosphere",
+      "motion": "The car moves forward slowly through the floodwater, ripples spreading outward from the tires in slow motion, raindrops hitting the wet roof in high detail, headlights illuminating the misty rain. Cinematic, slow-motion, 3 seconds, no cuts."
+    },
+    {
+      "title": "b_stall_moment",
+      "image": "a damaged silver Tata Nexon compact SUV with minor front bumper scuffs and cracked left headlight, wet exterior, realistic vehicle details, cinematic lighting, 8k, photorealistic, stalled in the middle of a flooded street, engine off, water lapping against the lower bumper, rain pouring down, isolated and vulnerable, dark blue and grey palette",
+      "motion": "The car sits still in the rising water, ripples gently lap against the bumper, rain streams down the windshield and body, the water level slowly rises around the chassis. Sad, still, slow-motion, 3 seconds, no cuts."
+    },
+    {
+      "title": "c_water_submersion",
+      "image": "a damaged silver Tata Nexon compact SUV with minor front bumper scuffs and cracked left headlight, wet exterior, realistic vehicle details, cinematic lighting, 8k, photorealistic, partially submerged in floodwater, water reaching the bottom of the doors, dark stormy sky, desperate and tragic mood, high-contrast lighting from streetlamps",
+      "motion": "Water continues to rise slowly, submerging the lower half of the car, bubbles escape from the intake, rain hits the water surface creating concentric circles. Slow-motion, tragic, 3 seconds, no cuts."
+    },
+    {
+      "title": "d_deep_submersion",
+      "image": "a damaged silver Tata Nexon compact SUV with minor front bumper scuffs and cracked left headlight, wet exterior, realistic vehicle details, cinematic lighting, 8k, photorealistic, almost fully submerged in dark floodwater, only the roof and upper windows visible, waterline at the window seal, ominous dark sky, heavy rain, isolated and tragic mood",
+      "motion": "The water level rises to just below the window line, fully engulfing the wheels and lower body, ripples disturb the surface around the roof as rain continues to fall heavily. Slow-motion, somber, 3 seconds, no cuts."
+    },
+    {
+      "title": "e_final_drowning",
+      "image": "a damaged silver Tata Nexon compact SUV with minor front bumper scuffs and cracked left headlight, wet exterior, realistic vehicle details, cinematic lighting, 8k, photorealistic, completely submerged in dark floodwater, only the highest point of the roof barely visible above the surface, waterline just below the roofline, deep murky water, heavy rain, tragic and final mood, 8k, photorealistic",
+      "motion": "The water slowly covers the last visible part of the roof, submerging the entire vehicle until only ripples and bubbles remain on the surface, rain continues to fall into the dark water. Slow-motion, final, somber, 3 seconds, no cuts."
+    }
+  ]
+}

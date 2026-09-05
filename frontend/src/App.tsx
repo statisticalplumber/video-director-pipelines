@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import { listScenarios, getScenario, saveScenario, deleteScenario, comfyStatus, outScenario, me, logout, type Engine, type AuthUser, type RegenSpec } from "./api";
+import { listScenarios, getScenario, saveScenario, deleteScenario, setFavorite, comfyStatus, outScenario, me, logout, fmtDate, type Engine, type AuthUser, type RegenSpec } from "./api";
 import type { Scenario, ScenarioInfo, ComfyStatus, AssetKind } from "./types";
 import ScenarioEditor from "./components/ScenarioEditor";
 import RunPanel from "./components/RunPanel";
 import OutputGallery from "./components/OutputGallery";
 import CraftPanel from "./components/CraftPanel";
 import Login from "./components/Login";
-import { IconClapper, IconFolder, IconLogOut, IconMoon, IconPanel, IconSun, IconTrash, Spinner } from "./components/Icons";
+import { IconClapper, IconFolder, IconLogOut, IconMoon, IconPanel, IconStar, IconSun, IconTrash, Spinner } from "./components/Icons";
 
 export type Theme = "dark" | "light";
 
@@ -99,6 +99,22 @@ function Studio({ user, onLogout, theme, onToggleTheme }: {
     const all = await listScenarios();
     setScenarios(all.filter((s) => s.isSequence));
   }, []);
+
+  const handleFavorite = async (s: ScenarioInfo) => {
+    const on = !s.favorite;
+    // Optimistic toggle; the server re-sorts (favorites pinned on top).
+    setScenarios((prev) =>
+      prev
+        .map((x) => (x.name === s.name ? { ...x, favorite: on } : x))
+        .sort((a, b) => (b.favorite ? 1 : 0) - (a.favorite ? 1 : 0) || b.mtimeMs - a.mtimeMs)
+    );
+    try {
+      await setFavorite(s.name, on);
+    } catch (e) {
+      window.alert(`Favorite update failed: ${e instanceof Error ? e.message : String(e)}`);
+      refreshScenarios();
+    }
+  };
 
   useEffect(() => {
     refreshScenarios().then(() => {});
@@ -198,6 +214,15 @@ function Studio({ user, onLogout, theme, onToggleTheme }: {
                   onClick={() => { setDraft(null); setName(s.name); }}
                 >
                   <span className="scenario-name">{s.name}</span>
+                  <span className="scenario-date">{fmtDate(s.mtimeMs)}</span>
+                </button>
+                <button
+                  className={`icon-btn scenario-fav ${s.favorite ? "on" : ""}`}
+                  title={s.favorite ? `Unfavorite ${s.name}` : `Favorite ${s.name}`}
+                  aria-label={s.favorite ? `Unfavorite ${s.name}` : `Favorite ${s.name}`}
+                  onClick={() => handleFavorite(s)}
+                >
+                  <IconStar size={13} filled={!!s.favorite} />
                 </button>
                 <button
                   className="icon-btn scenario-del"
@@ -216,7 +241,7 @@ function Studio({ user, onLogout, theme, onToggleTheme }: {
         <div className="col">
           <CraftPanel
             onCrafted={(n, c) => setDraft({ name: n, config: c })}
-            scenarios={scenarios.map((s) => s.name)}
+            scenarios={scenarios}
             selected={draft ? "" : name}
             onSelect={(n) => { setDraft(null); setName(n); }}
           />

@@ -1,0 +1,23 @@
+{
+  "description": "Cinematic sequence: 1 reference key visual -> 4 keyframe story beats (same character) -> each keyframe drives a 3s LTX i2v clip -> stitched final. A journey inspired by Loki Season 2, featuring a mystical, time-displaced figure.",
+  "character": "a tall, ethereal figure with long, flowing white hair and glowing green circuitry patterns on their skin, wearing a tattered, ancient green and gold robe with intricate runic embroidery, serious and weary expression, cinematic fantasy style, highly detailed, dramatic lighting, 8k",
+  "referencePrompt": "a tall, ethereal figure with long, flowing white hair and glowing green circuitry patterns on their skin, wearing a tattered, ancient green and gold robe with intricate runic embroidery, serious and weary expression, cinematic fantasy style, highly detailed, dramatic lighting, 8k, standing in a void of swirling golden hourglasses and broken time streams, floating in a nebula of fractured reality, green and gold color palette, epic scale, 16:9 key visual composition",
+  "duration": 3,
+  "sequence": [
+    {
+      "title": "the_void_arrival",
+      "image": "a tall, ethereal figure with long, flowing white hair and glowing green circuitry patterns on their skin, wearing a tattered, ancient green and gold robe with intricate runic embroidery, serious and weary expression, cinematic fantasy style, highly detailed, dramatic lighting, 8k, standing in a void of swirling golden hourglasses and broken time streams, floating in a nebula of fractured reality, green and gold color palette, epic scale, 16:9 key visual composition",
+      "motion": "The figure stands still as the golden hourglasses swirl rapidly around them, fragments of time drift past their face, their robes billow in a non-existent wind. Cinematic fantasy, 3 seconds, no cuts."
+    },
+    {
+      "title": "temporal_corridor",
+      "image": "a tall, ethereal figure with long, flowing white hair and glowing green circuitry patterns on their skin, wearing a tattered, ancient green and gold robe with intricate runic embroidery, serious and weary expression, cinematic fantasy style, highly detailed, dramatic lighting, 8k, walking through a long, narrow corridor made of shifting, translucent clock gears and light, motion blur on the background, focused gaze, green and gold color palette",
+      "motion": "The figure walks steadily forward through the corridor, the background gears spin and shift rapidly, creating a sense of high-speed temporal travel, their expression remains focused and determined. Cinematic fantasy, 3 seconds, no cuts."
+    },
+    {
+      "title": "shattered_reality",
+      "image": "a tall, ethereal figure with long, flowing white hair and glowing green circuitry patterns on their skin, wearing a tattered, ancient green and gold robe with intricate runic embroidery, serious and weary expression, cinematic fantasy style, highly detailed, dramatic lighting, 8k, standing on a fragment of broken reality floating in a dark void, shards of glass-like time crystals around them, dramatic low angle, intense green and gold lighting",
+      "motion": "The figure looks down at the crumbling edges of the reality fragment, shards of crystal drift slowly away into the void, their hair and robe sway gently, conveying a sense of isolation and weight. Cinematic fantasy, 3 seconds, no cuts."
+    }
+  ]
+}

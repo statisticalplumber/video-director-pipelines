@@ -15,6 +15,8 @@ export interface Scenario {
 export interface ScenarioInfo {
   name: string;
   isSequence: boolean;
+  mtimeMs: number;
+  favorite?: boolean;
 }
 
 export interface Run {

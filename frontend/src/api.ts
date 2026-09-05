@@ -19,6 +19,13 @@ export const login = (username: string, password: string) =>
 export const logout = () => fetch("/api/logout", { method: "POST" }).then((r) => r.json());
 
 export const listScenarios = () => get<ScenarioInfo[]>("/api/scenarios");
+
+// 06-Sep-2025
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+export const fmtDate = (ms: number) => {
+  const d = new Date(ms);
+  return `${String(d.getDate()).padStart(2, "0")}-${MONTHS[d.getMonth()]}-${d.getFullYear()}`;
+};
 export const getScenario = (name: string) => get<{ name: string; config: Scenario }>(`/api/scenario/${name}`);
 export const saveScenario = (name: string, config: Scenario) =>
   fetch(`/api/scenario/${name}`, {
@@ -30,6 +37,13 @@ export const deleteScenario = (name: string) =>
   fetch(`/api/scenario/${name}`, { method: "DELETE" }).then((r) =>
     r.ok ? r.json() : r.json().then((d) => Promise.reject(new Error(d.error || `HTTP ${r.status}`)))
   );
+
+export const setFavorite = (name: string, on: boolean) =>
+  fetch("/api/favorites", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, on }),
+  }).then((r) => r.json() as Promise<{ ok: boolean; names: string[] }>);
 
 export type Engine = "ltx" | "wan";
 

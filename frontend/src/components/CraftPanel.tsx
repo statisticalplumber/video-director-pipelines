@@ -1,5 +1,6 @@
 import { useState } from "react";
-import type { Scenario } from "../types";
+import type { Scenario, ScenarioInfo } from "../types";
+import { fmtDate } from "../api";
 import { IconSparkles, Spinner } from "./Icons";
 
 interface Props {
@@ -7,7 +8,7 @@ interface Props {
   // Existing workflow (scenario) JSONs + which one is selected, so the user
   // can switch to another workflow (or clear the selection) without
   // refreshing the page.
-  scenarios: string[];
+  scenarios: ScenarioInfo[];
   selected: string;
   onSelect: (name: string) => void;
 }
@@ -69,7 +70,9 @@ export default function CraftPanel({ onCrafted, scenarios, selected, onSelect }:
       >
         <option value="">(new)</option>
         {scenarios.map((s) => (
-          <option key={s} value={s}>{s}</option>
+          <option key={s.name} value={s.name}>
+            {s.name} — {fmtDate(s.mtimeMs)}
+          </option>
         ))}
       </select>
 
