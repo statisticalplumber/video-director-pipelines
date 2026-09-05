@@ -7,6 +7,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { spawn } from "node:child_process";
+import { DatabaseSync } from "node:sqlite";
 import { versionMap, setMain, nextVersion } from "../lib/sequence_state.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -28,6 +29,40 @@ const readFavs = () => {
   try { return JSON.parse(fs.readFileSync(FAVS, "utf8")).names; }
   catch { return []; }
 };
+// ---------------------------------------------------------------- scenarios db
+// Scenarios live in SQLite (data/scenarios.sqlite). On save we ALSO export the
+// JSON to prompts/<name>.json so the CLI runners (director.mjs, ...), which
+// read prompts/<scenario>.json, keep working unchanged.
+const DATA_DIR = path.join(ROOT, "data");
+const DB = path.join(DATA_DIR, "scenarios.sqlite");
+{
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  const db = new DatabaseSync(DB);
+  db.exec(`CREATE TABLE IF NOT EXISTS scenarios (
+    name TEXT PRIMARY KEY,
+    config TEXT NOT NULL,
+    updated_at INTEGER NOT NULL
+  )`);
+  // One-time migration: import any prompts/*.json not yet in the DB.
+  const insert = db.prepare("INSERT OR IGNORE INTO scenarios (name, config, updated_at) VALUES (?, ?, ?)");
+  for (const f of fs.readdirSync(PROMPTS).filter((f) => f.endsWith(".json"))) {
+    const name = f.replace(/\.json$/, "");
+    if (!db.prepare("SELECT 1 FROM scenarios WHERE name = ?").get(name)) {
+      insert.run(name, fs.readFileSync(path.join(PROMPTS, f), "utf8"), fs.statSync(path.join(PROMPTS, f)).mtimeMs);
+    }
+  }
+  db.close();
+}
+const db = new DatabaseSync(DB);
+const dbListScenarios = () =>
+  db.prepare("SELECT name, config, updated_at FROM scenarios ORDER BY updated_at DESC").all();
+const dbGetScenario = (name) => db.prepare("SELECT config FROM scenarios WHERE name = ?").get(name)?.config ?? null;
+const dbSaveScenario = (name, cfg) =>
+  db.prepare(`INSERT INTO scenarios (name, config, updated_at) VALUES (?, ?, ?)
+             ON CONFLICT(name) DO UPDATE SET config = excluded.config, updated_at = excluded.updated_at`)
+    .run(name, JSON.stringify(cfg), Date.now());
+const dbDeleteScenario = (name) => db.prepare("DELETE FROM scenarios WHERE name = ?").run(name);
+
 const DIST = path.join(__dirname, "dist");
 const PORT = Number(process.env.PORT || 8790);
 const LLM_BASE = (process.env.LLM_BASE || "https://furian-1.tailb2c0b0.ts.net").replace(/\/+$/, "");
@@ -351,14 +386,13 @@ const server = http.createServer(async (req, res) => {
 
     if (p === "/api/scenarios" && req.method === "GET") {
       const favs = readFavs();
-      return json(res, 200, fs.readdirSync(PROMPTS).filter((f) => f.endsWith(".json")).map((f) => {
-        const c = JSON.parse(fs.readFileSync(path.join(PROMPTS, f), "utf8"));
-        const name = f.replace(/\.json$/, "");
+      return json(res, 200, dbListScenarios().map((r) => {
+        const c = JSON.parse(r.config);
         return {
-          name,
+          name: r.name,
           isSequence: !!(c.sequence && c.referencePrompt),
-          mtimeMs: fs.statSync(path.join(PROMPTS, f)).mtimeMs,
-          favorite: favs.includes(name),
+          mtimeMs: r.updated_at,
+          favorite: favs.includes(r.name),
         };
       }).sort((a, b) => (b.favorite ? 1 : 0) - (a.favorite ? 1 : 0) || b.mtimeMs - a.mtimeMs)); // favorites first, then latest edited
     }
@@ -373,22 +407,26 @@ const server = http.createServer(async (req, res) => {
     if (p.startsWith("/api/scenario/") && req.method === "GET") {
       const name = p.split("/")[3];
       if (!isSafe(name)) return json(res, 400, { error: "bad name" });
-      const c = JSON.parse(fs.readFileSync(path.join(PROMPTS, name + ".json"), "utf8"));
-      return json(res, 200, { name, config: c });
+      const raw = dbGetScenario(name);
+      if (raw === null) return json(res, 404, { error: "no such scenario" });
+      return json(res, 200, { name, config: JSON.parse(raw) });
     }
     if (p.startsWith("/api/scenario/") && req.method === "PUT") {
       const name = p.split("/")[3];
       if (!isSafe(name)) return json(res, 400, { error: "bad name" });
       const cfg = await readJson(req);
+      dbSaveScenario(name, cfg);
+      // Keep the JSON export for the CLI runners.
       fs.writeFileSync(path.join(PROMPTS, name + ".json"), JSON.stringify(cfg, null, 2));
       return json(res, 200, { ok: true });
     }
     if (p.startsWith("/api/scenario/") && req.method === "DELETE") {
       const name = p.split("/")[3];
       if (!isSafe(name)) return json(res, 400, { error: "bad name" });
+      if (dbGetScenario(name) === null) return json(res, 404, { error: "no such scenario" });
+      dbDeleteScenario(name);
       const f = path.join(PROMPTS, name + ".json");
-      if (!fs.existsSync(f)) return json(res, 404, { error: "no such scenario" });
-      fs.unlinkSync(f);
+      if (fs.existsSync(f)) fs.unlinkSync(f);
       const outDir = path.join(OUTPUTS, name);
       if (fs.existsSync(outDir)) fs.rmSync(outDir, { recursive: true, force: true });
       return json(res, 200, { ok: true });

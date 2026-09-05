@@ -1,0 +1,43 @@
+{
+  "description": "Animated sequence: 1 reference key visual -> 2 keyframe story beats (same character) -> each keyframe drives a 3s LTX i2v clip -> stitched final.",
+  "character": "a cheerful 6-year-old animated boy with messy brown hair, bright blue eyes, wearing a yellow raincoat and red rubber boots, Pixar-style 3D animation, soft rounded shapes, vibrant colors, high detail, cinematic lighting",
+  "referencePrompt": "a cheerful 6-year-old animated boy with messy brown hair, bright blue eyes, wearing a yellow raincoat and red rubber boots, Pixar-style 3D animation, soft rounded shapes, vibrant colors, high detail, cinematic lighting, standing in a sunny meadow holding a large wooden letter 'A', smiling brightly, fluffy clouds in the background, 16:9 key visual composition",
+  "duration": 3,
+  "sequence": [
+    {
+      "title": "a_letter_a",
+      "image": "a cheerful 6-year-old animated boy with messy brown hair, bright blue eyes, wearing a yellow raincoat and red rubber boots, Pixar-style 3D animation, soft rounded shapes, vibrant colors, high detail, cinematic lighting, holding a large wooden letter 'A' up to the sky in a sunny meadow, an acorn and an ant crawling near his boot, bright daylight, cheerful atmosphere",
+      "motion": "He lifts the wooden letter 'A' high above his head, his raincoat flutters slightly in the breeze, an ant crawls up his boot in the foreground. Bright sunny lighting, playful mood, 3 seconds, no cuts."
+    },
+    {
+      "title": "b_letter_b",
+      "image": "a cheerful 6-year-old animated boy with messy brown hair, bright blue eyes, wearing a yellow raincoat and red rubber boots, Pixar-style 3D animation, soft rounded shapes, vibrant colors, high detail, cinematic lighting, holding a large wooden letter 'B' next to a stack of colorful building blocks, a butterfly landing on the letter, soft afternoon light, cozy outdoor setting",
+      "motion": "He places the wooden letter 'B' gently on the ground next to the blocks, a butterfly flutters and lands on the letter, his eyes follow the butterfly with wonder. Soft afternoon lighting, gentle motion, 3 seconds, no cuts."
+    },
+    {
+      "title": "c_letter_c",
+      "image": "a cheerful 6-year-old animated boy with messy brown hair, bright blue eyes, wearing a yellow raincoat and red rubber boots, Pixar-style 3D animation, soft rounded shapes, vibrant colors, high detail, cinematic lighting, holding a large wooden letter 'C' while a small red caterpillar crawls across the curve of the letter, standing in a sunlit garden with green foliage in the background, warm morning light, curious expression",
+      "motion": "He tilts his head down to watch the red caterpillar slowly traverse the wooden letter 'C', his red rubber boots shift slightly on the grass as he leans in, warm morning sunlight filters through the leaves, 3 seconds, no cuts."
+    },
+    {
+      "title": "d_letter_d",
+      "image": "a cheerful 6-year-old animated boy with messy brown hair, bright blue eyes, wearing a yellow raincoat and red rubber boots, Pixar-style 3D animation, soft rounded shapes, vibrant colors, high detail, cinematic lighting, holding a large wooden letter 'D' with a small blue dragonfly hovering near the top edge, standing in a shallow stream with clear water reflecting the sky, dappled sunlight through trees, joyful expression",
+      "motion": "He balances the wooden letter 'D' over the shallow stream, a blue dragonfly hovers and circles the top of the letter, ripples spread outward from his red boots as he shifts his weight, dappled sunlight dances on the water surface, 3 seconds, no cuts."
+    },
+    {
+      "title": "e_letter_e",
+      "image": "a cheerful 6-year-old animated boy with messy brown hair, bright blue eyes, wearing a yellow raincoat and red rubber boots, Pixar-style 3D animation, soft rounded shapes, vibrant colors, high detail, cinematic lighting, holding a large wooden letter 'E' in a field of tall purple wildflowers, a small bumblebee buzzing near the middle bar of the letter, golden hour lighting, warm and cozy atmosphere",
+      "motion": "He stands still in the wildflower field as a bumblebee buzzes around the wooden letter 'E', his hair sways gently in the breeze, his eyes track the bee with a soft smile, golden hour light bathes the scene, 3 seconds, no cuts."
+    },
+    {
+      "title": "f_letter_f",
+      "image": "a cheerful 6-year-old animated boy with messy brown hair, bright blue eyes, wearing a yellow raincoat and red rubber boots, Pixar-style 3D animation, soft rounded shapes, vibrant colors, high detail, cinematic lighting, holding a large wooden letter 'F' in a grassy hillside area, a small grey frog sitting on the lower crossbar of the letter, soft overcast sky with patches of blue, peaceful atmosphere",
+      "motion": "He lowers the wooden letter 'F' slowly to the grass, a small frog hops onto the crossbar and blinks, his hands hover protectively around the letter, the grass blades sway gently in the soft breeze, 3 seconds, no cuts."
+    },
+    {
+      "title": "g_letter_g",
+      "image": "a cheerful 6-year-old animated boy with messy brown hair, bright blue eyes, wearing a yellow raincoat and red rubber boots, Pixar-style 3D animation, soft rounded shapes, vibrant colors, high detail, cinematic lighting, holding a large wooden letter 'G' near a small wooden fence, a green garden snail crawling along the bottom curve of the letter, late afternoon light, soft shadows, curious and gentle expression",
+      "motion": "He crouches down slightly to bring the wooden letter 'G' closer to the ground, a green snail slowly extends its antennae near the wood, his red boots press into the soft earth as he leans in, long shadows stretch across the grass in the late afternoon light, 3 seconds, no cuts."
+    }
+  ]
+}

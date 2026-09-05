@@ -1,0 +1,38 @@
+{
+  "description": "Anime sequence: 1 reference key visual -> 4 keyframe story beats (same character) -> each keyframe drives a 3s LTX i2v clip -> stitched final.",
+  "character": "a majestic young elephant with soft grey skin and large expressive amber eyes, wearing a delicate floral garland of orange and white blossoms, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors",
+  "referencePrompt": "a majestic young elephant with soft grey skin and large expressive amber eyes, wearing a delicate floral garland of orange and white blossoms, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors, standing in a misty jungle clearing at sunrise, dappled light filtering through ancient trees, atmospheric fog, 16:9 key visual composition",
+  "duration": 3,
+  "sequence": [
+    {
+      "title": "a_birth",
+      "image": "a majestic young elephant with soft grey skin and large expressive amber eyes, wearing a delicate floral garland of orange and white blossoms, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors, a tiny newborn elephant standing in shallow water in a sun-dappled jungle, surrounded by soft morning mist and floating pollen, tender and serene atmosphere",
+      "motion": "The tiny elephant ripples the water gently with its foot, pollen drifts slowly through the sunbeams, the mist swirls softly around its legs. Gentle anime style, 3 seconds, no cuts."
+    },
+    {
+      "title": "b_herd",
+      "image": "a majestic young elephant with soft grey skin and large expressive amber eyes, wearing a delicate floral garland of orange and white blossoms, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors, walking confidently at the front of a herd of elephants across a vast golden savanna at sunset, long shadows, epic scale, warm orange and purple sky",
+      "motion": "The elephant walks steadily forward, its ears flap gently in the breeze, the herd moves in unison behind it, the horizon stretches wide. Epic anime landscape, 3 seconds, no cuts."
+    },
+    {
+      "title": "c_storm",
+      "image": "a majestic young elephant with soft grey skin and large expressive amber eyes, wearing a delicate floral garland of orange and white blossoms, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors, standing firm in a heavy monsoon rain, lightning illuminating the dark clouds, water splashing around its feet, determined and resilient expression",
+      "motion": "Rain pours down intensely, lightning flashes briefly in the background, the elephant stands tall and unmoving, water splashes dynamically around its hooves. Dramatic anime storm scene, 3 seconds, no cuts."
+    },
+    {
+      "title": "d_elder",
+      "image": "a majestic young elephant with soft grey skin and large expressive amber eyes, wearing a delicate floral garland of orange and white blossoms, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors, an older version of the elephant sitting peacefully on a hilltop overlooking a misty valley at night, stars reflecting in its eyes, a single firefly glowing nearby, wise and calm",
+      "motion": "The elephant breathes slowly, its trunk curls gently, the firefly drifts up and down in the still air, stars twinkle subtly in the night sky. Serene anime ending shot, 3 seconds, no cuts."
+    },
+    {
+      "title": "e_legacy",
+      "image": "a majestic young elephant with soft grey skin and large expressive amber eyes, wearing a delicate floral garland of orange and white blossoms, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors, standing in a sun-drenched meadow at dawn, a small calf nuzzling against its side, petals dancing in the wind, hopeful and warm atmosphere",
+      "motion": "The calf nudges the young elephant affectionately, both look toward the rising sun, wind blows gently through the grass and petals. Hopeful anime scene, 3 seconds, no cuts."
+    },
+    {
+      "title": "f_ascension",
+      "image": "a majestic young elephant with soft grey skin and large expressive amber eyes, wearing a delicate floral garland of orange and white blossoms, Makoto Shinkai inspired anime key visual, cinematic lighting, highly detailed, clean lineart, vibrant colors, standing on a high rocky outcrop overlooking a sea of clouds at golden hour, sunlight breaking through the mist, wings of light or energy subtly swirling around it, triumphant and ethereal",
+      "motion": "The camera slowly cranes up and pulls back, revealing the vast expanse of clouds below, the elephant's ears spread wide as if embracing the light, petals from the garland drift upward on a thermal updraft. Triumphant anime finale, 3 seconds, no cuts."
+    }
+  ]
+}
