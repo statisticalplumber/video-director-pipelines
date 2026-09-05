@@ -214,7 +214,12 @@ function Studio({ user, onLogout, theme, onToggleTheme }: {
         )}
 
         <div className="col">
-          <CraftPanel onCrafted={(n, c) => setDraft({ name: n, config: c })} />
+          <CraftPanel
+            onCrafted={(n, c) => setDraft({ name: n, config: c })}
+            scenarios={scenarios.map((s) => s.name)}
+            selected={draft ? "" : name}
+            onSelect={(n) => { setDraft(null); setName(n); }}
+          />
           {editor ? (
             <ScenarioEditor
               key={editor.name}

@@ -4,10 +4,16 @@ import { IconSparkles, Spinner } from "./Icons";
 
 interface Props {
   onCrafted: (name: string, config: Scenario) => void;
+  // Existing workflow (scenario) JSONs + which one is selected, so the user
+  // can switch to another workflow (or clear the selection) without
+  // refreshing the page.
+  scenarios: string[];
+  selected: string;
+  onSelect: (name: string) => void;
 }
 
 // High-level topic + requirements -> local LLM crafts a scenario JSON.
-export default function CraftPanel({ onCrafted }: Props) {
+export default function CraftPanel({ onCrafted, scenarios, selected, onSelect }: Props) {
   const [topic, setTopic] = useState("");
   const [reqs, setReqs] = useState("");
   const [busy, setBusy] = useState(false);
@@ -53,6 +59,19 @@ export default function CraftPanel({ onCrafted }: Props) {
           </span>
         )}
       </div>
+
+      <label>Workflow</label>
+      <select
+        value={selected}
+        onChange={(e) => onSelect(e.target.value)}
+        disabled={busy}
+        title="Pick a workflow (scenario JSON), or clear the selection"
+      >
+        <option value="">(new)</option>
+        {scenarios.map((s) => (
+          <option key={s} value={s}>{s}</option>
+        ))}
+      </select>
 
       <label>High-level topic</label>
       <input
