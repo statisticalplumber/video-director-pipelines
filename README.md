@@ -1,6 +1,6 @@
 # video_test — Flux 2 + LTX-2.5 video generation pipelines
 
-Generates videos on a remote ComfyUI (via gradio.live) using base workflows from `workflows/`:
+Generates videos on a remote ComfyUI using base workflows from `workflows/`:
 
 - **Flux 2 Klein 9B** (`flux-t2i.json`) — text-to-image first frames
 - **LTX-2.5 22B** (`ltx2_5_i2v.json`) — image-to-video with audio (int8, half-res gen + 2× latent upscale)
@@ -54,12 +54,12 @@ video_test/
 Copy `.env.example` to `.env` and set your URL (`.env` is gitignored):
 
 ```bash
-COMFY_BASE="https://YOUR-APP.gradio.live"
+COMFY_BASE="https://YOUR-COMFYUI-HOST"
 ```
 
 | Var | Default | Meaning |
 |-----|---------|---------|
-| `COMFY_BASE` | *(required, from `.env`)* | ComfyUI API base (gradio.live proxy or host:port) |
+| `COMFY_BASE` | *(required, from `.env`)* | ComfyUI API base (tunnel/proxy or host:port) |
 | `WORKFLOWS_DIR` | `workflows/` (inside video_test) | where the base workflow JSONs live |
 
 `lib/comfy.mjs` loads `.env` automatically (tiny built-in parser, no deps; real

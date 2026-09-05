@@ -1,7 +1,7 @@
 # AGENTS.md — operating notes for agents working in video_test/
 
 ## What this is
-Standalone Node scripts that drive a **remote ComfyUI** (gradio.live proxy) to generate
+Standalone Node scripts that drive a **remote ComfyUI** (via a reverse-proxy tunnel) to generate
 videos. No local GPU. Everything is ESM (`.mjs`), Node ≥ 18, no dependencies.
 
 ## Ground rules
@@ -51,7 +51,7 @@ All runners support `--stitch` (re-stitch final only) and skip existing outputs.
 
 ## Configuration
 - `COMFY_BASE` comes from `video_test/.env` (gitignored) via the tiny built-in loader
-  in `lib/comfy.mjs` — **never hardcode the gradio.live URL in code or docs**.
+  in `lib/comfy.mjs` — **never hardcode the ComfyUI base URL in code or docs**.
   `.env.example` is the template. Real env vars override `.env`.
 
 ## ComfyUI API facts (verified)
@@ -59,7 +59,7 @@ All runners support `--stitch` (re-stitch final only) and skip existing outputs.
   `POST /prompt`, `GET /history/{id}`, `GET /view?filename&subfolder&type`,
   `POST /upload/image` (multipart: `image` file + `overwrite`),
   `GET /object_info/{Node}` (for node schemas), `GET /system_stats`, `GET /queue`.
-- **The gradio.live proxy intermittently returns HTML error pages (404/502) instead of
+- **The reverse-proxy tunnel intermittently returns HTML error pages (404/502) instead of
   JSON.** All HTTP in `lib/comfy.mjs` retries on non-JSON content-type. Keep that.
 - `SaveVideo` emits its file under `outputs[node].images` (not `.videos`).
 - `LoadImage` can only read ComfyUI's **input** folder → external images must go through
